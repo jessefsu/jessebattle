@@ -124,20 +124,35 @@
 
   /* credential cards */
   .creds{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.75rem}
-  .cred-card{border:1px solid var(--hair);background:var(--ink-2);padding:2rem 1.75rem;transition:border-color .2s}
+  .cred-card{border:1px solid var(--hair);background:var(--ink-2);padding:1.9rem 1.75rem;transition:border-color .2s;border-top:2px solid var(--pb)}
   .cred-card:hover{border-color:var(--pb)}
-  .cred-icon{width:3rem;height:3rem;margin-bottom:1.5rem}
-  .cred-icon svg{width:100%;height:100%;stroke:var(--pb);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
   .cred-card .yr{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--pb);display:block;margin-bottom:.6rem}
   .cred-card h4{font-family:'Archivo',sans-serif;font-weight:700;font-size:1.08rem;letter-spacing:-.01em;line-height:1.25;margin:0 0 .65rem}
   .cred-card p{font-size:.93rem;color:rgba(234,244,250,.75);margin:0}
   @media(max-width:820px){.creds{grid-template-columns:1fr}}
 
-  /* social flare */
-  .socials a.ig:hover{border-color:#E1306C;color:#E1306C;background:rgba(225,48,108,.09)}
-  .socials a.xt:hover{border-color:var(--paper);color:var(--paper);background:rgba(234,244,250,.08)}
-  .review-link:hover{border-color:#F4B400;color:#F4B400}
-  .review-link .gstar{fill:#F4B400}
+
+  /* ---- social cards ---- */
+  .social-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13.5rem,1fr));gap:.85rem;margin-top:2.25rem}
+  .slink{display:flex;align-items:center;gap:.95rem;padding:1rem 1.15rem;border:1px solid var(--hair);background:var(--ink-2);text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:border-color .22s,transform .22s}
+  .slink::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--brand);transform:scaleY(0);transform-origin:bottom;transition:transform .22s}
+  .slink:hover{border-color:var(--brand);transform:translateY(-2px)}
+  .slink:hover::before{transform:scaleY(1)}
+  .slink:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+  .sicon{display:flex;align-items:center;justify-content:center;width:2.3rem;height:2.3rem;flex:none;border:1px solid var(--hair);transition:border-color .22s,background .22s}
+  .slink:hover .sicon{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 14%,transparent)}
+  .sicon svg{width:1.1rem;height:1.1rem;fill:var(--slate);transition:fill .22s}
+  .slink:hover .sicon svg{fill:var(--brand)}
+  .stext{display:flex;flex-direction:column;gap:.15rem;min-width:0}
+  .stext strong{font-family:'Archivo',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:-.01em;color:var(--paper)}
+  .slink:hover .stext strong{color:var(--brand)}
+  .stext em{font-family:'JetBrains Mono',monospace;font-style:normal;font-size:.63rem;letter-spacing:.08em;color:var(--slate);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .s-ig{--brand:#E1306C}
+  .s-x{--brand:#EAF4FA}
+  .s-yelp{--brand:#FF1A1A}
+  .s-reddit{--brand:#FF4500}
+  .s-google{--brand:#F4B400}
+
 
   /* social */
   .socials{display:flex;gap:.75rem;margin-top:2.5rem;flex-wrap:wrap}
@@ -153,6 +168,11 @@
   .sec-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--pb);margin-bottom:1.2rem}
   h3.big{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.03;letter-spacing:-.03em;text-transform:uppercase;max-width:18ch;margin-bottom:1.6rem}
   .body-col{max-width:56ch}
+  .story-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:4rem;align-items:start}
+  .story-grid h3.big{margin-bottom:0;max-width:14ch}
+  .story-grid .body-col{max-width:52ch}
+  @media(max-width:900px){.story-grid{grid-template-columns:1fr;gap:1.75rem}.story-grid h3.big{max-width:18ch}}
+  .contact-grid{max-width:none}
   .body-col p+p{margin-top:1.15rem}
   .body-col p{color:rgba(234,244,250,.84)}
 
@@ -229,7 +249,9 @@
   },
   "sameAs": [
     "https://x.com/Jesse_Battle",
-    "https://www.instagram.com/jessebattle.realtor/"
+    "https://www.instagram.com/jessebattle.realtor/",
+    "https://www.yelp.com/biz/jesse-battle-charles-rutenberg-realty-st-petersburg",
+    "https://www.reddit.com/user/JesseBattleStPete/"
   ],
   "knowsAbout": [
     "Pinellas County residential real estate",
@@ -316,54 +338,30 @@
 <section id="story">
   <div class="wrap">
     <p class="sec-label">Same Guy, Same Peninsula</p>
-    <h3 class="big">Most agents look at a house. I read it.</h3>
-    <div class="body-col">
+    <div class="story-grid">
+      <h3 class="big">Most agents look at a house. I read it.</h3>
+      <div class="body-col">
       <p>My family has been in St. Petersburg for four generations, since before half these neighborhoods had names on a map. I know which blocks flooded in 2024 and which ones did not. I know which builders in the 1960s cut corners and which ones did not.</p>
       <p>Thirty years of construction came first. The general contractor license came in 2003. The urban planning degree from Florida State came before that. Real estate is what I do with all of it now.</p>
       <p>That background does not change what a house is worth. It changes how fast you find out. I walk a property and see the permit history, the elevation, the framing, and what the last owner covered up, and then I tell you what it means for your offer.</p>
+      </div>
     </div>
 
     <div class="creds">
 
       <div class="cred-card">
-        <div class="cred-icon">
-          <svg viewBox="0 0 48 48">
-            <circle cx="24" cy="24" r="4"/>
-            <path d="M24 20V8"/><path d="M24 28v12"/>
-            <path d="M20 24H8"/><path d="M28 24h12"/>
-            <path d="M24 4l3 4h-6z" fill="var(--pb)" stroke="none"/>
-            <circle cx="24" cy="24" r="17" stroke-dasharray="3 4"/>
-          </svg>
-        </div>
         <span class="yr">Florida State</span>
         <h4>Urban and Regional Planning</h4>
         <p>Zoning, plats, land use, floodplain. The paperwork behind every property line in this county.</p>
       </div>
 
       <div class="cred-card">
-        <div class="cred-icon">
-          <svg viewBox="0 0 48 48">
-            <path d="M10 30a14 14 0 0 1 28 0z"/>
-            <path d="M6 30h36"/>
-            <path d="M24 16V8"/>
-            <path d="M17 18l-3-6"/><path d="M31 18l3-6"/>
-            <path d="M18 38h12l-1 6H19z"/>
-          </svg>
-        </div>
         <span class="yr">Since 2003</span>
         <h4>Certified General Contractor</h4>
         <p>Florida license CGC1506583, held continuously for 23 years. Three decades on job sites in Pinellas County.</p>
       </div>
 
       <div class="cred-card">
-        <div class="cred-icon">
-          <svg viewBox="0 0 48 48">
-            <path d="M8 22L24 8l16 14"/>
-            <path d="M12 20v18h24V20"/>
-            <path d="M20 38V27h8v11"/>
-            <circle cx="33" cy="14" r="3" fill="var(--pb)" stroke="none"/>
-          </svg>
-        </div>
         <span class="yr">Today</span>
         <h4>REALTOR, Team Kym Coyle</h4>
         <p>Charles Rutenberg Realty. Buying and selling across St. Petersburg, Snell Isle, Shore Acres, and the beaches.</p>
@@ -403,9 +401,11 @@
 <section id="contact" style="border-top:1px solid var(--hair)">
   <div class="wrap">
     <p class="sec-label">Contact</p>
-    <h3 class="big">Send me an address</h3>
-    <div class="body-col">
-      <p>Buying, selling, or just trying to figure out whether a property is worth the trouble. Tell me what you are looking at and I will tell you what I see.</p>
+    <div class="story-grid" style="margin-bottom:1rem">
+      <h3 class="big">Send me an address</h3>
+      <div class="body-col">
+        <p>Buying, selling, or just trying to figure out whether a property is worth the trouble. Tell me what you are looking at and I will tell you what I see.</p>
+      </div>
     </div>
     <dl class="contact-grid">
       <div><dt>Email</dt><dd><a href="mailto:jessebattleiv@gmail.com">jessebattleiv@gmail.com</a></dd></div>
@@ -414,19 +414,28 @@
     </dl>
     <a class="btn btn-solid" href="mailto:jessebattleiv@gmail.com">Get in touch</a>
 
-    <div class="socials">
-      <a href="https://www.instagram.com/jessebattle.realtor/" target="_blank" rel="noopener" class="ig" aria-label="Instagram" title="Instagram">
-        <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63 19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
-      </a>
-      <a href="https://x.com/Jesse_Battle" target="_blank" rel="noopener" class="xt" aria-label="X" title="X">
-        <svg viewBox="0 0 24 24"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.21-6.82-5.96 6.82H1.69l7.73-8.84L1.25 2.25h6.82l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.11z"/></svg>
-      </a>
-    </div>
-
-    <a class="review-link" href="https://www.google.com/search?sca_esv=5dcec58ab3c3b762&amp;sxsrf=APpeQnv1Jjs673H5n6Td_lzu52m-Fs_aeQ%3A1787079571487&amp;q=Jesse%20Battle%20IV%2C%20REALTOR%C2%AE&amp;stick=H4sIAAAAAAAAAONgU1IxqDAyMElMMTYyNkw1NDUxNzS3MqhIMzNPNjROsTBONkxLTTNaxCrllVpcnKrglFhSkpOq4BmmoxDk6ugT4h90aB0AbNglu0UAAAA&amp;mat=Ccwub0prSMkC" target="_blank" rel="noopener">
-      <svg class="gstar" viewBox="0 0 24 24"><path d="M12 2l2.9 6.26 6.6.72-4.9 4.5 1.35 6.52L12 16.72 6.05 20l1.35-6.52-4.9-4.5 6.6-.72z"/></svg>
-      Read my Google reviews
-    </a>
+      <div class="social-grid">
+        <a class="slink s-ig" href="https://www.instagram.com/jessebattle.realtor/" target="_blank" rel="me noopener">
+          <span class="sicon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63 19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></span>
+          <span class="stext"><strong>Instagram</strong><em>@jessebattle.realtor</em></span>
+        </a>
+        <a class="slink s-x" href="https://x.com/Jesse_Battle" target="_blank" rel="me noopener">
+          <span class="sicon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.21-6.82-5.96 6.82H1.69l7.73-8.84L1.25 2.25h6.82l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.11z"/></svg></span>
+          <span class="stext"><strong>X</strong><em>@Jesse_Battle</em></span>
+        </a>
+        <a class="slink s-yelp" href="https://www.yelp.com/biz/jesse-battle-charles-rutenberg-realty-st-petersburg" target="_blank" rel="me noopener">
+          <span class="sicon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.16 12.594l-4.995 1.433c-.96.276-1.74-.8-1.176-1.63l2.905-4.308a1.072 1.072 0 011.596-.206 9.194 9.194 0 012.364 3.252 1.073 1.073 0 01-.694 1.459zm-5.155 3.156l4.997 1.433c.63.181.94.9.65 1.489a9.208 9.208 0 01-2.373 3.248 1.073 1.073 0 01-1.596-.207l-2.9-4.312c-.564-.83.253-1.906 1.222-1.65zm-3.352 1.933l.005 5.198c0 .657-.577 1.163-1.225 1.074a9.196 9.196 0 01-3.848-1.398 1.073 1.073 0 01-.209-1.597l3.32-3.986c.66-.792 1.957-.324 1.957.709zM9.997 13.55c.83.563.353 1.86-.68 1.86l-5.199-.005a1.073 1.073 0 01-1.074-1.226 9.196 9.196 0 011.4-3.847 1.073 1.073 0 011.596-.208l3.957 3.426zM11.44.011c.657 0 1.163.577 1.074 1.225L11.51 9.79c-.145 1.06-1.575 1.32-2.087.38L5.29 2.62a1.073 1.073 0 01.484-1.522A15.32 15.32 0 0111.44.011z"/></svg></span>
+          <span class="stext"><strong>Yelp</strong><em>Reviews &amp; ratings</em></span>
+        </a>
+        <a class="slink s-reddit" href="https://www.reddit.com/user/JesseBattleStPete/" target="_blank" rel="me noopener">
+          <span class="sicon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 01-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 01.042.52c0 2.694-3.13 4.87-6.993 4.87-3.865 0-6.994-2.176-6.994-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 014.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 01.14-.197.35.35 0 01.238-.042l2.906.617a1.214 1.214 0 011.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.688-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 00-.231.094.33.33 0 000 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 00.029-.463.33.33 0 00-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 00-.232-.095z"/></svg></span>
+          <span class="stext"><strong>Reddit</strong><em>u/JesseBattleStPete</em></span>
+        </a>
+        <a class="slink s-google" href="https://www.google.com/search?sca_esv=5dcec58ab3c3b762&amp;sxsrf=APpeQnv1Jjs673H5n6Td_lzu52m-Fs_aeQ%3A1787079571487&amp;q=Jesse%20Battle%20IV%2C%20REALTOR%C2%AE&amp;stick=H4sIAAAAAAAAAONgU1IxqDAyMElMMTYyNkw1NDUxNzS3MqhIMzNPNjROsTBONkxLTTNaxCrllVpcnKrglFhSkpOq4BmmoxDk6ugT4h90aB0AbNglu0UAAAA&amp;mat=Ccwub0prSMkC" target="_blank" rel="me noopener">
+          <span class="sicon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.6.72-4.9 4.5 1.35 6.52L12 16.72 6.05 20l1.35-6.52-4.9-4.5 6.6-.72z"/></svg></span>
+          <span class="stext"><strong>Google</strong><em>Reviews &amp; profile</em></span>
+        </a>
+      </div>
   </div>
 </section>
 
