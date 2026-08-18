@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jesse Battle IV | St. Petersburg, Florida</title>
+<meta name="description" content="Jesse Battle IV. Certified General Contractor CGC1506583 and licensed REALTOR with Team Kym Coyle at Charles Rutenberg Realty. Owner, Pinellas Builders. Fourth-generation St. Petersburg.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#061019;          /* blueprint ground */
+    --ink-2:#0B1C28;        /* raised panel */
+    --pb:#A1EBFF;           /* Pinellas Builders blue, sampled from logo */
+    --pb-mid:#4FB0D4;       /* structural line work */
+    --paper:#EAF4FA;        /* cool white */
+    --slate:#6F8A9B;
+    --hair:rgba(161,235,255,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    background:var(--ink);color:var(--paper);
+    font-family:'Source Serif 4',Georgia,serif;
+    font-size:1.05rem;line-height:1.65;overflow-x:hidden;
+  }
+  .wrap{max-width:64rem;margin:0 auto;padding:0 1.75rem}
+  img{display:block;max-width:100%}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(6,16,25,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:4.25rem}
+  .brand{font-family:'Archivo',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:1.05rem;color:var(--paper);text-decoration:none}
+  .brand em{color:var(--pb);font-style:normal}
+  .nav-cta{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;background:var(--pb);color:var(--ink);padding:.72rem 1.2rem;text-decoration:none;font-weight:500}
+  .nav-cta:hover{background:#C4F2FF}
+  .nav-cta:focus-visible,.brand:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+
+  /* ---------- hero ---------- */
+  header{position:relative;padding:5rem 0 3.5rem;overflow:hidden}
+  /* blueprint grid */
+  .grid-bg{
+    position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:
+      linear-gradient(rgba(161,235,255,.055) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(161,235,255,.055) 1px,transparent 1px);
+    background-size:44px 44px;
+    mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%);
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%);
+  }
+  .contours{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.42}
+  .contours path{fill:none;stroke:var(--pb-mid);stroke-width:1;stroke-dasharray:2600;stroke-dashoffset:2600;animation:draw 3.2s cubic-bezier(.22,.61,.36,1) forwards}
+  .contours path:nth-child(2){animation-delay:.12s}
+  .contours path:nth-child(3){animation-delay:.24s}
+  .contours path:nth-child(4){animation-delay:.36s}
+  .contours path:nth-child(5){animation-delay:.48s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  header .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.35fr 1fr;gap:3.5rem;align-items:center}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--pb);margin-bottom:1.3rem}
+  h1{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(2.6rem,7.5vw,5rem);line-height:.9;letter-spacing:-.04em;text-transform:uppercase}
+  h1 .last{color:var(--pb);display:block}
+  .kicker{margin-top:1.7rem;max-width:40ch;font-size:1.18rem;line-height:1.6;color:rgba(234,244,250,.85)}
+
+  .portrait{position:relative;justify-self:end;width:100%;max-width:20rem}
+  .portrait::before{content:"";position:absolute;left:-.85rem;top:.85rem;right:.85rem;bottom:-.85rem;border:1px solid var(--pb);z-index:0}
+  .portrait img{position:relative;z-index:1;width:100%;height:auto;filter:none}
+  .portrait figcaption{position:relative;z-index:1;margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+  @media(max-width:840px){
+    header .wrap{grid-template-columns:1fr;gap:2.75rem}
+    .portrait{justify-self:start;max-width:15rem}
+  }
+
+  /* ---------- two hats ---------- */
+  .hats{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:var(--ink-2)}
+  .hats .wrap{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch}
+  .hat{padding:3rem 2.25rem 3rem 0;display:flex;flex-direction:column}
+  .hat:last-child{padding-left:2.25rem;padding-right:0;border-left:1px solid var(--hair)}
+  .hat-num{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--pb);margin-bottom:1rem}
+  .hat h2{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.55rem;letter-spacing:-.02em;text-transform:uppercase;line-height:1.05;margin-bottom:.9rem}
+  .hat p{font-size:.97rem;color:rgba(234,244,250,.8);max-width:34ch}
+  .hat dl{margin-top:1.4rem;font-family:'JetBrains Mono',monospace;font-size:.75rem;display:grid;grid-template-columns:auto 1fr;gap:.55rem 1.2rem}
+  .hat dt{color:var(--slate);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding-top:.12rem}
+  .hat dd{color:var(--paper)}
+  .entity-mark{display:flex;align-items:center;min-height:7.5rem;margin-top:auto;padding-top:1.4rem;border-top:1px solid var(--hair)}
+  .entity-mark img{height:4.6rem;width:auto;opacity:1}
+  @media(max-width:800px){
+    .hats .wrap{grid-template-columns:1fr}
+    .hat{padding:2.5rem 0}
+    .hat:last-child{padding-left:0;border-left:none;border-top:1px solid var(--hair)}
+  }
+
+  .practice-mark{display:flex;align-items:center;gap:1.25rem;min-height:7.5rem;margin-top:auto;padding-top:1.4rem;border-top:1px solid var(--hair)}
+  .practice-mark img{height:5.4rem;width:auto}
+  .specialties{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;color:#F2A03D;line-height:2}
+  .specialties span{display:block}
+  .specialties span:last-child{color:var(--slate)}
+
+
+  /* featured writing */
+  .writing-feature{background:var(--ink-2);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+  .writing-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:2.25rem}
+  .writing-head h3{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.02;letter-spacing:-.03em;text-transform:uppercase;max-width:20ch;margin:0}
+  .writing-head .deck{max-width:38ch;color:rgba(234,244,250,.75);font-size:1rem;margin:0}
+  .feature-card{display:grid;grid-template-columns:22rem 1fr;border:1px solid var(--hair);background:var(--ink);text-decoration:none;color:inherit;transition:border-color .2s}
+  .feature-card:hover{border-color:var(--pb)}
+  .feature-card:focus-visible{outline:2px solid var(--pb);outline-offset:4px}
+  .feature-card .shot{position:relative;overflow:hidden}
+  .feature-card .shot img{width:100%;height:100%;object-fit:cover;display:block;min-height:15rem}
+  .feature-card .badge{position:absolute;top:0;left:0;background:var(--pb);color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;padding:.5rem .85rem;font-weight:500}
+  .feature-card .meta{padding:2.4rem}
+  .feature-card time{font-family:'JetBrains Mono',monospace;font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);display:block;margin-bottom:.9rem}
+  .feature-card h4{font-family:'Archivo',sans-serif;font-weight:700;font-size:1.45rem;line-height:1.15;letter-spacing:-.025em;margin:0 0 .9rem}
+  .feature-card:hover h4{color:var(--pb)}
+  .feature-card p{font-size:.97rem;color:rgba(234,244,250,.78);margin-bottom:1.5rem}
+  .feature-card .more{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--pb)}
+  .all-writing{display:inline-block;margin-top:1.75rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:.3rem}
+  .all-writing:hover{color:var(--pb);border-bottom-color:var(--pb)}
+  @media(max-width:820px){
+    .feature-card{grid-template-columns:1fr}
+    .feature-card .shot img{min-height:12rem}
+    .feature-card .meta{padding:1.85rem}
+    .writing-head{flex-direction:column;align-items:flex-start;gap:1rem}
+  }
+
+  /* credential cards */
+  .creds{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.75rem}
+  .cred-card{border:1px solid var(--hair);background:var(--ink-2);padding:2rem 1.75rem;transition:border-color .2s}
+  .cred-card:hover{border-color:var(--pb)}
+  .cred-icon{width:3rem;height:3rem;margin-bottom:1.5rem}
+  .cred-icon svg{width:100%;height:100%;stroke:var(--pb);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+  .cred-card .yr{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--pb);display:block;margin-bottom:.6rem}
+  .cred-card h4{font-family:'Archivo',sans-serif;font-weight:700;font-size:1.08rem;letter-spacing:-.01em;line-height:1.25;margin:0 0 .65rem}
+  .cred-card p{font-size:.93rem;color:rgba(234,244,250,.75);margin:0}
+  @media(max-width:820px){.creds{grid-template-columns:1fr}}
+
+  /* social flare */
+  .socials a.ig:hover{border-color:#E1306C;color:#E1306C;background:rgba(225,48,108,.09)}
+  .socials a.xt:hover{border-color:var(--paper);color:var(--paper);background:rgba(234,244,250,.08)}
+  .review-link:hover{border-color:#F4B400;color:#F4B400}
+  .review-link .gstar{fill:#F4B400}
+
+  /* social */
+  .socials{display:flex;gap:.75rem;margin-top:2.5rem;flex-wrap:wrap}
+  .socials a{display:inline-flex;align-items:center;justify-content:center;width:2.9rem;height:2.9rem;border:1px solid var(--hair);color:var(--slate);text-decoration:none;transition:all .2s}
+  .socials a:hover{border-color:var(--pb);color:var(--pb)}
+  .socials a:focus-visible{outline:2px solid var(--pb);outline-offset:3px}
+  .socials svg{width:1.15rem;height:1.15rem;fill:currentColor}
+  .review-link{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.5rem;font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pb);text-decoration:none;border:1px solid var(--hair);padding:.85rem 1.3rem;transition:border-color .2s}
+  .review-link:hover{border-color:var(--pb)}
+  .review-link svg{width:1rem;height:1rem;fill:currentColor}
+
+  section{padding:5rem 0}
+  .sec-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--pb);margin-bottom:1.2rem}
+  h3.big{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.03;letter-spacing:-.03em;text-transform:uppercase;max-width:18ch;margin-bottom:1.6rem}
+  .body-col{max-width:56ch}
+  .body-col p+p{margin-top:1.15rem}
+  .body-col p{color:rgba(234,244,250,.84)}
+
+  .timeline{list-style:none;margin-top:2rem;max-width:44rem}
+  .timeline li{display:grid;grid-template-columns:6.5rem 1fr;gap:1.5rem;padding:1.15rem 0;border-top:1px solid var(--hair)}
+  .timeline li:last-child{border-bottom:1px solid var(--hair)}
+  .timeline .yr{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--pb);padding-top:.2rem}
+  .timeline .what strong{display:block;font-family:'Archivo',sans-serif;font-weight:700;font-size:.97rem;margin-bottom:.15rem}
+  .timeline .what span{color:rgba(234,244,250,.78);font-size:.95rem}
+  @media(max-width:600px){.timeline li{grid-template-columns:1fr;gap:.35rem}}
+
+  .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2.4rem}
+  @media(max-width:760px){.contact-grid{grid-template-columns:1fr;gap:1.5rem}}
+  .contact-grid dt{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--slate);margin-bottom:.45rem}
+  .contact-grid dd{font-family:'Archivo',sans-serif;font-weight:500;font-size:1.02rem}
+  .contact-grid a{color:var(--paper);text-decoration:none;border-bottom:1px solid var(--pb)}
+  .contact-grid a:hover{color:var(--pb)}
+  .contact-grid a:focus-visible{outline:2px solid var(--pb);outline-offset:3px}
+
+  .btn{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;padding:.95rem 1.7rem;text-decoration:none;display:inline-block;margin-top:2rem}
+  .btn-solid{background:var(--pb);color:var(--ink);font-weight:500}
+  .btn-solid:hover{background:#C4F2FF}
+  .btn:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+
+  footer{border-top:1px solid var(--hair);padding:2.6rem 0;font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.11em;line-height:2;color:rgba(111,138,155,.9);text-transform:uppercase}
+  footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.contours path{animation:none;stroke-dashoffset:0}}
+</style>
+<link rel="canonical" href="https://jessebattle.com/">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Jesse Battle IV | St. Petersburg, Florida">
+<meta property="og:description" content="Certified General Contractor CGC1506583 since 2003 and licensed REALTOR with Team Kym Coyle at Charles Rutenberg Realty. Fourth-generation St. Petersburg.">
+<meta property="og:url" content="https://jessebattle.com/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Jesse Battle IV",
+  "jobTitle": ["REALTOR", "Certified General Contractor"],
+  "url": "https://jessebattle.com/",
+  "email": "jessebattleiv@gmail.com",
+  "telephone": "(727) 487-3200",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "St. Petersburg",
+    "addressRegion": "FL",
+    "addressCountry": "US"
+  },
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Florida State University"
+  },
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "Certified General Contractor",
+    "identifier": "CGC1506583",
+    "recognizedBy": {
+      "@type": "GovernmentOrganization",
+      "name": "Florida Department of Business and Professional Regulation"
+    }
+  },
+  "worksFor": {
+    "@type": "RealEstateAgent",
+    "name": "Team Kym Coyle at Charles Rutenberg Realty",
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "Pinellas County, Florida"
+    }
+  },
+  "owns": {
+    "@type": "Organization",
+    "name": "Pinellas Builders"
+  },
+  "sameAs": [
+    "https://x.com/Jesse_Battle",
+    "https://www.instagram.com/jessebattle.realtor/"
+  ],
+  "knowsAbout": [
+    "Pinellas County residential real estate",
+    "St. Petersburg Florida waterfront property",
+    "FEMA flood zones and elevation certificates",
+    "Florida floodplain ordinance and substantial improvement",
+    "residential construction and permit history"
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">Jesse Battle <em>IV</em></a>
+    <span style="display:flex;align-items:center;gap:1.6rem"><a href="blog/index.html" style="font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);text-decoration:none">Writing</a><a class="nav-cta" href="#contact">Contact</a></span>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="grid-bg"></div>
+  <svg class="contours" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,150 C180,110 340,190 520,165 C700,140 880,205 1250,170"/>
+    <path d="M-50,290 C160,250 350,330 540,300 C730,270 900,335 1250,305"/>
+    <path d="M-50,430 C200,385 330,470 530,440 C740,410 920,475 1250,445"/>
+    <path d="M-50,570 C170,525 360,610 545,580 C725,550 890,615 1250,585"/>
+    <path d="M-50,710 C190,665 340,750 535,720 C735,690 910,755 1250,725"/>
+  </svg>
+
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">St. Petersburg, Florida &middot; Fourth Generation</p>
+      <h1>Jesse<span class="last">Battle IV</span></h1>
+      <p class="kicker">Certified General Contractor and licensed REALTOR. Thirty years of building in Pinellas County, now applied to buying and selling in it.</p>
+    </div>
+
+    <!-- HEADSHOT: drop headshot.jpg in this folder -->
+    <figure class="portrait">
+      <img src="headshot.jpg" alt="Jesse Battle IV">
+      <figcaption>Jesse Battle IV &middot; St. Petersburg</figcaption>
+    </figure>
+  </div>
+</header>
+
+<div class="hats">
+  <div class="wrap">
+
+    <div class="hat">
+      <p class="hat-num">The License</p>
+      <h2>Certified General<br>Contractor</h2>
+      <p>Licensed by the State of Florida since 2003. Owner of Pinellas Builders, the successor to a career spent on job sites across this county.</p>
+      <dl>
+        <dt>License</dt><dd>CGC1506583</dd>
+        <dt>Entity</dt><dd>Pinellas Builders</dd>
+        <dt>Since</dt><dd>2003</dd>
+      </dl>
+      <div class="entity-mark">
+        <img src="pb-logo.png" alt="Pinellas Builders">
+      </div>
+    </div>
+
+    <div class="hat">
+      <p class="hat-num">The Practice</p>
+      <h2>REALTOR<br>Team Kym Coyle</h2>
+      <p>Licensed Florida real estate sales associate with Charles Rutenberg Realty, working alongside Kym Coyle and her thirty years in this market.</p>
+      <dl>
+        <dt>Brokerage</dt><dd>Charles Rutenberg Realty</dd>
+        <dt>Team</dt><dd>Team Kym Coyle</dd>
+        <dt>Market</dt><dd>Pinellas County</dd>
+      </dl>
+      <div class="practice-mark">
+        <img src="pelican.png" alt="Jesse Battle IV, St. Petersburg real estate">
+        <p class="specialties">
+          <span>Relocation &middot; Waterfront &middot; Luxury</span>
+          <span>St. Petersburg, FL</span>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<section id="story">
+  <div class="wrap">
+    <p class="sec-label">Same Guy, Same Peninsula</p>
+    <h3 class="big">Most agents look at a house. I read it.</h3>
+    <div class="body-col">
+      <p>My family has been in St. Petersburg for four generations, since before half these neighborhoods had names on a map. I know which blocks flooded in 2024 and which ones did not. I know which builders in the 1960s cut corners and which ones did not.</p>
+      <p>Thirty years of construction came first. The general contractor license came in 2003. The urban planning degree from Florida State came before that. Real estate is what I do with all of it now.</p>
+      <p>That background does not change what a house is worth. It changes how fast you find out. I walk a property and see the permit history, the elevation, the framing, and what the last owner covered up, and then I tell you what it means for your offer.</p>
+    </div>
+
+    <div class="creds">
+
+      <div class="cred-card">
+        <div class="cred-icon">
+          <svg viewBox="0 0 48 48">
+            <circle cx="24" cy="24" r="4"/>
+            <path d="M24 20V8"/><path d="M24 28v12"/>
+            <path d="M20 24H8"/><path d="M28 24h12"/>
+            <path d="M24 4l3 4h-6z" fill="var(--pb)" stroke="none"/>
+            <circle cx="24" cy="24" r="17" stroke-dasharray="3 4"/>
+          </svg>
+        </div>
+        <span class="yr">Florida State</span>
+        <h4>Urban and Regional Planning</h4>
+        <p>Zoning, plats, land use, floodplain. The paperwork behind every property line in this county.</p>
+      </div>
+
+      <div class="cred-card">
+        <div class="cred-icon">
+          <svg viewBox="0 0 48 48">
+            <path d="M10 30a14 14 0 0 1 28 0z"/>
+            <path d="M6 30h36"/>
+            <path d="M24 16V8"/>
+            <path d="M17 18l-3-6"/><path d="M31 18l3-6"/>
+            <path d="M18 38h12l-1 6H19z"/>
+          </svg>
+        </div>
+        <span class="yr">Since 2003</span>
+        <h4>Certified General Contractor</h4>
+        <p>Florida license CGC1506583, held continuously for 23 years. Three decades on job sites in Pinellas County.</p>
+      </div>
+
+      <div class="cred-card">
+        <div class="cred-icon">
+          <svg viewBox="0 0 48 48">
+            <path d="M8 22L24 8l16 14"/>
+            <path d="M12 20v18h24V20"/>
+            <path d="M20 38V27h8v11"/>
+            <circle cx="33" cy="14" r="3" fill="var(--pb)" stroke="none"/>
+          </svg>
+        </div>
+        <span class="yr">Today</span>
+        <h4>REALTOR, Team Kym Coyle</h4>
+        <p>Charles Rutenberg Realty. Buying and selling across St. Petersburg, Snell Isle, Shore Acres, and the beaches.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="writing-feature">
+  <section style="padding-top:4.5rem;padding-bottom:4.5rem">
+    <div class="wrap">
+      <p class="sec-label">Writing</p>
+      <div class="writing-head">
+        <h3>What the trend lists get wrong about Florida</h3>
+        <p class="deck">Market notes, flood and elevation, and what a house is really worth once you know what is behind the drywall.</p>
+      </div>
+
+      <a class="feature-card" href="blog/2026-kitchen-bath-trends-st-pete.html">
+        <div class="shot">
+          <span class="badge">Latest</span>
+          <img src="blog/img/quartzite-kitchen.jpg" alt="Quartzite island and full-height backsplash">
+        </div>
+        <div class="meta">
+          <time datetime="2026-08-18">August 18, 2026</time>
+          <h4>2026 kitchen and bath trends: what actually works in St. Petersburg</h4>
+          <p>The national trend list with the Florida filter applied, plus the Pinellas flood and permit rules that decide what is possible on your house before anyone picks a tile.</p>
+          <span class="more">Read the article &rarr;</span>
+        </div>
+      </a>
+
+      <a class="all-writing" href="blog/index.html">All writing &rarr;</a>
+    </div>
+  </section>
+</div>
+
+<section id="contact" style="border-top:1px solid var(--hair)">
+  <div class="wrap">
+    <p class="sec-label">Contact</p>
+    <h3 class="big">Send me an address</h3>
+    <div class="body-col">
+      <p>Buying, selling, or just trying to figure out whether a property is worth the trouble. Tell me what you are looking at and I will tell you what I see.</p>
+    </div>
+    <dl class="contact-grid">
+      <div><dt>Email</dt><dd><a href="mailto:jessebattleiv@gmail.com">jessebattleiv@gmail.com</a></dd></div>
+      <div><dt>Phone</dt><dd><a href="tel:+17274873200">(727) 487-3200</a></dd></div>
+      <div><dt>Brokerage</dt><dd>Charles Rutenberg Realty</dd></div>
+    </dl>
+    <a class="btn btn-solid" href="mailto:jessebattleiv@gmail.com">Get in touch</a>
+
+    <div class="socials">
+      <a href="https://www.instagram.com/jessebattle.realtor/" target="_blank" rel="noopener" class="ig" aria-label="Instagram" title="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63 19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
+      </a>
+      <a href="https://x.com/Jesse_Battle" target="_blank" rel="noopener" class="xt" aria-label="X" title="X">
+        <svg viewBox="0 0 24 24"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.65l-5.21-6.82-5.96 6.82H1.69l7.73-8.84L1.25 2.25h6.82l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.11z"/></svg>
+      </a>
+    </div>
+
+    <a class="review-link" href="https://www.google.com/search?sca_esv=5dcec58ab3c3b762&amp;sxsrf=APpeQnv1Jjs673H5n6Td_lzu52m-Fs_aeQ%3A1787079571487&amp;q=Jesse%20Battle%20IV%2C%20REALTOR%C2%AE&amp;stick=H4sIAAAAAAAAAONgU1IxqDAyMElMMTYyNkw1NDUxNzS3MqhIMzNPNjROsTBONkxLTTNaxCrllVpcnKrglFhSkpOq4BmmoxDk6ugT4h90aB0AbNglu0UAAAA&amp;mat=Ccwub0prSMkC" target="_blank" rel="noopener">
+      <svg class="gstar" viewBox="0 0 24 24"><path d="M12 2l2.9 6.26 6.6.72-4.9 4.5 1.35 6.52L12 16.72 6.05 20l1.35-6.52-4.9-4.5 6.6-.72z"/></svg>
+      Read my Google reviews
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      Jesse Battle IV &middot; Licensed Florida Real Estate Sales Associate<br>
+      Team Kym Coyle &middot; Charles Rutenberg Realty &middot; St. Petersburg, FL
+    </div>
+    <div>
+      Certified General Contractor CGC1506583<br>
+      Equal Housing Opportunity
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
