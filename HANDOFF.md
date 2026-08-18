@@ -12,7 +12,7 @@ no build step. Every file is hand-editable.
 **Repo:** github.com/jessefsu/jessebattle
 **Host:** Cloudflare Workers, project name `jessebattle`
 **Live now:** https://jessebattle.jessefsu.workers.dev
-**Real domain:** jessebattle.com (nameservers moved to Cloudflare, propagating)
+**Real domain:** https://jessebattle.com (live and serving as of 2026-08-18)
 
 Push to `main` on GitHub and Cloudflare rebuilds and redeploys automatically,
 usually within two minutes.
@@ -27,9 +27,32 @@ usually within two minutes.
 4. `cd jessebattle`
 5. `claude`
 
-To preview locally while working, run `python3 -m http.server 8000` in the
-folder and open `http://localhost:8000`. This matters — opening `index.html`
-directly by double-clicking will break some paths.
+### Previewing locally
+
+Use wrangler, not a plain static server:
+
+```
+npx wrangler dev --assets=. --compatibility-date=2026-08-15
+```
+
+Then open the URL it prints (usually `http://localhost:8787`). This matches
+how Cloudflare actually serves the site, including extensionless URLs.
+
+Do not use `python3 -m http.server` for a full check. It serves files
+literally, so the blog post at `/blog/2026-kitchen-bath-trends-st-pete`
+returns a **404 that is not real** — the page is fine in production. That
+routing (serving `foo.html` at `/foo`) comes from Cloudflare Workers Assets,
+which a plain static server does not replicate. `python3 -m http.server 8000`
+is still fine for a quick look at the homepage or CSS.
+
+Either way, do not open `index.html` by double-clicking it. That breaks paths.
+
+**URL convention:** post files still end in `.html` on disk, but every link
+to them — nav links, the blog index, `sitemap.xml`, `canonical`, `og:url`,
+and the JSON-LD `url` — omits the `.html`. Linking to the `.html` form works
+but costs a 307 redirect, which is worth avoiding for crawlers. The example
+blocks in `blog/index.html` and `sitemap.xml` already use the correct form,
+so copying them keeps it right.
 
 To publish: `git add -A && git commit -m "what changed" && git push`
 
@@ -42,6 +65,9 @@ index.html                             homepage, all CSS is inline in <style>
 style.css                              shared styles for the blog pages only
 robots.txt                             crawler rules, allows everything
 sitemap.xml                            add a <url> block per new post
+.gitignore                             keeps .DS_Store and editor junk out of
+                                       the repo (everything in the repo root
+                                       is served publicly, so this matters)
 llms.txt                               plain-language summary for AI agents
 headshot.jpg                           hero portrait, pre-processed
 pb-logo.png                            Pinellas Builders mark
@@ -85,8 +111,9 @@ colour, and it fits a builder with a planning degree.
 - Credential cards have no icons. Several attempts at a tomahawk and a helmet
   failed to read at 48px. Cards work fine without them, but if you want icons,
   do it in Claude Code where you can see the render immediately.
-- jessebattle.com not yet attached to the Worker. Once Cloudflare emails that
-  the domain is active: Workers & Pages -> jessebattle -> Domains -> Add Domain.
+- ~~jessebattle.com not attached to the Worker.~~ Done — the domain resolves
+  through Cloudflare and serves the site. Both jessebattle.com and the
+  jessebattle.jessefsu.workers.dev address now return the same pages.
 - pinellasbuilders.com should 301 forward to jessebattle.com. Do it in GoDaddy
   DNS -> Forwarding. Delete any existing A/CNAME on the root first or the
   forward silently fails.
