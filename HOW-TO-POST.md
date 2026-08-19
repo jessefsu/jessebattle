@@ -136,6 +136,21 @@ X — as a bare link with no picture.
 `img/photo.jpg` looks fine in the file and produces a preview card with a
 blank space where the photo should be.
 
+**You do not need the Facebook Sharing Debugger for a new post.** Facebook
+crawls a URL it has never seen the first time somebody shares it, so a brand
+new post picks up its preview card on its own.
+
+The debugger is only for **fixing a card that is already wrong**. If you
+change the `og:image`, title, or description on a post that has already been
+shared, Facebook keeps serving the old version from its cache, and the only
+way to clear it is to paste the address into
+[developers.facebook.com/tools/debug](https://developers.facebook.com/tools/debug)
+and click Scrape Again.
+
+So the rule of thumb is: **finish the post before you share it.** Get the
+picture and the wording the way you want them, then post the link. That way
+you never need the debugger at all.
+
 ### Step 7. Update the homepage strip
 
 The homepage shows the **three most recent posts**. When you publish a fourth,
