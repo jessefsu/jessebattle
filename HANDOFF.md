@@ -78,6 +78,14 @@ blog/img/quartzite-kitchen.jpg
 HOW-TO-POST.md                         non-technical posting instructions
 ```
 
+**Photos.** Full-resolution originals live in `Site photos/`, which is
+git-ignored on purpose. Only processed derivatives in `blog/img/` are
+committed. That matters because the Worker serves the repo root, so anything
+committed is publicly downloadable at full size. Process to the house spec
+before committing: 1600x900 for a hero, progressive JPEG, roughly 150-200KB.
+Keep the original in `Site photos/` so a photo can be re-cropped later without
+re-shooting it.
+
 Note the split: `index.html` carries its own styles inline. The blog pages
 share `style.css`. That was an artifact of how this got built. Worth
 consolidating into one stylesheet at some point.

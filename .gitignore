@@ -25,6 +25,10 @@ $RECYCLE.BIN/
 *.sublime-workspace
 .netrwhist
 
+# Original photography (full-res originals stay local; only processed
+# derivatives in blog/img/ get committed and published)
+Site photos/
+
 # Logs / local tooling
 *.log
 npm-debug.log*
