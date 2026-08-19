@@ -193,6 +193,71 @@ colour, and it fits a builder with a planning degree.
 
 ---
 
+### Byline — the credential is conditional, the author box is not
+
+The default article byline is name, role, date, and nothing else:
+
+```html
+<p class="byline">
+  <strong>Jesse Battle IV</strong>
+  <span class="role">REALTOR, Team Kym Coyle</span>
+  <time datetime="2026-08-19">August 19, 2026</time>
+</p>
+```
+
+On a **construction-adjacent** post, and only there, add the credential between
+the role and the date:
+
+```html
+  <span class="cred">Certified General Contractor</span>
+```
+
+**Why.** A byline credential is a claim that this specific credential is why
+you should trust this specific article. On the condo deadlines post that is
+true — reading a milestone inspection report is the whole reason the piece
+exists. On the ROAD to Housing Act post it is not: that is a federal policy
+and inventory story, and a GC licence adds nothing to it. A credential
+asserted where it does not apply reads as padding and quietly devalues the
+places it is load-bearing.
+
+**The test:** would a reader trust *this article* more for knowing he holds a
+GC licence? Yes, include it. No, leave it off.
+
+Where it stands:
+
+```
+2026-st-pete-condo-deadlines              CGC in byline
+2026-kitchen-bath-trends-st-pete          CGC in byline
+2026-institutional-investor-ban-tampa-bay default byline
+```
+
+**Nothing is lost by leaving it off.** Two things carry the full credential
+stack on every post regardless:
+
+- The **author box** at the foot of the article — fourth-generation native,
+  CGC since 2003, FSU planning degree, thirty years in construction. A reader
+  who wants the whole picture still gets it.
+- The **JSON-LD** `author.jobTitle`, which stays `"REALTOR and Certified
+  General Contractor"` on every post. That is machine metadata, where more
+  signal is strictly better and there is no cost to a reader.
+
+This is only about the visible byline.
+
+**Styling note.** `.byline .cred` is the only `--pb` element in the byline;
+everything else inherits `--slate`. So the accent appears exactly when the
+credential is relevant, which is the point. `.role` deliberately has no rule
+of its own — it inherits, and adding an empty rule for it would be dead CSS.
+
+**No licence number in the byline.** With the role added, the full string
+`Certified General Contractor CGC1506583` pushed the line 39px past the 712px
+article column and orphaned the date on a second row. The number is dropped
+here rather than the phrase, because a bare `CGC1506583` means nothing to a
+reader — and the number is already on screen twice regardless: the nav
+sub-label reads `REALTOR · CGC1506583` on every page, and the author box gives
+the full `licensed since 2003 (CGC1506583)`. Nothing is lost and the byline
+stays on one line. If the byline ever gains a fifth item, it will wrap again —
+check it at 1280px before publishing.
+
 ## Contrast — measure against the real background, not the token
 
 Every muted colour on the site clears **7:1 (WCAG AAA)**. Keeping it that way
