@@ -210,16 +210,34 @@ and cannot be measured this way; they rely on a text-shadow instead.
 
 ## Headshot recipe, and how it fails
 
-`headshot.jpg` is 605x757, baseline JPEG, about 58KB, background removed and
+`headshot.jpg` is 605x757, baseline JPEG, about 52KB, background removed and
 composited onto the ink navy. To reproduce it from a new shot:
 
 1. 4:5 crop centred on the face, full frame height where possible
 2. Key the background out (see below) and composite onto `#061019`
 3. Grade the **subject only**, so the ground stays exactly the site ink:
    saturation 78%, contrast x1.06, red x0.97, blue x1.06
-4. Fade the bottom 22% into the background so the crop dissolves instead of
-   cutting hard
-5. Resize to 605x757, baseline JPEG, quality tuned to land near 58KB
+4. Fade the lower half into the background with a **smoothstep** ramp, starting
+   at 52% of image height and reaching full background at the bottom edge:
+
+   ```
+   t = (y - start) / (end - start), clamped 0-1
+   alpha = 1 - (t * t * (3 - 2*t))
+   ```
+
+   **Use smoothstep, not a linear or power ramp.** The first version of this
+   faded the bottom 22% with `(1-t)^1.6`. That curve has a slope of -1.6 at its
+   start, so alpha begins dropping the instant the fade begins, and the eye
+   reads that as a hard horizontal band across the shirt. Smoothstep has zero
+   derivative at both ends, so there is no onset to see — the ramp loses only
+   three alpha levels over the first 5% of its run. Starting earlier and
+   running roughly 2.3x longer also spreads the transition over enough distance
+   that it stops being detectable.
+5. Resize to 605x757, baseline JPEG, quality tuned to land near 55KB
+
+**Check the fade, do not assume it.** Scan the output's vertical luminance
+profile for abrupt row-to-row steps; any jump inside the fade region means the
+curve is wrong. Then open the file and actually look at it.
 
 **The background key is the fragile part.** It works by finding pixels that are
 near-neutral and bright, then flood-filling inward from the frame border so
