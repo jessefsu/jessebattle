@@ -151,8 +151,15 @@ Rules that keep it coherent:
    If anything else reaches that size the homepage stops having a focal point.
 2. **Add a size only by adding a step**, never by writing a literal value in a
    rule. A one-off `font-size:1.42rem` is how the 42 sizes happened.
-3. **`--l3` is the floor.** Do not go below it. Letterspaced uppercase mono
-   under about 9px is unreadable, and this audience skews older.
+3. **`--l3` (0.6rem / 9.6px) is the floor. Do not go below it.** This is not a
+   taste call. Before the scale existed, nav numerals and the brand sub-label
+   sat at 8.6px, and the label tier had drifted to fifteen different sizes
+   between 8.6 and 12.5px. Letterspaced uppercase mono that small is hard to
+   read for anyone, and this audience skews older — a REALTOR's clients are
+   frequently over 55. `--l3` is also the size that constrains the contrast
+   work below: it is the smallest text on the site, so it is the case that has
+   to clear 7:1, and it currently does at exactly 7.01:1. Shrinking it breaks
+   the accessibility floor as well as the type scale.
 4. Every page — homepage included — links `style.css`. The small inline
    `<style>` blocks that remain on the two article pages hold only
    article-specific layout (hero figure, key-take box) and reference the same
@@ -163,6 +170,83 @@ hero, faint grid overlay, technical labels in mono. It came out of the logo
 colour, and it fits a builder with a planning degree.
 
 ---
+
+## Contrast — measure against the real background, not the token
+
+Every muted colour on the site clears **7:1 (WCAG AAA)**. Keeping it that way
+depends on measuring correctly, and the obvious method gives the wrong answer.
+
+**The trap.** Checking a colour against the `--ink` token reports `--slate` at
+7.02:1 and everything looks fine. But text does not always sit on `--ink`. On
+the raised `--ink-2` panels (cards, the author box, key-take boxes, the hats
+strip) and on the nav's active cell — which is `--ink` plus a 7% cyan tint,
+computing to `rgb(17,31,41)` — the same colour measured **6.13–6.35:1**. A
+token-only check would have reported a pass while the smallest labels on the
+site sat short of AAA.
+
+**The method.** For each text element, walk up the DOM compositing every
+background layer until you hit an opaque one, composite the text colour (with
+its own alpha) over that result, and only then compute the ratio. Do it in the
+browser against the rendered page, not by hand from the palette.
+
+**Where it stands.** `--slate` is `#96ABB6`, chosen to clear 7:1 against the
+*lightest* background in use, not against `--ink`:
+
+```
+on --ink        (6,16,25)    8.03:1
+on --ink-2      (11,28,40)   7.26:1
+on nav active   (17,31,41)   7.03:1
+on social card  (17,31,42)   7.02:1
+```
+
+Across the three page types that is 0 of 263 text nodes below 7:1, worst case
+7.01:1 (the 9.6px nav numerals).
+
+**When to re-run it.** Any time you add a component with a background lighter
+than `--ink-2`, or raise the opacity of a tint over a panel. A lighter panel
+lowers every ratio on it, and the failure is invisible — the colour token has
+not changed, so nothing looks wrong in the CSS. Map labels sit over photography
+and cannot be measured this way; they rely on a text-shadow instead.
+
+## Headshot recipe, and how it fails
+
+`headshot.jpg` is 605x757, baseline JPEG, about 58KB, background removed and
+composited onto the ink navy. To reproduce it from a new shot:
+
+1. 4:5 crop centred on the face, full frame height where possible
+2. Key the background out (see below) and composite onto `#061019`
+3. Grade the **subject only**, so the ground stays exactly the site ink:
+   saturation 78%, contrast x1.06, red x0.97, blue x1.06
+4. Fade the bottom 22% into the background so the crop dissolves instead of
+   cutting hard
+5. Resize to 605x757, baseline JPEG, quality tuned to land near 58KB
+
+**The background key is the fragile part.** It works by finding pixels that are
+near-neutral and bright, then flood-filling inward from the frame border so
+only background *connected to the edge* is removed. That protects grey hair and
+skin highlights in the interior. It depends entirely on **chroma separation**
+between the backdrop and the clothing:
+
+```
+this shot: backdrop chroma 5-8   shirt chroma 26-46   -> wide margin, clean key
+           backdrop luma 94-185  hair luma 36-70      -> luma test excludes hair
+```
+
+**How it breaks.** A blue backdrop, or a grey/white shirt, collapses that
+margin — the garment becomes as neutral as the background and the key eats the
+subject. This actually happened on the first attempt here with a
+similarity-based flood fill: it leaked into the shadowed side of the shirt and
+chewed it to ribbons. Always composite the mask over magenta and *look at it*
+before compositing for real.
+
+**So for future shoots:** neutral grey or white backdrop, subject in a coloured
+shirt. That keeps chroma separation wide and the recipe working. Also prefer
+the higher-resolution file — a 4:5 crop needs roughly 1500px of width to
+downsample cleanly to 605.
+
+**Never retouch faces.** Crop, background key, colour grade and fade only. No
+warping, liquify, or eye correction — automated eye correction was tried
+previously and looked terrible.
 
 ## Known issues / next steps
 
