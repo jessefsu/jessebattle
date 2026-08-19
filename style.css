@@ -111,12 +111,45 @@ nav .wrap{max-width:64rem;display:flex;align-items:stretch;justify-content:space
 .stext strong{font-family:'Archivo',sans-serif;font-weight:700;font-size:var(--small);letter-spacing:-.01em;color:var(--paper)}
 .slink:hover .stext strong{color:var(--lit)}
 .stext em{font-family:'JetBrains Mono',monospace;font-style:normal;font-size:var(--l2);letter-spacing:.08em;color:var(--slate);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-/* --brand = true brand colour; --lit = adjusted to sit on #061019 without vibrating */
+/* --brand = true brand colour; --lit = adjusted to sit on #061019 without vibrating.
+   Shared by the footer social cards (brand colour at rest) and the article share
+   row (brand colour on hover only). Every --lit clears 7:1 on --ink and on the
+   8% tint the share buttons paint on hover — the true brand blues do not, which
+   is why Facebook and LinkedIn are lightened this far. */
 .s-ig{--brand:#E1306C;--lit:#F2699B}
 .s-x{--brand:#EAF4FA;--lit:#EAF4FA}
 .s-yelp{--brand:#FF1A1A;--lit:#FF6B6B}
 .s-reddit{--brand:#FF4500;--lit:#FF7A45}
 .s-google{--brand:#F4B400;--lit:#FFC93C}
+.s-fb{--brand:#1877F2;--lit:#7FB4FF}
+.s-li{--brand:#0A66C2;--lit:#6FB6F0}
+.s-em{--lit:#6FC4E4}
+.s-copy{--lit:var(--pb)}
+
+/* ---- article share row ---- */
+/* Same family as the social cards, inverted: restrained at rest, brand on hover.
+   Links work with JS off; Copy and the native sheet are unhidden by share.js. */
+.share{border-top:1px solid var(--hair);margin-top:3rem;padding-top:1.5rem}
+.share h3{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.2em;text-transform:uppercase;color:var(--pb);margin:0 0 1rem;font-weight:500}
+.share-row{display:flex;flex-wrap:wrap;gap:.55rem}
+.share-btn{display:inline-flex;align-items:center;gap:.55rem;padding:.6rem .8rem;
+  font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--slate);text-decoration:none;background:transparent;border:1px solid var(--hair);
+  cursor:pointer;transition:color .2s,border-color .2s,background .2s,transform .2s}
+.share-btn:hover{color:var(--lit,var(--pb));border-color:var(--lit,var(--pb));background:color-mix(in srgb,var(--lit,var(--pb)) 8%,transparent);transform:translateY(-1px)}
+.share-btn:focus-visible{outline:2px solid var(--lit,var(--pb));outline-offset:3px}
+.share-btn svg{width:.95rem;height:.95rem;flex:none;fill:currentColor}
+.share-btn svg.st{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.share-btn .ic-ok{display:none}
+.share-btn.is-copied{color:var(--pb);border-color:var(--pb)}
+.share-btn.is-copied .ic-ok{display:block}
+.share-btn.is-copied .ic-link{display:none}
+.share-native{width:100%;justify-content:center;padding:.85rem 1rem;color:var(--pb);border-color:var(--pb)}
+/* An author `display` beats the UA stylesheet's [hidden]{display:none}, so the
+   flex declarations above would render both of these regardless of the attribute.
+   Class+attribute outranks the bare class, so no !important is needed. */
+.share-btn[hidden],.share-row[hidden]{display:none}
+@media(max-width:420px){.share-row{flex-direction:column;align-items:stretch}.share-btn{justify-content:center}}
 
 
 .page-head{padding:2.4rem 0 1.8rem}

@@ -97,7 +97,46 @@ Newest post goes on top.
 Open `sitemap.xml`. Copy the example `<url>` block, paste it, change the
 address and the date.
 
-### Step 6. Update the homepage strip
+### Step 6. Check the share block and the preview tags
+
+Both of these come along when you copy the template, so this step is mostly
+checking that three values got updated. Every new post needs them.
+
+**The share block** sits between the source note and the author box. Five
+buttons: copy link, X, Facebook, LinkedIn, email. The four social ones are
+plain links with the post address baked into them, so **the address appears
+inside each `href` and has to be changed**. Search your new file for the old
+post's name; if it still appears anywhere in the share block, those buttons
+will share the wrong article.
+
+Copy link and the phone share sheet are handled by `/share.js`, which every
+post loads with this line just before `</body>`:
+
+```html
+<script src="/share.js" defer></script>
+```
+
+That file reads the post's own canonical address, so it needs no editing. If
+you delete that line, the four social buttons still work — you just lose copy
+link.
+
+**The preview tags** control what shows up when the post is shared. There are
+two sets and they must agree:
+
+- `og:*` covers Facebook, LinkedIn, iMessage and Slack
+- `twitter:*` covers X, which ignores the og tags entirely
+
+Set `twitter:title`, `twitter:description` and `twitter:image` to the same
+values as their `og:` counterparts, and leave `twitter:card` as
+`summary_large_image`. If you skip the twitter tags, the post still shares on
+X — as a bare link with no picture.
+
+**Image addresses must be full addresses.** Every `og:image` and
+`twitter:image` starts with `https://jessebattle.com/`. A short path like
+`img/photo.jpg` looks fine in the file and produces a preview card with a
+blank space where the photo should be.
+
+### Step 7. Update the homepage strip
 
 The homepage shows the **three most recent posts**. When you publish a fourth,
 the oldest one drops off. This is the only step that involves deleting
@@ -142,7 +181,7 @@ All three thumbnails together are about 80KB, which is half what the single
 large image used to cost. Keep it that way: if a thumbnail comes out much over
 28KB, it needs a lower JPEG quality, not a smaller size.
 
-### Step 7. Re-upload
+### Step 8. Re-upload
 
 Cloudflare Pages, your project, Upload assets, drag the folder in again.
 Live in under a minute.

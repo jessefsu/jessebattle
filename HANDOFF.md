@@ -73,6 +73,9 @@ sitemap.xml                            add a <url> block per new post
                                        the repo (everything in the repo root
                                        is served publicly, so this matters)
 llms.txt                               plain-language summary for AI agents
+share.js                               the only JavaScript on the site. Powers
+                                       copy-link and the phone share sheet on
+                                       article pages; see Share row below
 headshot.jpg                           hero portrait, pre-processed
 pb-logo.png                            Pinellas Builders mark
 pelican.png                            real estate badge, original colours
@@ -257,6 +260,43 @@ sub-label reads `REALTOR · CGC1506583` on every page, and the author box gives
 the full `licensed since 2003 (CGC1506583)`. Nothing is lost and the byline
 stays on one line. If the byline ever gains a fifth item, it will wrap again —
 check it at 1280px before publishing.
+
+### Share row — the only JavaScript on the site
+
+Every article carries a share block between the source note and the author
+box. It is the one place the site runs script, and it is deliberately small:
+`share.js` is about 2KB, loads `defer` from the root on every post, and makes
+no network calls. No third-party widgets, no SDKs, no trackers — the four
+social buttons are plain `<a href>` links to each platform's own share
+endpoint, so they work with the file blocked.
+
+Only two things need script, and both **ship hidden and are revealed by JS**,
+so nobody is ever shown a control that cannot work:
+
+- **Copy link** — unhidden only where `navigator.clipboard` exists. Copies the
+  page's `<link rel="canonical">`, not `location.href`, so the copied address
+  never carries a `#fragment`, a `?query`, or the redirecting `.html` form.
+  Falls back to a `execCommand` textarea, then to a "Copy failed" label.
+- **The phone share sheet** — gated on `navigator.share` **and**
+  `(pointer: coarse)`. Desktop Safari and Edge also expose `navigator.share`,
+  and collapsing five visible options into one button there is a downgrade.
+  When it does apply, the button row is hidden and the sheet replaces it.
+
+**The `hidden` attribute needs help here.** `[hidden]{display:none}` comes
+from the UA stylesheet, and *any* author `display` beats it — so
+`.share-btn{display:inline-flex}` rendered the hidden buttons anyway, and the
+bug is invisible in the DOM (the property really is `hidden === true`). The
+fix is `.share-btn[hidden],.share-row[hidden]{display:none}`: class plus
+attribute outranks the bare class, so no `!important`. Watch for this on any
+future component that sets `display` and toggles `hidden`.
+
+**Colour.** The row is the social cards inverted — restrained at rest
+(`--slate` on `--ink`), brand colour on hover. It reuses the same `--lit`
+tokens, so `.s-x` styles both a footer card and a share button. Note the
+cascade order: the `--lit` tokens are declared *before* `.share-btn`, so a
+default `--lit` on `.share-btn` would have silently beaten every brand value
+at equal specificity. The default is written as `var(--lit,var(--pb))` at the
+point of use instead.
 
 ## Contrast — measure against the real background, not the token
 
