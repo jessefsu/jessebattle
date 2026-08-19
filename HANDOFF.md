@@ -76,6 +76,9 @@ llms.txt                               plain-language summary for AI agents
 share.js                               the only JavaScript on the site. Powers
                                        copy-link and the phone share sheet on
                                        article pages; see Share row below
+social-home.jpg                        1200x630 preview card for the homepage
+social-writing.jpg                     1200x630 preview card for /blog/. Both
+                                       are crawler-only; no page loads them
 headshot.jpg                           hero portrait, pre-processed
 pb-logo.png                            Pinellas Builders mark
 pelican.png                            real estate badge, original colours
@@ -103,11 +106,16 @@ looks. Tune quality to hit the size — do not reuse a number from a previous
 photo.
 
 ```
-portrait / soft background   q 80-90    few edges, compresses cheaply
+portrait / soft background   q 80-92    few edges, compresses cheaply
 condo + sky + water          q 60-75    mid detail
 top-down aerial              q ~40      shingle, foliage and asphalt texture
                                         edge to edge; q60 was still 260KB
 ```
+
+Output size matters as much as subject. That same aerial-type texture takes
+q=88 at 1200x630 (`social-writing.jpg`, 193KB) because downsampling to 1200px
+has already discarded most of the fine detail that was expensive at 1600px.
+Tune per file; the table is a starting point, not a lookup.
 
 `blog/img/florida-subdivision-aerial.jpg` is the worked example: a nadir drone
 shot of a subdivision, every pixel textured, which needed **q=40** to land at
@@ -298,6 +306,51 @@ default `--lit` on `.share-btn` would have silently beaten every brand value
 at equal specificity. The default is written as `var(--lit,var(--pb))` at the
 point of use instead.
 
+### Preview cards — 1.91:1, and never reuse a page image
+
+Every page carries `og:image` plus the matching `twitter:*` set. The og tags
+cover Facebook, LinkedIn, iMessage and Slack; X reads only `twitter:*` and
+ignores og entirely, so both sets exist and must agree. `twitter:card` is
+`summary_large_image` everywhere.
+
+```
+/                     social-home.jpg      1200x630   q92,  71KB
+/blog/                social-writing.jpg   1200x630   q88, 193KB
+each blog post        its own hero         1600x900
+```
+
+**Every URL must be absolute** — `https://jessebattle.com/...`. A relative
+path renders a card with a blank space where the picture should be, and the
+file looks perfectly fine in the editor.
+
+**Preview cards are 1.91:1 landscape. Most of the site's images are not.**
+Check the crop before reusing a file; the platforms centre-crop without asking:
+
+```
+headshot.jpg    605x757 portrait -> 1.91:1 discards 58% of the height
+                (crops to the shirt, cutting off the top of the head)
+pinellas map    900x900 square   -> 1.91:1 discards 48% of the height
+                (cuts the top and bottom off a peninsula that runs vertically)
+```
+
+Both would have shipped a broken-looking card. The fix in both cases was to go
+back to the **full-resolution original** in `Site photos/`, which is landscape
+in both cases — `Headshot1.JPG` is 2580x1882 and `pinellas co map.jpg` is
+3600x1758 — and cut a purpose-made 1.91:1 frame from it. Compose on the
+subject, not on the frame: the headshot card is centred on the face rather
+than the image centre, and the map card drops roughly a third of the empty
+Gulf so the peninsula is not stranded on the right.
+
+**Judge it at feed size.** Downscale the finished card to about 500px wide and
+look at it — that is roughly how it renders in a timeline, and it is the size
+at which a bad crop or a too-small subject becomes obvious.
+
+The headshot card is a plain crop of the studio original on its grey backdrop,
+**not** the ink-navy composite used on the homepage. Do not try to run the
+background key for this: the recipe below depends on chroma separation between
+backdrop and clothing, and a grey backdrop with a light blue shirt is exactly
+the case it is documented to fail on.
+
 ## Contrast — measure against the real background, not the token
 
 Every muted colour on the site clears **7:1 (WCAG AAA)**. Keeping it that way
@@ -392,6 +445,29 @@ downsample cleanly to 605.
 **Never retouch faces.** Crop, background key, colour grade and fade only. No
 warping, liquify, or eye correction — automated eye correction was tried
 previously and looked terrible.
+
+## How much to verify
+
+Jesse set this on 2026-08-19. Default to the light path; the heavy path is for
+the work where looking has actually caught bugs.
+
+**Light — just make the change.** Copy edits, content changes, small fixes.
+Confirm nothing broke structurally (pages still return 200, HTML still parses,
+no console errors) and push. No screenshots, no contrast audit.
+
+**Full — screenshots and the composited-background contrast audit.**
+- new components
+- layout changes
+- anything touching the type scale or the colour system
+- image processing
+
+That list is not arbitrary. Every one of these caught something real: a
+`hidden` attribute defeated by `display:inline-flex` that the DOM reported as
+correctly hidden, a `--lit` default that silently beat every brand colour at
+equal specificity, a media query that lost to a two-class selector, and two
+preview-card crops that would have shipped with the subject's head cut off.
+
+**If a task does not clearly fall in one bucket, ask rather than guessing.**
 
 ## Known issues / next steps
 
