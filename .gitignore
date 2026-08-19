@@ -16,9 +16,11 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 
-# Editors
+# Editors / local agent config (the Worker serves the repo root, so keep
+# tooling files out of the published tree)
 .vscode/
 .idea/
+.claude/
 *.swp
 *.swo
 *~

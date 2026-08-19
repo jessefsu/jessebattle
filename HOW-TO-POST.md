@@ -113,11 +113,17 @@ Short version, in priority order:
 2. **Be specific.** Neighborhood names, dollar figures, dates, street
    names. Specificity is what gets a page quoted in an AI answer instead
    of skipped.
-3. **Put the answer in the first paragraph.** Both Google and AI
-   assistants weight the opening heavily.
-4. **Publish consistently.** Two posts a month beats twelve in January
+3. **Put the takeaway in the first three paragraphs.** Both Google and AI
+   assistants weight the opening heavily, and readers decide there. State the
+   conclusion up front; everything after it is for the reader who wants the
+   detail.
+4. **Target 1,200 to 1,500 words.** Long enough to be the real answer, short
+   enough that people finish it. If a section is context rather than
+   consequence, cut it. If you are explaining the same thing twice at two
+   different depths, keep the shallower one.
+5. **Publish consistently.** Two posts a month beats twelve in January
    and nothing after.
-5. **Write things only you can write.** Four generations in St. Pete, a
+6. **Write things only you can write.** Four generations in St. Pete, a
    GC license, and a planning degree is a combination almost nobody else
    in this market has. Lean on it.
 

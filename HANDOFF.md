@@ -78,7 +78,10 @@ pb-logo.png                            Pinellas Builders mark
 pelican.png                            real estate badge, original colours
 blog/index.html                        the Writing index
 blog/2026-kitchen-bath-trends-st-pete.html
-blog/img/quartzite-kitchen.jpg
+blog/2026-st-pete-condo-deadlines.html
+blog/2026-institutional-investor-ban-tampa-bay.html
+blog/img/                              processed hero and inline images, one
+                                       or more per post
 HOW-TO-POST.md                         non-technical posting instructions
 ```
 
@@ -89,6 +92,25 @@ committed is publicly downloadable at full size. Process to the house spec
 before committing: 1600x900 for a hero, progressive JPEG, roughly 150-200KB.
 Keep the original in `Site photos/` so a photo can be re-cropped later without
 re-shooting it.
+
+**Quality is set by the file size, not by a fixed number.** 150-200KB is the
+target; the JPEG quality that gets you there depends entirely on how much
+high-frequency detail the frame holds, and the spread is much wider than it
+looks. Tune quality to hit the size — do not reuse a number from a previous
+photo.
+
+```
+portrait / soft background   q 80-90    few edges, compresses cheaply
+condo + sky + water          q 60-75    mid detail
+top-down aerial              q ~40      shingle, foliage and asphalt texture
+                                        edge to edge; q60 was still 260KB
+```
+
+`blog/img/florida-subdivision-aerial.jpg` is the worked example: a nadir drone
+shot of a subdivision, every pixel textured, which needed **q=40** to land at
+192KB. It still looks clean, because a hero renders at roughly 712px wide and
+the mush is below what that resolution shows. Judge the output at render size,
+not at 100%.
 
 There is no split any more. `style.css` is the only stylesheet. Homepage-only
 rules live at the bottom of it, every selector prefixed with `.home`, which is
@@ -112,7 +134,7 @@ here that is `max-width` and nothing else.
 --pb       #A1EBFF   accent, sampled from the Pinellas Builders logo
 --pb-mid   #4FB0D4   line work
 --paper    #EAF4FA   body text, cool white
---slate    #6F8A9B   muted text
+--slate    #96ABB6   muted text (raised from #6F8A9B for AAA — see Contrast below)
 --hair     rgba(161,235,255,.16)  borders
 ```
 
@@ -130,24 +152,24 @@ were doing the same mono-label job.
 Defined once in `:root` in `style.css`. Every page links that one file:
 
 ```
---d1  clamp(2.9rem,8vw,5.25rem)    46-84px   hero name — HOMEPAGE ONLY
---d2  clamp(2.1rem,5.4vw,3.5rem)   34-56px   page titles, closing headline
---d3  clamp(1.65rem,3.6vw,2.35rem) 26-38px   section heads, contact values
---h1  1.55rem   25px   article h2, hat h2
---h2  1.3rem    21px   feature card, post cards
---h3  1.1rem    18px   article h3, credential cards, wordmark
---lead     1.2rem    19px   hero kicker, page decks
---base     1.075rem  17px   body and article copy
---small    .95rem    15px   card copy, author box, timeline
---xsmall   .875rem   14px   source notes
---l1  .74rem  12px   eyebrows, nav link text, section labels
---l2  .66rem  11px   bylines, times, datum labels, footer, captions
---l3  .6rem   10px   nav numerals, brand sub-label, badges, station labels
+--d1  clamp(2.4rem,6.2vw,4.1rem)   38-66px   hero name — HOMEPAGE ONLY
+--d2  clamp(1.75rem,3.6vw,2.15rem) 28-34px   page titles, closing headline
+--d3  clamp(1.5rem,3vw,1.8rem)     24-29px   section heads, contact values
+--h1  1.5rem    24px    article h2, hat h2
+--h2  1.25rem   20px    feature card, post cards
+--h3  1.05rem   16.8px  article h3, credential cards, wordmark
+--lead     1.15rem   18.4px  hero kicker, page decks
+--base     1.075rem  17.2px  body and article copy
+--small    .95rem    15.2px  card copy, author box, timeline
+--xsmall   .875rem   14px    source notes
+--l1  .74rem  11.8px  eyebrows, nav link text, section labels
+--l2  .66rem  10.6px  bylines, times, datum labels, footer, captions
+--l3  .6rem   9.6px   nav numerals, brand sub-label, badges, station labels
 ```
 
 Rules that keep it coherent:
 
-1. **`--d1` is the hero name and nothing else.** It is 1.5x `--d2` at desktop.
+1. **`--d1` is the hero name and nothing else.** It is 1.9x `--d2` at desktop.
    If anything else reaches that size the homepage stops having a focal point.
 2. **Add a size only by adding a step**, never by writing a literal value in a
    rule. A one-off `font-size:1.42rem` is how the 42 sizes happened.
@@ -161,9 +183,9 @@ Rules that keep it coherent:
    to clear 7:1, and it currently does at exactly 7.01:1. Shrinking it breaks
    the accessibility floor as well as the type scale.
 4. Every page — homepage included — links `style.css`. The small inline
-   `<style>` blocks that remain on the two article pages hold only
-   article-specific layout (hero figure, key-take box) and reference the same
-   variable names.
+   `<style>` blocks that remain on the article pages hold only article-specific
+   layout (hero figure, key-take box, the ROAD Act post's schedule graphic) and
+   reference the same variable names.
 
 Visual language is cyanotype/blueprint. Elevation contours draw in behind the
 hero, faint grid overlay, technical labels in mono. It came out of the logo
