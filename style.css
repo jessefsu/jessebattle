@@ -175,3 +175,124 @@ footer{border-top:1px solid var(--hair);padding:2.6rem 0;font-family:'JetBrains 
 footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+
+/* =========================================================
+   HOMEPAGE
+   Scoped with .home (set on <body> in index.html) so these rules
+   cannot reach the blog pages. Everything shared — nav, datum,
+   stations, social cards, type scale — lives above this line.
+   ========================================================= */
+.home .wrap{max-width:64rem}  /* override ONLY the width; margin/padding stay
+                                 inherited from .wrap so nav .wrap's padding:0
+                                 is not clobbered by specificity */
+.home header{position:relative;padding:5rem 0 3.5rem;overflow:hidden}
+.home .grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:
+      linear-gradient(rgba(161,235,255,.055) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(161,235,255,.055) 1px,transparent 1px);
+    background-size:44px 44px;
+    mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%);
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%);}
+.home header .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.35fr 1fr;gap:3.5rem;align-items:center}
+.home .eyebrow{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.24em;text-transform:uppercase;color:var(--pb);margin-bottom:1.3rem}
+.home h1{font-family:'Archivo',sans-serif;font-weight:900;font-size:var(--d1);line-height:.9;letter-spacing:-.04em;text-transform:uppercase}
+.home h1 .last{color:var(--pb);display:block}
+.home .kicker{margin-top:1.7rem;max-width:40ch;font-size:var(--lead);line-height:1.6;color:rgba(234,244,250,.85)}
+.home .portrait{position:relative;justify-self:end;width:100%;max-width:20rem}
+.home .portrait::before{content:"";position:absolute;left:-.85rem;top:.85rem;right:.85rem;bottom:-.85rem;border:1px solid var(--pb);z-index:0}
+.home .portrait img{position:relative;z-index:1;width:100%;height:auto;filter:none}
+.home .portrait figcaption{position:relative;z-index:1;margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+@media(max-width:840px){
+  .home header .wrap{grid-template-columns:1fr;gap:2.75rem}
+  .home .portrait{justify-self:start;max-width:15rem}
+}
+.home .hats{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:var(--ink-2)}
+.home .hats .wrap{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch}
+.home .hat{padding:3rem 2.25rem 3rem 0;display:flex;flex-direction:column}
+.home .hat:last-child{padding-left:2.25rem;padding-right:0;border-left:1px solid var(--hair)}
+.home .hat-num{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.2em;text-transform:uppercase;color:var(--pb);margin-bottom:1rem}
+.home .hat h2{font-family:'Archivo',sans-serif;font-weight:900;font-size:var(--h1);letter-spacing:-.02em;text-transform:uppercase;line-height:1.05;margin-bottom:.9rem}
+.home .hat p{font-size:var(--small);color:rgba(234,244,250,.8);max-width:34ch}
+.home .hat dl{margin-top:1.4rem;font-family:'JetBrains Mono',monospace;font-size:var(--l1);display:grid;grid-template-columns:auto 1fr;gap:.55rem 1.2rem}
+.home .hat dt{color:var(--slate);font-size:var(--l3);letter-spacing:.14em;text-transform:uppercase;padding-top:.12rem}
+.home .hat dd{color:var(--paper)}
+.home .entity-mark{display:flex;align-items:center;min-height:7.5rem;margin-top:auto;padding-top:1.4rem;border-top:1px solid var(--hair)}
+.home .entity-mark img{height:4.6rem;width:auto;opacity:1}
+@media(max-width:800px){
+  .home .hats .wrap{grid-template-columns:1fr}
+  .home .hat{padding:2.5rem 0}
+  .home .hat:last-child{padding-left:0;border-left:none;border-top:1px solid var(--hair)}
+}
+.home .practice-mark{display:flex;align-items:center;gap:1.25rem;min-height:7.5rem;margin-top:auto;padding-top:1.4rem;border-top:1px solid var(--hair)}
+.home .practice-mark img{height:5.4rem;width:auto}
+.home .specialties{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.15em;text-transform:uppercase;color:#F2A03D;line-height:2}
+.home .specialties span{display:block}
+.home .specialties span:last-child{color:var(--slate)}
+.home .writing-feature{background:var(--ink-2);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.home .writing-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:2.25rem}
+.home .writing-head h3{font-family:'Archivo',sans-serif;font-weight:900;font-size:var(--d3);line-height:1.02;letter-spacing:-.03em;text-transform:uppercase;max-width:20ch;margin:0}
+.home .writing-head .deck{max-width:38ch;color:rgba(234,244,250,.75);font-size:var(--lead);margin:0}
+.home .feature-card{display:grid;grid-template-columns:22rem 1fr;border:1px solid var(--hair);background:var(--ink);text-decoration:none;color:inherit;transition:border-color .2s}
+.home .feature-card:hover{border-color:var(--pb)}
+.home .feature-card:focus-visible{outline:2px solid var(--pb);outline-offset:4px}
+.home .feature-card .shot{position:relative;overflow:hidden}
+.home .feature-card .shot img{width:100%;height:100%;object-fit:cover;display:block;min-height:15rem}
+.home .feature-card .badge{position:absolute;top:0;left:0;background:var(--pb);color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:var(--l3);letter-spacing:.18em;text-transform:uppercase;padding:.5rem .85rem;font-weight:500}
+.home .feature-card .meta{padding:2.4rem}
+.home .feature-card time{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.16em;text-transform:uppercase;color:var(--slate);display:block;margin-bottom:.9rem}
+.home .feature-card h4{font-family:'Archivo',sans-serif;font-weight:700;font-size:var(--h2);line-height:1.15;letter-spacing:-.025em;margin:0 0 .9rem}
+.home .feature-card:hover h4{color:var(--pb)}
+.home .feature-card p{font-size:var(--small);color:rgba(234,244,250,.78);margin-bottom:1.5rem}
+.home .feature-card .more{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.16em;text-transform:uppercase;color:var(--pb)}
+.home .all-writing{display:inline-block;margin-top:1.75rem;font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.16em;text-transform:uppercase;color:var(--slate);text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:.3rem}
+.home .all-writing:hover{color:var(--pb);border-bottom-color:var(--pb)}
+@media(max-width:820px){
+  .home .feature-card{grid-template-columns:1fr}
+  .home .feature-card .shot img{min-height:12rem}
+  .home .feature-card .meta{padding:1.85rem}
+  .home .writing-head{flex-direction:column;align-items:flex-start;gap:1rem}
+}
+.home .creds{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.75rem}
+.home .cred-card{border:1px solid var(--hair);background:var(--ink-2);padding:1.9rem 1.75rem;transition:border-color .2s;border-top:2px solid var(--pb)}
+.home .cred-card:hover{border-color:var(--pb)}
+.home .cred-card .yr{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.2em;text-transform:uppercase;color:var(--pb);display:block;margin-bottom:.6rem}
+.home .cred-card h4{font-family:'Archivo',sans-serif;font-weight:700;font-size:var(--h3);letter-spacing:-.01em;line-height:1.25;margin:0 0 .65rem}
+.home .cred-card p{font-size:var(--small);color:rgba(234,244,250,.75);margin:0}
+@media(max-width:820px){
+  .home .creds{grid-template-columns:1fr}
+}
+.home .socials{display:flex;gap:.75rem;margin-top:2.5rem;flex-wrap:wrap}
+.home .socials a{display:inline-flex;align-items:center;justify-content:center;width:2.9rem;height:2.9rem;border:1px solid var(--hair);color:var(--slate);text-decoration:none;transition:all .2s}
+.home .socials a:hover{border-color:var(--pb);color:var(--pb)}
+.home .socials a:focus-visible{outline:2px solid var(--pb);outline-offset:3px}
+.home .socials svg{width:1.15rem;height:1.15rem;fill:currentColor}
+.home .review-link{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.5rem;font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.14em;text-transform:uppercase;color:var(--pb);text-decoration:none;border:1px solid var(--hair);padding:.85rem 1.3rem;transition:border-color .2s}
+.home .review-link:hover{border-color:var(--pb)}
+.home .review-link svg{width:1rem;height:1rem;fill:currentColor}
+.home section{padding:5rem 0}
+.home .close-h{font-family:'Archivo',sans-serif;font-weight:900;font-size:var(--d2);line-height:.92;letter-spacing:-.042em;text-transform:uppercase;max-width:13ch;margin-top:2.2rem}
+.home .close-deck{margin-top:1.5rem;max-width:46ch;font-size:var(--lead);color:rgba(234,244,250,.84)}
+.home .soc-h{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.2em;text-transform:uppercase;color:var(--pb);margin:2.8rem 0 0;font-weight:500}
+.home .sec-label{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.22em;text-transform:uppercase;color:var(--pb);margin-bottom:1.2rem}
+.home h3.big{font-family:'Archivo',sans-serif;font-weight:900;font-size:var(--d3);line-height:1.03;letter-spacing:-.03em;text-transform:uppercase;max-width:18ch;margin-bottom:1.6rem}
+.home .body-col{max-width:56ch}
+.home .story-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:4rem;align-items:start}
+.home .story-grid h3.big{margin-bottom:0;max-width:14ch}
+.home .story-grid .body-col{max-width:52ch}
+@media(max-width:900px){
+  .home .story-grid{grid-template-columns:1fr;gap:1.75rem}
+  .home .story-grid h3.big{max-width:18ch}
+}
+.home .body-col p+p{margin-top:1.15rem}
+.home .body-col p{color:rgba(234,244,250,.84)}
+.home .timeline{list-style:none;margin-top:2rem;max-width:44rem}
+.home .timeline li{display:grid;grid-template-columns:6.5rem 1fr;gap:1.5rem;padding:1.15rem 0;border-top:1px solid var(--hair)}
+.home .timeline li:last-child{border-bottom:1px solid var(--hair)}
+.home .timeline .yr{font-family:'JetBrains Mono',monospace;font-size:var(--l1);color:var(--pb);padding-top:.2rem}
+.home .timeline .what strong{display:block;font-family:'Archivo',sans-serif;font-weight:700;font-size:var(--small);margin-bottom:.15rem}
+.home .timeline .what span{color:rgba(234,244,250,.78);font-size:var(--small)}
+@media(max-width:600px){
+  .home .timeline li{grid-template-columns:1fr;gap:.35rem}
+}
+.home footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}

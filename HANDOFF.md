@@ -63,8 +63,10 @@ To publish: `git add -A && git commit -m "what changed" && git push`
 ## File map
 
 ```
-index.html                             homepage, all CSS is inline in <style>
-style.css                              shared styles for the blog pages only
+index.html                             homepage markup; no inline CSS
+style.css                              ALL styles for every page. Shared rules
+                                       first, then a .home-scoped block for
+                                       homepage-only layout
 robots.txt                             crawler rules, allows everything
 sitemap.xml                            add a <url> block per new post
 .gitignore                             keeps .DS_Store and editor junk out of
@@ -88,9 +90,17 @@ before committing: 1600x900 for a hero, progressive JPEG, roughly 150-200KB.
 Keep the original in `Site photos/` so a photo can be re-cropped later without
 re-shooting it.
 
-Note the split: `index.html` carries its own styles inline. The blog pages
-share `style.css`. That was an artifact of how this got built. Worth
-consolidating into one stylesheet at some point.
+There is no split any more. `style.css` is the only stylesheet. Homepage-only
+rules live at the bottom of it, every selector prefixed with `.home`, which is
+set on `<body class="home">` in `index.html`. That prefix is what keeps
+homepage layout from reaching the blog pages.
+
+**Specificity gotcha, learned the hard way.** `.home .wrap` is two classes and
+outranks `nav .wrap`, which is one element plus one class. An early version of
+`.home .wrap` restated `padding:0 1.75rem`, which silently clobbered the
+`padding-left:0` that the nav needs, and the mobile nav grew by 17px. When you
+scope a rule with `.home`, override only the properties that actually differ —
+here that is `max-width` and nothing else.
 
 ---
 
@@ -117,8 +127,7 @@ scale existed there were 42 distinct sizes across four pages, the Writing page
 title had drifted to within 9% of the hero name, and fifteen different sizes
 were doing the same mono-label job.
 
-Defined in `:root` in both `style.css` and the inline `<style>` in
-`index.html` (keep the two in sync until the inline CSS is consolidated):
+Defined once in `:root` in `style.css`. Every page links that one file:
 
 ```
 --d1  clamp(2.9rem,8vw,5.25rem)    46-84px   hero name — HOMEPAGE ONLY
@@ -144,8 +153,10 @@ Rules that keep it coherent:
    rule. A one-off `font-size:1.42rem` is how the 42 sizes happened.
 3. **`--l3` is the floor.** Do not go below it. Letterspaced uppercase mono
    under about 9px is unreadable, and this audience skews older.
-4. Article pages inherit the variables from `style.css`; their inline `<style>`
-   blocks reference the same names.
+4. Every page — homepage included — links `style.css`. The small inline
+   `<style>` blocks that remain on the two article pages hold only
+   article-specific layout (hero figure, key-take box) and reference the same
+   variable names.
 
 Visual language is cyanotype/blueprint. Elevation contours draw in behind the
 hero, faint grid overlay, technical labels in mono. It came out of the logo
@@ -186,8 +197,6 @@ colour, and it fits a builder with a planning degree.
   remove a card, re-check `.social-grid .slink:nth-last-child(-n+2)`.
 
 **Worth doing**
-- Consolidate the inline homepage CSS into style.css. The type scale and the
-  nav now exist in both files and have to be edited twice.
 - Second blog post. The FEMA 50% rule deserves its own piece; it is currently
   buried inside the trends article and it is the most searchable thing here.
 - Real Google review quotes on the page rather than just a link out
