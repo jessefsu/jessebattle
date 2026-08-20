@@ -69,9 +69,12 @@ style.css                              ALL styles for every page. Shared rules
                                        homepage-only layout
 robots.txt                             crawler rules, allows everything
 sitemap.xml                            add a <url> block per new post
+.assetsignore                          what the Worker must NOT serve. See
+                                       "What is in the repo but not on the web"
 .gitignore                             keeps .DS_Store and editor junk out of
-                                       the repo (everything in the repo root
-                                       is served publicly, so this matters)
+                                       the repo
+tools/headshot.py                      executable form of the headshot recipe.
+                                       In the repo, never served
 llms.txt                               plain-language summary for AI agents
 share.js                               the only JavaScript on the site. Powers
                                        copy-link and the phone share sheet on
@@ -136,6 +139,33 @@ scope a rule with `.home`, override only the properties that actually differ —
 here that is `max-width` and nothing else.
 
 ---
+
+## What is in the repo but not on the web
+
+The Worker is deployed with `--assets=.`, which serves the **entire repo root**.
+That is why `HANDOFF.md` was live at `https://jessebattle.com/HANDOFF.md` for a
+while — 27KB of internal notes, non-compete section and deploy config included,
+crawlable, with no `Disallow` in `robots.txt`.
+
+`.assetsignore` fixes that. Cloudflare Workers Assets reads it like a
+`.gitignore`: anything matched is committed to git but never uploaded, so it is
+in the repo and 404s on the web. Currently excluded:
+
+```
+tools/          build scripts, not site content
+*.md            HANDOFF.md, HOW-TO-POST.md
+.gitignore
+```
+
+**Verify it, do not trust it.** After changing `.assetsignore`, run
+`wrangler dev` and curl the path — it must 404 — then curl `/`, `/blog/`,
+`/style.css` and confirm they still 200. It is equally easy to exclude nothing
+and to exclude the whole site.
+
+`tools/headshot.py` lives here rather than in a gitignored folder on purpose.
+The headshot recipe below existed only as prose, and rebuilding from prose
+walked straight into two bugs that the prose did not mention. The script is the
+part you run; the prose is the part that explains why. Keep both.
 
 ## Design system
 
@@ -394,10 +424,12 @@ and cannot be measured this way; they rely on a text-shadow instead.
 composited onto the ink navy. To reproduce it from a new shot:
 
 1. 4:5 crop centred on the face, full frame height where possible
-2. Key the background out (see below) and composite onto `#061019`
-3. Grade the **subject only**, so the ground stays exactly the site ink:
+2. Key the background out (see below) as a **soft** matte — fractional alpha at
+   the edge, not a binary cutout. Step 3 cannot work without it
+3. **Decontaminate the edge colour** (see below), then composite onto `#061019`
+4. Grade the **subject only**, so the ground stays exactly the site ink:
    saturation 78%, contrast x1.06, red x0.97, blue x1.06
-4. Fade the lower half into the background with a **smoothstep** ramp, starting
+5. Fade the lower half into the background with a **smoothstep** ramp, starting
    at 52% of image height and reaching full background at the bottom edge:
 
    ```
@@ -413,7 +445,59 @@ composited onto the ink navy. To reproduce it from a new shot:
    three alpha levels over the first 5% of its run. Starting earlier and
    running roughly 2.3x longer also spreads the transition over enough distance
    that it stops being detectable.
-5. Resize to 605x757, baseline JPEG, quality tuned to land near 55KB
+6. Resize to 605x757, baseline JPEG, quality tuned to land near 55KB
+
+**Colour decontamination — do not skip this.** A pixel at the edge of the hair
+is part hair and part backdrop: `C = alpha*F + (1-alpha)*B`. Keying alone sets
+the alpha but leaves `C` as the measured, contaminated colour, so the pale
+studio grey stays baked into every semi-transparent pixel. Composited onto the
+near-black ink, that reads as a white halo tracing the hair and shoulders. It
+is invisible at page size and obvious at 5x.
+
+Recover the true foreground colour before compositing:
+
+```
+F = (C - (1 - alpha) * B) / alpha        for 0.05 < alpha < 0.999
+```
+
+`B` is the sampled backdrop — take the median of the deep background (erode
+`s > 0.95` a few px so no edge pixels contaminate the sample). Here it is
+`(191, 190, 186)`. Clamp the result to 0-255, and leave pixels below
+alpha 0.05 alone: the division explodes as alpha approaches zero.
+
+**Measure it, do not eyeball it.** Average a luminance profile inward from the
+first lit pixel across the crown, and compare the peak to the hair interior
+20 px in. That overshoot is the halo:
+
+```
+shipped, before this fix          +19.7 luma
+rebuilt, better matte only         +9.8
+rebuilt + decontamination          +4.9
+```
+
+Anything under about +5 is genuine rim light from the key light and should
+stay. Driving it to zero would look like a cutout.
+
+**Three things that bite when you rebuild this:**
+
+- **Keep the luma ramp narrow.** The matte here scores a pixel as backdrop-like
+  from low chroma plus high luma, ramping over luma 60-110. Widening that
+  toward the true backdrop luma of 191 looks more principled and is worse: it
+  hands fractional alpha to bright but fully *opaque* skin and hair, so
+  decontamination subtracts backdrop from pixels that never had any and the
+  overshoot goes from +11 back up to +24. Fractional-alpha pixels should be
+  about 1% of the frame. At 7% it is already wrong.
+- **Open the candidate set before deciding connectivity.** The specular
+  highlight along the collar fold is neutral (chroma ~12) and bright, so the
+  flood fill walks in from the backdrop along a 1 px line and cuts the collar
+  off. A 2-iteration binary opening before labelling kills the tendril. Gate
+  only *connectivity* with it — the alpha itself must still come from the soft
+  score, or you lose the fractional edge.
+- **Check the framing against the existing file.** Head-centroid detection is
+  approximate; a rebuild landed 8 px off, which is invisible alone but means a
+  "halo fix" also silently reframes the portrait. Cross-correlate the new file
+  against the old over the face and nudge the crop until the offset is zero, so
+  the only thing that changed is the edge.
 
 **Check the fade, do not assume it.** Scan the output's vertical luminance
 profile for abrupt row-to-row steps; any jump inside the fade region means the

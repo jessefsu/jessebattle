@@ -1,0 +1,9 @@
+# Files that live in the repo but must NOT be uploaded as public assets.
+# Cloudflare Workers Assets reads this like a .gitignore. Without it the Worker
+# serves the whole repo root: HANDOFF.md was publicly downloadable, non-compete
+# section and deploy config included.
+#
+# Verify after changing this: wrangler dev, then curl the path — it must 404.
+tools/
+*.md
+.gitignore
