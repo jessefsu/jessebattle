@@ -5,5 +5,6 @@
 #
 # Verify after changing this: wrangler dev, then curl the path — it must 404.
 tools/
+Site photos/
 *.md
 .gitignore

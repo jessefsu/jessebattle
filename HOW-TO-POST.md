@@ -153,17 +153,17 @@ you never need the debugger at all.
 
 ### Step 7. Update the homepage strip
 
-The homepage shows the **three most recent posts**. When you publish a fourth,
+The homepage shows the **four most recent posts**. When you publish a fifth,
 the oldest one drops off. This is the only step that involves deleting
 something, so do it in this order.
 
 Open `index.html` and find the comment:
 
 ```
-<!-- ===== THREE MOST RECENT POSTS, NEWEST FIRST. See HOW-TO-POST.md ===== -->
+<!-- ===== FOUR MOST RECENT POSTS, NEWEST FIRST. See HOW-TO-POST.md ===== -->
 ```
 
-Below it are three `<li>` blocks. Then:
+Below it are four `<li>` blocks. Then:
 
 1. **Delete the last `<li>` block**, the one just above `<!-- ===== END POST
    STRIP ===== -->`. That is the oldest post. It is not gone from the site —
@@ -192,7 +192,7 @@ loads a small crop of it. In Claude Code, ask for:
 > Make a homepage thumbnail from `blog/img/YOUR-HERO.jpg` — 480x384, centre
 > crop, progressive JPEG, under 28KB, save to `blog/img/thumb-YOUR-NAME.jpg`
 
-All three thumbnails together are about 80KB, which is half what the single
+All four thumbnails together are about 106KB, which is half what the single
 large image used to cost. Keep it that way: if a thumbnail comes out much over
 28KB, it needs a lower JPEG quality, not a smaller size.
 
