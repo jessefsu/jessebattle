@@ -69,6 +69,13 @@ nav .wrap{max-width:64rem;display:flex;align-items:stretch;justify-content:space
 .datum::after{content:"";position:absolute;left:0;right:0;top:0;height:7px;background:repeating-linear-gradient(90deg,var(--pb-mid) 0 1px,transparent 1px 22px);opacity:.85}
 .datum-lab{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-top:.9rem;font-family:'JetBrains Mono',monospace;font-size:var(--l3);letter-spacing:.18em;text-transform:uppercase;color:var(--slate)}
 .datum-strip{padding-top:1.2rem}
+@media(max-width:720px){
+  /* Writing index only. On a phone the strip sits between the nav and the
+     page head and pushes the first article card down by its full height.
+     Scoped with :has(.wh) because .wh is only on blog/index.html, so every
+     other page keeps its strip. Markup is untouched; this hides it only. */
+  body:has(.wh) .datum-strip{display:none}
+}
 
 /* ---- contact stations ---- */
 .contact-stations{margin-top:2.6rem}
