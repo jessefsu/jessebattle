@@ -72,9 +72,9 @@ nav .wrap{max-width:64rem;display:flex;align-items:stretch;justify-content:space
 @media(max-width:720px){
   /* Writing index only. On a phone the strip sits between the nav and the
      page head and pushes the first article card down by its full height.
-     Scoped with :has(.wh) because .wh is only on blog/index.html, so every
-     other page keeps its strip. Markup is untouched; this hides it only. */
-  body:has(.wh) .datum-strip{display:none}
+     Scoped to the .writing body class, the same convention as .home on the
+     index. The strip stays in the markup on every page; this hides it. */
+  .writing .datum-strip{display:none}
 }
 
 /* ---- contact stations ---- */
