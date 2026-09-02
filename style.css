@@ -57,6 +57,12 @@ nav .wrap{max-width:64rem;display:flex;align-items:stretch;justify-content:space
   .tb-brand{flex-direction:column;align-items:flex-start;gap:.35rem}
   .tb-brand .nm{white-space:nowrap}
 }
+@media(max-width:360px){
+  /* four nav cells plus the longest label (Inspiration) overrun a 320px
+     screen at the default label size; tighten both so the row still fits */
+  .tb-links a{padding:.72rem .25rem}
+  .tb-links .t{font-size:var(--l2);letter-spacing:.1em}
+}
 
 /* ---- datum: the page baseline ---- */
 .datum{position:relative;height:0;border-top:2px solid var(--pb)}
