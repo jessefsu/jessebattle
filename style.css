@@ -170,8 +170,10 @@ nav .wrap{max-width:64rem;display:flex;align-items:stretch;justify-content:space
 .wh-map figcaption{font-family:'JetBrains Mono',monospace;font-size:var(--l3);letter-spacing:.16em;text-transform:uppercase;color:var(--slate);margin-top:.8rem;text-align:right}
 @media(max-width:860px){
   .wh-grid{grid-template-columns:1fr;gap:2.2rem}
-  .wh-map{max-width:20rem}
-  .wh-map figcaption{text-align:left}
+  /* the peninsula map is desktop context; on a stacked layout it pushed the
+     first article card a full screen down, so it comes out below 860px.
+     Hiding the figure takes its caption with it. */
+  .wh-map{display:none}
 }
 .eyebrow{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.24em;text-transform:uppercase;color:var(--pb);margin-bottom:1.2rem}
 h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d2);line-height:1.05;letter-spacing:.01em;text-transform:uppercase}
