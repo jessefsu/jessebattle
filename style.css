@@ -377,9 +377,141 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
   transition:background .2s,color .2s,box-shadow .2s}
 .home .listings-btn:hover,.home .writing-btn:hover{background:var(--pb);color:var(--ink);box-shadow:0 0 0 3px rgba(161,235,255,.14)}
 .home .listings-btn:focus-visible,.home .writing-btn:focus-visible{outline:2px solid var(--pb);outline-offset:3px}
-.home .listings-btn .ext,.home .writing-btn .arw{width:.68rem;height:.68rem;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;
+.home .listings-btn svg,.home .writing-btn svg{width:.68rem;height:.68rem;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;
   stroke-linecap:round;stroke-linejoin:round}
 .home .listings-btn{align-self:flex-end;margin-top:1.7rem}
 .home .writing-btn{margin-top:1.9rem}
 .vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 @media(max-width:800px){.home .listings-btn{align-self:flex-start}}
+
+/* =========================================================
+   ON THE BOARD: featured listings
+   Three plan sheets pinned to the drafting board. Each card carries its
+   own datum rule under the photo, the same 2px cyan line plus tick strip
+   the page uses at the top of every sheet, so a card reads as a sheet in
+   its own right. Spec values reuse the LICENSE / ENTITY / SINCE pattern
+   from the hats: mono label in slate over a mono value in paper.
+   ========================================================= */
+.home #listings{position:relative;overflow:hidden;scroll-margin-top:5rem}
+/* Same drafting grid as the hero, dialled back and masked at both ends so
+   the section reads as board rather than as a second hero. */
+.home .board-bg{position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background-image:
+    linear-gradient(rgba(161,235,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(161,235,255,.05) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:linear-gradient(to bottom,transparent 0,#000 22%,#000 74%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 22%,#000 74%,transparent 100%)}
+.home #listings .wrap{position:relative;z-index:1}
+.home #listings .sec-label{margin-top:2.4rem;margin-bottom:1.9rem}
+
+.home .sheet-row{list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;align-items:stretch}
+.home .sheet-row li{margin:0;min-width:0}
+
+.home .sheet{position:relative;display:flex;flex-direction:column;height:100%;
+  border:1px solid var(--hair);background:var(--ink-2);text-decoration:none;color:inherit;
+  transition:border-color .25s,transform .25s,box-shadow .25s}
+.home .sheet:hover{border-color:var(--pb);transform:translateY(-3px);
+  box-shadow:0 14px 30px -20px rgba(0,0,0,.95)}
+.home .sheet:focus-visible{outline:2px solid var(--pb);outline-offset:4px}
+
+/* ---- the photo ---- */
+.home .sheet-shot{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--ink)}
+.home .sheet-shot img{width:100%;height:100%;object-fit:cover;
+  filter:saturate(.9) brightness(.93);transform:scale(1.004);
+  transition:filter .4s ease,transform .55s cubic-bezier(.2,.6,.2,1)}
+.home .sheet:hover .sheet-shot img{filter:none;transform:scale(1.035)}
+/* Registration ticks, opposite corners, drawn short at rest and extended on
+   hover. The badge owns the top-left corner, so these take top-right and
+   bottom-left. */
+.home .sheet-shot::before,.home .sheet-shot::after{content:"";position:absolute;z-index:2;
+  width:.8rem;height:.8rem;border:0 solid var(--pb);opacity:.75;
+  filter:drop-shadow(0 0 2px rgba(6,16,25,.95)) drop-shadow(0 0 1px rgba(6,16,25,.9));
+  transition:width .28s ease,height .28s ease,opacity .28s ease}
+.home .sheet-shot::before{top:.7rem;right:.7rem;border-top-width:1px;border-right-width:1px}
+.home .sheet-shot::after{bottom:.7rem;left:.7rem;border-bottom-width:1px;border-left-width:1px}
+.home .sheet:hover .sheet-shot::before,.home .sheet:hover .sheet-shot::after{width:1.7rem;height:1.7rem;opacity:1}
+
+/* ---- status tag: same corner and metrics as the LATEST badge ---- */
+.home .sheet-status{position:absolute;top:0;left:0;z-index:3;
+  font-family:'JetBrains Mono',monospace;font-size:var(--l3);letter-spacing:.18em;
+  text-transform:uppercase;font-weight:500;padding:.35rem .6rem;
+  background:var(--pb);color:var(--ink)}
+.home .st-pending{background:#F2A03D}
+.home .st-sold{background:var(--slate)}
+
+/* ---- the card's own datum ---- */
+.home .sheet-datum{position:relative;height:0;border-top:2px solid var(--pb);
+  opacity:.5;transition:opacity .25s}
+.home .sheet-datum::after{content:"";position:absolute;left:0;right:0;top:0;height:6px;
+  background:repeating-linear-gradient(90deg,var(--pb-mid) 0 1px,transparent 1px 16px)}
+.home .sheet:hover .sheet-datum{opacity:1}
+
+/* ---- the sheet body ---- */
+.home .sheet-body{display:flex;flex-direction:column;flex:1;padding:1.5rem 1.45rem 1.45rem}
+.home .sheet-addr{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--h2);
+  line-height:1.12;letter-spacing:.005em;text-transform:uppercase;margin:0;
+  /* Two lines' worth of room whether the address needs one or two, so the spec
+     strips line up across the three sheets the way rows line up on a drawing.
+     Bottom-aligned inside that box, so a one-line address sits on the same
+     baseline as the second line of a two-line one and the slack falls above. */
+  min-height:2.24em;display:flex;align-items:flex-end;
+  transition:color .25s}
+.home .sheet:hover .sheet-addr{color:var(--pb)}
+.home .sheet-city{font-family:'JetBrains Mono',monospace;font-size:var(--l3);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--slate);margin:.5rem 0 0}
+/* Wraps to a second line on its own once four values stop fitting, which is
+   what happens between the 3-up grid and the swipe row. */
+.home .sheet-spec{display:flex;flex-wrap:wrap;gap:.85rem 1.35rem;
+  margin-top:1.05rem;padding-top:1rem;border-top:1px solid var(--hair);
+  font-family:'JetBrains Mono',monospace}
+.home .sheet-spec > div{display:flex;flex-direction:column;gap:.3rem}
+.home .sheet-spec dt{font-size:var(--l3);letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
+.home .sheet-spec dd{font-size:var(--l1);line-height:1.1;color:var(--paper);margin:0;white-space:nowrap}
+.home .sheet:hover .sheet-spec dd{color:var(--pb)}
+.home .sheet-blurb{font-family:'Source Serif 4',Georgia,serif;font-size:var(--small);
+  line-height:1.5;color:rgba(234,244,250,.8);margin:1.1rem 0 0}
+.home .sheet-more{margin-top:auto;padding-top:1.3rem;
+  display:inline-flex;align-items:center;gap:.55rem;
+  font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--pb)}
+.home .sheet-more .ext{width:.68rem;height:.68rem;flex:none;fill:none;stroke:currentColor;
+  stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.home .sheet:hover .sheet-more .ext{transform:translate(2px,-2px)}
+
+@media(max-width:900px){
+  .home .sheet-row{gap:1rem}
+  .home .sheet-body{padding:1.35rem 1.25rem 1.25rem}
+}
+
+/* Under 720px the three sheets become a swipe row: one card mostly in view,
+   the next peeking. Grid (not flex) so the trailing padding counts toward the
+   scroll extent and the last card can snap clear of the right edge. The
+   negative inline margin bleeds the row to the viewport edges; the matching
+   padding keeps the first and last cards on the text column. */
+@media(max-width:720px){
+  .home .sheet-row{
+    grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:82%;
+    gap:.9rem;
+    overflow-x:auto;overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;-ms-overflow-style:none;
+    margin-inline:-1.75rem;padding-inline:1.75rem;
+    scroll-padding-left:1.75rem;padding-bottom:.35rem}
+  .home .sheet-row::-webkit-scrollbar{display:none}
+  .home .sheet-row li{scroll-snap-align:start}
+  /* four values never fit one line on a phone-width card, and letting them wrap
+     leaves price stranded on its own row, so pair them off deliberately */
+  .home .sheet-spec{display:grid;grid-template-columns:1fr 1fr;gap:.85rem 1rem}
+  /* hover is a no-op on touch; drop the lift so a tap-hold does not jump */
+  .home .sheet:hover{transform:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .home .sheet,.home .sheet-shot img,.home .sheet-shot::before,.home .sheet-shot::after,
+  .home .sheet-datum,.home .sheet-addr,.home .sheet-more .ext{transition:none}
+  .home .sheet:hover{transform:none}
+  .home .sheet:hover .sheet-shot img{transform:none}
+  .home .sheet:hover .sheet-more .ext{transform:none}
+}
