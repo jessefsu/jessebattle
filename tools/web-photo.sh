@@ -1,20 +1,31 @@
 #!/bin/bash
-# Crop a photo to 16:9 aimed at the subject, resize, and step the JPEG quality
-# down until the file is under 300KB.
+# Crop a photo to an aspect ratio aimed at the subject, resize, and step the
+# JPEG quality down until the file is under a size ceiling.
 #
-#   tools/web-photo.sh <source> <dest.jpg> [cx cy zoom outWidth]
+#   tools/web-photo.sh <source> <dest.jpg> [cx cy zoom outWidth aspect maxKB]
 #
 #     cx, cy    centre of the crop as a fraction of the source (0-1). Default .5 .5
 #     zoom      fraction of the source WIDTH the crop spans. 1 = whole frame,
 #               .6 = a 60% wide crop, i.e. tighter on the subject. Default 1
 #     outWidth  output width in px. Default 1024 (listing cards). Use 1600 for
 #               the full-column images on inspiration.html.
+#     aspect    output aspect as W:H (16:9, 4:3, 1:1, 2560:1200) or a decimal
+#               (2.1333). Default 16:9, so calls written before this argument
+#               existed reproduce their original crop unchanged.
+#     maxKB     size ceiling in KB. Default 300.
+#
+# Output height is derived from outWidth and aspect, so pass the ratio that
+# matches the height you want: 2560 with 2560:1200 gives exactly 2560x1200.
+# A crop taller than the source is clamped to the source height and the width
+# is pulled in to match, which means a wide ratio out of a portrait photo takes
+# a band across the middle rather than letterboxing.
 #
 # Dimensions are read AFTER sips normalises the file, because phone photos carry
 # an EXIF rotation flag: bathroom_demo.JPG stores a 5712x4284 raster that
 # displays as 4284x5712 portrait. Measuring the original would crop the wrong axis.
 set -euo pipefail
-src="$1"; dest="$2"; cx="${3:-0.5}"; cy="${4:-0.5}"; zoom="${5:-1}"; ow="${6:-1024}"; max=307200
+src="$1"; dest="$2"; cx="${3:-0.5}"; cy="${4:-0.5}"; zoom="${5:-1}"; ow="${6:-1024}"
+aspect="${7:-16:9}"; max=$(( ${8:-300} * 1024 ))
 tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
 
 sips -s format jpeg "$src" --out "$tmp/a.jpg" >/dev/null
@@ -49,11 +60,13 @@ H=$(sips -g pixelHeight "$tmp/a.jpg" | awk '/pixelHeight/{print $2}')
 
 read cw ch left top oh <<<"$(python3 -c "
 W,H=$W,$H; cx,cy,z,ow=$cx,$cy,$zoom,$ow
-cw=min(W,max(16,round(W*z))); ch=round(cw*9/16)
-if ch>H: ch=H; cw=min(W,round(ch*16/9)); ch=round(cw*9/16)
+s='$aspect'.replace('/',':')
+an,ad=(float(x) for x in s.split(':')) if ':' in s else (float(s),1.0)
+cw=min(W,max(16,round(W*z))); ch=round(cw*ad/an)
+if ch>H: ch=H; cw=min(W,round(ch*an/ad)); ch=round(cw*ad/an)
 left=min(max(round(W*cx-cw/2),0),W-cw)
 top =min(max(round(H*cy-ch/2),0),H-ch)
-print(cw,ch,left,top,round(ow*9/16))")"
+print(cw,ch,left,top,round(ow*ad/an))")"
 
 sips --cropToHeightWidth "$ch" "$cw" --cropOffset "$top" "$left" "$tmp/a.jpg" >/dev/null
 sips --resampleHeightWidth "$oh" "$ow" "$tmp/a.jpg" >/dev/null
@@ -76,4 +89,4 @@ while i<len(d)-1 and d[i]==0xFF:
 open(p,'wb').write(bytes(o))" "$dest"
   [ "$(stat -f%z "$dest")" -le "$max" ] && break
 done
-echo "$(basename "$dest")  src=${W}x${H}  crop=${cw}x${ch}+${left}+${top}  out=${ow}x${oh}  q=$q  $(( $(stat -f%z "$dest") / 1024 ))KB"
+echo "$(basename "$dest")  src=${W}x${H}  crop=${cw}x${ch}+${left}+${top}  aspect=${aspect}  out=${ow}x${oh}  q=$q  $(( $(stat -f%z "$dest") / 1024 ))KB"
