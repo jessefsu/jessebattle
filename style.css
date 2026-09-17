@@ -13,7 +13,7 @@
   --d3:clamp(1.5rem,3vw,1.8rem);    /* 24-29px  section heads */
   --h1:1.5rem; --h2:1.25rem; --h3:1.05rem;
   --lead:1.15rem; --base:1.075rem; --small:.95rem; --xsmall:.875rem;
-  --l1:.74rem; --l2:.66rem; --l3:.6rem;
+  --l0:.8125rem; --l1:.74rem; --l2:.66rem; --l3:.6rem;
 
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -551,13 +551,20 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
 
 /* --- shared section scaffolding --- */
 .reno-sec{padding-bottom:5.5rem}
-.reno-lab{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.22em;
+.reno-lab{font-family:'JetBrains Mono',monospace;font-size:var(--l0);letter-spacing:.13em;
   text-transform:uppercase;color:var(--pb);margin:0 0 1.6rem;padding-bottom:.9rem;
   border-bottom:1px solid var(--hair)}
 .reno figure{margin:0}
 .reno figure img{width:100%;height:auto;border:1px solid var(--hair);background:var(--ink-2)}
-.reno figcaption{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.13em;
-  text-transform:uppercase;color:var(--slate);line-height:1.85;margin-top:.9rem;max-width:54ch}
+/* Uppercase mono is the hardest case for small type, and --l2 put these at
+   10.56px with 1.37px of tracking. --xsmall is 14px, the tracking comes back
+   to ~0.77px so the wider glyphs do not sprawl at the larger size, and the
+   colour lifts off --slate: 9.60:1 on --ink against the old 8.03:1, still a
+   clear step below body text at rgba(234,244,250,.86). line-height was a
+   ratio, not a locked pixel value, so it grew on its own -- 1.85 was tuned
+   for 10.56px and is loose at 14px, so it comes in to 1.55 (21.7px). */
+.reno figcaption{font-family:'JetBrains Mono',monospace;font-size:var(--xsmall);letter-spacing:.055em;
+  text-transform:uppercase;color:rgba(234,244,250,.74);line-height:1.55;margin-top:.9rem;max-width:54ch}
 .reno-2{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:1.6rem}
 @media(max-width:720px){.reno-2{grid-template-columns:1fr;gap:2.2rem}}
 
@@ -584,7 +591,8 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
    On a phone that pushes two-line captions to three or four; tightening the
    tracking and dropping the prose a step keeps them at two where it can. */
 @media(max-width:560px){
-  .reno figcaption{letter-spacing:.07em}
+  /* the figcaption tracking override that used to live here clawed width back
+     from .13em; the base is .055em now, so it would only loosen it again */
   .reno-note{font-size:var(--base);max-width:none}
 }
 

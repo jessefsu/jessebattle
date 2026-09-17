@@ -184,7 +184,7 @@ JetBrains Mono for labels and data. All from Google Fonts.
 
 ### Type scale — do not hand-write font sizes
 
-Every `font-size` on the site references one of thirteen custom properties.
+Every `font-size` on the site references one of fourteen custom properties.
 There are **no literal font sizes anywhere**. This is deliberate: before the
 scale existed there were 42 distinct sizes across four pages, the Writing page
 title had drifted to within 9% of the hero name, and fifteen different sizes
@@ -203,6 +203,7 @@ Defined once in `:root` in `style.css`. Every page links that one file:
 --base     1.075rem  17.2px  body and article copy
 --small    .95rem    15.2px  card copy, author box, timeline
 --xsmall   .875rem   14px    source notes
+--l0  .8125rem 13px   renovation section labels
 --l1  .74rem  11.8px  eyebrows, nav link text, section labels
 --l2  .66rem  10.6px  bylines, times, datum labels, footer, captions
 --l3  .6rem   9.6px   nav numerals, brand sub-label, badges, station labels
