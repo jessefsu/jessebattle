@@ -576,10 +576,6 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
   .reno-plan .plan{max-width:none}
 }
 
-/* Location the owner still has to supply. Deliberately loud: a placeholder
-   that blends in is a placeholder that ships. */
-.tk{background:var(--pb);color:var(--ink);padding:.1em .45em;letter-spacing:.14em;font-weight:500}
-
 /* --- 8. specialty: small on purpose --- */
 .reno-spec{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;max-width:32rem;margin-top:1.6rem}
 @media(max-width:560px){.reno-spec{grid-template-columns:1fr;max-width:17rem}}
