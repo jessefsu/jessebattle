@@ -593,3 +593,58 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
 .reno-close p{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.2em;
   text-transform:uppercase;color:var(--slate);line-height:2.2;margin:0}
 .reno-close .cred{color:var(--pb)}
+
+
+/* ---------------------------------------------------------
+   RENOVATION — desktop hierarchy
+   Everything below is gated at 900px and up. Image width used to be
+   chained to the text column, so at any desktop width every photo but the
+   two full-bleed ones rendered at the same 968px and the page read as a
+   flat stack. These rules decouple the two: text keeps the 64rem measure
+   and stays aligned with the nav, datum strip and footer, while images
+   break out around it at three distinct widths.
+
+   Percentage margins on a child of .wrap resolve against the wrap's
+   content box, which is centred in the viewport, so `50%` is the viewport
+   centre and a breakout is `50% - width/2`. Every width below is under
+   90vw, so none of this can create a horizontal scrollbar.
+   --------------------------------------------------------- */
+@media(min-width:900px){
+  .reno{
+    --lg: min(90vw, 1600px);    /* large "look at this" images   */
+    --md: min(72vw, 1180px);    /* supporting grid rows          */
+    --sm: min(46vw,  760px);    /* specialty row                 */
+    --plan: min(86vw, 1280px);  /* walls and layout block        */
+  }
+
+  /* left edge of the large span — the page's outer image margin */
+  .reno .reno-lg,
+  .reno .out-md,
+  .reno .out-sm      {margin-left:calc(50% - var(--lg)/2)}
+  .reno .reno-lg     {width:var(--lg)}
+  .reno .out-md      {width:var(--md)}
+  .reno .out-sm      {width:var(--sm)}
+  /* ...or flush to its right edge, so the supporting block alternates
+     sides down the page instead of every section stacking on one edge */
+  .reno .out-md.to-right{margin-left:calc(50% + var(--lg)/2 - var(--md))}
+  .reno .out-sm.to-right{margin-left:calc(50% + var(--lg)/2 - var(--sm))}
+
+  /* A section with one supporting tile: the tile keeps the same width it
+     would have had in a two-up row, and its caption takes the cell beside
+     it. That completes the row without stretching the tile or inventing
+     filler to fill the hole. */
+  .reno .reno-2.is-solo{grid-template-columns:1fr}
+  .reno .reno-2.is-solo figure{display:grid;grid-template-columns:1fr 1fr;
+    gap:1.6rem;align-items:center}
+  .reno .reno-2.is-solo figcaption{margin-top:0;max-width:32ch}
+
+  /* Walls and layout. align-items:start left the two-line note pinned to
+     the top of a 610px row, which is where the empty void came from;
+     centring the columns against each other removes it. */
+  .reno .reno-plan{width:var(--plan);margin-left:calc(50% - var(--plan)/2);
+    grid-template-columns:minmax(0,19rem) minmax(0,1fr);gap:3rem;align-items:center}
+
+  /* Specialty stays the smallest tier, but 243px beside a 1296px photo
+     read as an afterthought rather than as a deliberate step down. */
+  .reno .reno-spec{max-width:none}
+}
