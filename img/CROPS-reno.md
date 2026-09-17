@@ -37,3 +37,23 @@ reno-kitchen-* All three kitchen photos were shot wide open and the background
                planes go soft. Nothing is cropped past zoom 0.50.
 reno-floor-plan Square source, resized only. Do not crop to 16:9: it cuts either
                the garage or the two right-hand bedrooms.
+
+Pavers (added later, two separate jobs):
+
+  tools/web-photo.sh "Site photos/shelllock pavers 2.jpeg" img/reno-pavers-large.jpg  0.45 0.55 0.90 1600 16:9 400
+  tools/web-photo.sh "Site photos/travertine pavers.jpeg"  img/reno-pavers-detail.jpg 0.50 0.65 1.00  800 4:3  400
+
+reno-pavers-large   Shell-lock pavers, canal-front rectangular pool and raised
+                    spa. Native 4:3 landscape, so 16:9 is an easy crop. zoom
+                    0.90 at cx 0.45 drops the white lanai post on the right
+                    edge that cuts through the frame at zoom 1.
+reno-pavers-detail  Travertine pavers, freeform pool, open water. The source is
+                    EXIF orientation 6 (a 4032x3024 raster that displays
+                    3024x4032 portrait), so the rotation has to be baked in
+                    before measuring or the band comes off the wrong axis.
+                    cy 0.65 fills the frame with the paver field and the curved
+                    coping; cy 0.72 pulls in palms and horizon and reads as a
+                    scene rather than a detail.
+
+Both are phone photos of client properties. web-photo.sh strips the EXIF block,
+which is what takes the GPS coordinates off them -- verified clean on both.

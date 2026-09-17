@@ -8,7 +8,7 @@
   --hair:rgba(161,235,255,.16);
 
   /* ---- TYPE SCALE (single source of truth — see HANDOFF.md) ---- */
-  --d1:clamp(2.4rem,6.2vw,4.1rem);  /* 38-66px  hero name, homepage only */
+  --d1:clamp(2.4rem,6.2vw,4.1rem);  /* 38-66px  hero display: homepage name, renovation hero line */
   --d2:clamp(1.75rem,3.6vw,2.15rem);/* 28-34px  page titles, closing headline */
   --d3:clamp(1.5rem,3vw,1.8rem);    /* 24-29px  section heads */
   --h1:1.5rem; --h2:1.25rem; --h3:1.05rem;
@@ -512,3 +512,90 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
   .home .sheet:hover .sheet-shot img{transform:none}
   .home .sheet:hover .sheet-more .ext{transform:none}
 }
+
+
+/* =========================================================
+   RENOVATION PAGE
+   Scoped with .reno (set on <body> in renovation.html) so none of
+   this can reach the blog or the homepage, the same convention as
+   .home above. Photos carry the page; Archivo and JetBrains Mono
+   are held back to the nav, section labels and captions.
+   ========================================================= */
+.reno .wrap{max-width:64rem}   /* width only — padding stays inherited, so
+                                  nav .wrap's padding:0 is not disturbed */
+.foot-social .wrap,.reno .foot-social .wrap{max-width:48rem}
+
+/* Full-bleed escape hatch. body sets overflow-x:hidden, so 100vw cannot
+   introduce a horizontal scrollbar on a page that has a scrollbar. */
+.reno .bleed{width:100vw;margin-left:calc(50% - 50vw)}
+
+/* --- 1. hero: huge --- */
+.reno-hero{position:relative;height:80vh;min-height:24rem;overflow:hidden;background:var(--ink-2)}
+.reno-hero>img{width:100%;height:100%;object-fit:cover}
+/* Scrim. The framing shot is bright wood under blown-out windows, so the
+   display line needs its own ground to sit on rather than luck. */
+.reno-hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(6,16,25,.55) 0%,rgba(6,16,25,.20) 42%,rgba(6,16,25,.86) 100%)}
+.reno-hero .hero-line{position:absolute;left:0;right:0;bottom:0;z-index:2;padding-bottom:2.8rem}
+.reno-hero h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d1);
+  line-height:1;letter-spacing:-.005em;text-transform:uppercase;color:var(--paper);
+  text-shadow:0 2px 20px rgba(6,16,25,.65)}
+@media(max-width:560px){.reno-hero{height:70vh}.reno-hero .hero-line{padding-bottom:2rem}}
+
+/* --- 2. the one sentence: quiet, and mostly air --- */
+.reno-say{padding-top:7rem;padding-bottom:6.5rem}
+.reno-say p{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d2);
+  line-height:1.2;letter-spacing:-.005em;text-transform:uppercase;max-width:26ch;color:var(--paper)}
+.reno-say .lic{color:var(--pb);white-space:nowrap}
+@media(max-width:560px){.reno-say{padding-top:4.5rem;padding-bottom:4rem}}
+
+/* --- shared section scaffolding --- */
+.reno-sec{padding-bottom:5.5rem}
+.reno-lab{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.22em;
+  text-transform:uppercase;color:var(--pb);margin:0 0 1.6rem;padding-bottom:.9rem;
+  border-bottom:1px solid var(--hair)}
+.reno figure{margin:0}
+.reno figure img{width:100%;height:auto;border:1px solid var(--hair);background:var(--ink-2)}
+.reno figcaption{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.13em;
+  text-transform:uppercase;color:var(--slate);line-height:1.85;margin-top:.9rem;max-width:54ch}
+.reno-2{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:1.6rem}
+@media(max-width:720px){.reno-2{grid-template-columns:1fr;gap:2.2rem}}
+
+/* --- 5. flooring: medium, with two lines of prose --- */
+.reno-note{font-size:var(--lead);color:rgba(234,244,250,.86);max-width:46ch;margin-top:1.7rem}
+
+/* --- 6. walls and layout: full-bleed demo, square plan beside the caption --- */
+.reno-plan{display:grid;grid-template-columns:1fr 19rem;gap:2.6rem;align-items:start;margin-top:1.9rem}
+/* reno-floor-plan.jpg is 1400x1400 and stays that way: no aspect-ratio and no
+   object-fit here, so nothing can crop a plan that is square on purpose. */
+.reno-plan .plan img{width:100%;height:auto}
+@media(max-width:760px){
+  .reno-plan{grid-template-columns:1fr;gap:2rem}
+  .reno-plan .plan{max-width:19rem}
+}
+
+/* --- 7. pavers: medium, wide beside detail --- */
+.reno-pav{display:grid;grid-template-columns:1.55fr 1fr;gap:1.6rem;align-items:start;margin-top:1.6rem}
+@media(max-width:760px){.reno-pav{grid-template-columns:1fr;gap:2.2rem}}
+
+/* Location the owner still has to supply. Deliberately loud: a placeholder
+   that blends in is a placeholder that ships. */
+.tk{background:var(--pb);color:var(--ink);padding:.1em .45em;letter-spacing:.14em;font-weight:500}
+
+/* --- 8. specialty: small on purpose --- */
+.reno-spec{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;max-width:32rem;margin-top:1.6rem}
+@media(max-width:560px){.reno-spec{grid-template-columns:1fr;max-width:17rem}}
+
+/* Captions are uppercase mono with wide tracking, which costs a lot of width.
+   On a phone that pushes two-line captions to three or four; tightening the
+   tracking and dropping the prose a step keeps them at two where it can. */
+@media(max-width:560px){
+  .reno figcaption{letter-spacing:.07em}
+  .reno-note{font-size:var(--base);max-width:none}
+}
+
+/* --- 9. close: quiet --- */
+.reno-close{border-top:1px solid var(--hair);padding-top:4rem;padding-bottom:4.5rem}
+.reno-close p{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.2em;
+  text-transform:uppercase;color:var(--slate);line-height:2.2;margin:0}
+.reno-close .cred{color:var(--pb)}
