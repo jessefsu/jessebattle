@@ -565,18 +565,16 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
 .reno-note{font-size:var(--lead);color:rgba(234,244,250,.86);max-width:46ch;margin-top:1.7rem}
 
 /* --- 6. walls and layout: full-bleed demo, square plan beside the caption --- */
-.reno-plan{display:grid;grid-template-columns:1fr 19rem;gap:2.6rem;align-items:start;margin-top:1.9rem}
+.reno-plan{display:grid;grid-template-columns:1fr 36rem;gap:2.6rem;align-items:start;margin-top:1.9rem}
 /* reno-floor-plan.jpg is 1400x1400 and stays that way: no aspect-ratio and no
    object-fit here, so nothing can crop a plan that is square on purpose. */
 .reno-plan .plan img{width:100%;height:auto}
 @media(max-width:760px){
   .reno-plan{grid-template-columns:1fr;gap:2rem}
-  .reno-plan .plan{max-width:19rem}
+  /* stacked, the plan takes the full column: a capped width here was the
+     other half of why it was too small to read */
+  .reno-plan .plan{max-width:none}
 }
-
-/* --- 7. pavers: medium, wide beside detail --- */
-.reno-pav{display:grid;grid-template-columns:1.55fr 1fr;gap:1.6rem;align-items:start;margin-top:1.6rem}
-@media(max-width:760px){.reno-pav{grid-template-columns:1fr;gap:2.2rem}}
 
 /* Location the owner still has to supply. Deliberately loud: a placeholder
    that blends in is a placeholder that ships. */
