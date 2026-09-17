@@ -13,7 +13,7 @@
   --d3:clamp(1.5rem,3vw,1.8rem);    /* 24-29px  section heads */
   --h1:1.5rem; --h2:1.25rem; --h3:1.05rem;
   --lead:1.15rem; --base:1.075rem; --small:.95rem; --xsmall:.875rem;
-  --l0:.8125rem; --l1:.74rem; --l2:.66rem; --l3:.6rem;
+  --l1:.875rem; --l2:.8125rem; --l3:.75rem;
 
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -24,6 +24,13 @@ body{
   font-size:var(--base);line-height:1.65;overflow-x:hidden;
 }
 .wrap{max-width:48rem;margin:0 auto;padding:0 1.75rem}
+
+/* A caption is a caption regardless of which page it is on. This is the single
+   definition; per-page rules set only position, spacing and alignment.
+   Tracking is .055em rather than the label tier's .14em, because at 14px the
+   wider mono glyphs sprawl at label tracking. */
+figcaption{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.055em;
+  text-transform:uppercase;color:rgba(234,244,250,.74);line-height:1.55}
 img{display:block;max-width:100%}
 
 /* ---- title block nav (identical on every page) ---- */
@@ -174,7 +181,7 @@ nav .wrap{max-width:64rem;display:flex;align-items:stretch;justify-content:space
   text-shadow:0 1px 4px rgba(6,16,25,.95),0 0 2px rgba(6,16,25,.9);pointer-events:none;white-space:nowrap;line-height:1}
 .map-lab-key{color:var(--pb)}
 .map-lab-vert{transform:translate(-50%,-50%) rotate(-90deg)}
-.wh-map figcaption{font-family:'JetBrains Mono',monospace;font-size:var(--l3);letter-spacing:.16em;text-transform:uppercase;color:var(--slate);margin-top:.8rem;text-align:right}
+.wh-map figcaption{margin-top:.8rem;text-align:right}
 @media(max-width:860px){
   .wh-grid{grid-template-columns:1fr;gap:2.2rem}
   /* the peninsula map is desktop context; on a stacked layout it pushed the
@@ -265,7 +272,7 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
 .home .portrait{position:relative;justify-self:end;width:100%;max-width:20rem}
 .home .portrait::before{content:"";position:absolute;left:-.85rem;top:.85rem;right:.85rem;bottom:-.85rem;border:1px solid var(--pb);z-index:0}
 .home .portrait img{position:relative;z-index:1;width:100%;height:auto;filter:none}
-.home .portrait figcaption{position:relative;z-index:1;margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+.home .portrait figcaption{position:relative;z-index:1;margin-top:1rem}
 @media(max-width:840px){
   .home header .wrap{grid-template-columns:1fr;gap:2.75rem}
   .home .portrait{justify-self:start;max-width:15rem}
@@ -551,20 +558,13 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
 
 /* --- shared section scaffolding --- */
 .reno-sec{padding-bottom:5.5rem}
-.reno-lab{font-family:'JetBrains Mono',monospace;font-size:var(--l0);letter-spacing:.13em;
+.reno-lab{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.13em;
   text-transform:uppercase;color:var(--pb);margin:0 0 1.6rem;padding-bottom:.9rem;
   border-bottom:1px solid var(--hair)}
 .reno figure{margin:0}
 .reno figure img{width:100%;height:auto;border:1px solid var(--hair);background:var(--ink-2)}
-/* Uppercase mono is the hardest case for small type, and --l2 put these at
-   10.56px with 1.37px of tracking. --xsmall is 14px, the tracking comes back
-   to ~0.77px so the wider glyphs do not sprawl at the larger size, and the
-   colour lifts off --slate: 9.60:1 on --ink against the old 8.03:1, still a
-   clear step below body text at rgba(234,244,250,.86). line-height was a
-   ratio, not a locked pixel value, so it grew on its own -- 1.85 was tuned
-   for 10.56px and is loose at 14px, so it comes in to 1.55 (21.7px). */
-.reno figcaption{font-family:'JetBrains Mono',monospace;font-size:var(--xsmall);letter-spacing:.055em;
-  text-transform:uppercase;color:rgba(234,244,250,.74);line-height:1.55;margin-top:.9rem;max-width:54ch}
+/* type, colour and leading now come from the shared figcaption rule */
+.reno figcaption{margin-top:.9rem;max-width:54ch}
 .reno-2{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:1.6rem}
 @media(max-width:720px){.reno-2{grid-template-columns:1fr;gap:2.2rem}}
 
@@ -598,7 +598,7 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
 
 /* --- 9. close: quiet --- */
 .reno-close{border-top:1px solid var(--hair);padding-top:4rem;padding-bottom:4.5rem}
-.reno-close p{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.2em;
+.reno-close p{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.13em;
   text-transform:uppercase;color:var(--slate);line-height:2.2;margin:0}
 .reno-close .cred{color:var(--pb)}
 

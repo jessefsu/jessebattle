@@ -184,7 +184,7 @@ JetBrains Mono for labels and data. All from Google Fonts.
 
 ### Type scale — do not hand-write font sizes
 
-Every `font-size` on the site references one of fourteen custom properties.
+Every `font-size` on the site references one of thirteen custom properties.
 There are **no literal font sizes anywhere**. This is deliberate: before the
 scale existed there were 42 distinct sizes across four pages, the Writing page
 title had drifted to within 9% of the hero name, and fifteen different sizes
@@ -193,7 +193,7 @@ were doing the same mono-label job.
 Defined once in `:root` in `style.css`. Every page links that one file:
 
 ```
---d1  clamp(2.4rem,6.2vw,4.1rem)   38-66px   hero name — HOMEPAGE ONLY
+--d1  clamp(2.4rem,6.2vw,4.1rem)   38-66px   hero display line — one per page
 --d2  clamp(1.75rem,3.6vw,2.15rem) 28-34px   page titles, closing headline
 --d3  clamp(1.5rem,3vw,1.8rem)     24-29px   section heads, contact values
 --h1  1.5rem    24px    article h2, hat h2
@@ -203,27 +203,42 @@ Defined once in `:root` in `style.css`. Every page links that one file:
 --base     1.075rem  17.2px  body and article copy
 --small    .95rem    15.2px  card copy, author box, timeline
 --xsmall   .875rem   14px    source notes
---l0  .8125rem 13px   renovation section labels
---l1  .74rem  11.8px  eyebrows, nav link text, section labels
---l2  .66rem  10.6px  bylines, times, datum labels, footer, captions
---l3  .6rem   9.6px   nav numerals, brand sub-label, badges, station labels
+--l1  .875rem   14px   eyebrows, nav link text, section labels, captions
+--l2  .8125rem  13px   bylines, times, footer, renovation section labels
+--l3  .75rem    12px   nav numerals, brand sub-label, badges, station labels
 ```
 
 Rules that keep it coherent:
 
-1. **`--d1` is the hero name and nothing else.** It is 1.9x `--d2` at desktop.
-   If anything else reaches that size the homepage stops having a focal point.
+1. **One `--d1` per page, and only on a hero.** It is 1.9x `--d2` at desktop.
+   The point of the rule is that nothing competes with the hero *inside a
+   view*; it was written as "homepage only" when the homepage was the only
+   page that had a hero. `/renovation` now has a full-bleed 80vh hero doing
+   exactly the same job, and the two never appear together, so the constraint
+   that matters is one per page. What is still banned is a body heading or a
+   card title reaching `--d1`.
 2. **Add a size only by adding a step**, never by writing a literal value in a
    rule. A one-off `font-size:1.42rem` is how the 42 sizes happened.
-3. **`--l3` (0.6rem / 9.6px) is the floor. Do not go below it.** This is not a
+3. **`--l3` (0.75rem / 12px) is the floor. Do not go below it.** This is not a
    taste call. Before the scale existed, nav numerals and the brand sub-label
-   sat at 8.6px, and the label tier had drifted to fifteen different sizes
-   between 8.6 and 12.5px. Letterspaced uppercase mono that small is hard to
-   read for anyone, and this audience skews older — a REALTOR's clients are
-   frequently over 55. `--l3` is also the size that constrains the contrast
-   work below: it is the smallest text on the site, so it is the case that has
-   to clear 7:1, and it currently does at exactly 7.01:1. Shrinking it breaks
-   the accessibility floor as well as the type scale.
+   sat at 8.6px and the label tier had drifted to fifteen different sizes
+   between 8.6 and 12.5px.
+
+   The floor sat at 9.6px until 2026-09, and the reasoning recorded here for
+   it was wrong in an instructive way. It said, correctly, that letterspaced
+   uppercase mono is hard to read at that size for anyone and that this
+   audience skews older — a REALTOR's clients are frequently over 55 — and
+   then set the floor at 9.6px anyway. Those are arguments *against* the
+   number they were used to defend. Having the smallest text on the site be
+   the hardest typographic case, aimed at the readers least able to resolve
+   it, is not a floor that holds up.
+
+   Contrast was doing the arguing that size should have done: the note used to
+   add that 9.6px was "the case that has to clear 7:1". Contrast ratio does
+   not depend on size at all, so clearing 7:1 said nothing about whether the
+   text could be read. The tier is now 14 / 13 / 12px, nothing on the site is
+   below 12px, and the worst-case ratio is unchanged at 7.03:1 because none of
+   the colours moved. Both things have to hold, and they are independent.
 4. Every page — homepage included — links `style.css`. The small inline
    `<style>` blocks that remain on the article pages hold only article-specific
    layout (hero figure, key-take box, the ROAD Act post's schedule graphic) and
@@ -410,8 +425,19 @@ on nav active   (17,31,41)   7.03:1
 on social card  (17,31,42)   7.02:1
 ```
 
-Across the three page types that is 0 of 263 text nodes below 7:1, worst case
-7.01:1 (the 9.6px nav numerals).
+Across the three page types that is 0 of 306 text nodes below 7:1, worst case
+7.03:1, the nav numerals on the active cell. Re-measured 2026-09-17 after the
+label tier was raised: the ratios are unchanged because no colour moved, but
+that worst case is now 12px rather than 9.6px.
+
+Photo captions are the one exception to `--slate`. They are
+`rgba(234,244,250,.74)`, which composites to `rgb(175,185,192)` and measures
+9.60:1 on `--ink` — lifted off `--slate` deliberately, because at caption size
+the old colour compounded the size problem. They are still a clear step below
+body text, which runs `rgba(234,244,250,.86)` at 12.73:1. One rule in
+`style.css` defines every caption on the site; the per-page rules set only
+spacing and alignment, so a caption reads the same on `/`, `/blog/…` and
+`/renovation`.
 
 **When to re-run it.** Any time you add a component with a background lighter
 than `--ink-2`, or raise the opacity of a tint over a panel. A lighter panel
