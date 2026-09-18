@@ -666,10 +666,65 @@ content on the same side of that line.
   Claude-SearchBot, PerplexityBot, Google-Extended, and the rest. Note that
   OAI-SearchBot and GPTBot are separate agents and both are named.
 - `llms.txt` gives agents a plain-language summary plus a profile list
-- JSON-LD on every page: Person schema with the DBPR credential, worksFor the
-  brokerage, sameAs linking all four social profiles
 - Social links carry `rel="me"` and visible text labels, not bare icons.
   Icon-only links give crawlers nothing to read.
 
-When adding a post, mirror the JSON-LD block from the existing article and
-update headline, description, dates, and url.
+### Structured data
+
+Every indexable page carries one `@graph` rather than a standalone node, with
+entities defined once and referenced by `@id`:
+
+```
+Person             #jesse             titles, DBPR credential, address,
+                                      phone, email, sameAs, knowsAbout
+RealEstateAgent    #practice          Team Kym Coyle at Charles Rutenberg
+GeneralContractor  #pinellasbuilders  name, address, areaServed, founder
+WebSite            #website
+Blog               #blog              lists the four posts
+BlogPosting        one per article, with mainEntityOfPage and isPartOf
+ImageGallery       /renovation, with nine ImageObjects
+BreadcrumbList     every page
+```
+
+**Carry every node a page references.** The first validation run reported an
+untyped `CreativeWork` nobody wrote. It was `#website`: `/renovation` pointed
+at it with `isPartOf`, but only the homepage defined it, so the reference
+dangled and the validator materialised a stub. Blog posts had the same problem
+with `#blog`. A cross-page `@id` is not resolved by crawlers for you — if a
+page references a node, that page has to define it.
+
+**`mainEntityOfPage` is the exception that looks like the bug.** It is a typed
+`{"@type":"WebPage","@id":...}` pointer with no other properties, which is the
+correct idiom. The difference from the bug above is the explicit `@type`.
+
+**Validating.** Google's Rich Results Test needs a signed-in account — both the
+URL tab and the Code tab return *"Something went wrong. Log in and try again"*
+otherwise. Do not spend time automating its editor. Use the Schema.org
+validator API, which is public and takes a live URL:
+
+```
+curl -s https://validator.schema.org/validate \
+  --data-urlencode "url=https://jessebattle.com/renovation" | sed "s/^)]}'//"
+```
+
+Read `totalNumErrors` / `totalNumWarnings`, and walk `tripleGroups[].nodes[]`
+through `types[].value` and `nodeProperties[].target` to see what actually
+parsed. **Zero errors alone proves nothing** — a page with no markup at all
+also scores zero. Check that the types you expect are in the parsed list. It
+rate-limits and starts answering 302 after a dozen or so calls; back off.
+
+`Thing` and `Country` show up in results without being in the markup. That is
+the validator reporting the type hierarchy (City is an AdministrativeArea is a
+Place is a Thing) and the range of `addressCountry`. Not a defect.
+
+Last run, 2026-09-18, all seven indexable pages: **0 errors, 0 warnings**, 19
+distinct types parsed.
+
+**What must never go in.** No `Service`, `Offer`, `OfferCatalog`, `Review`,
+`Rating` or `AggregateRating` types anywhere — see the non-compete section
+above. The GeneralContractor node is descriptive entity data only: it names the
+business and where it is, and says nothing about work offered or priced.
+`areaServed` lists only places actually named on the site.
+
+When adding a post, mirror the `@graph` from an existing article and update
+headline, description, dates, url and the breadcrumb's last item.
