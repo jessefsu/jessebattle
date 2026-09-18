@@ -79,3 +79,26 @@ quartzite-kitchen           EXCEPTION: still 1600x900, and staying there.
                             the others. Until then this one post hero is 1x at
                             a 1920 viewport while the other three are 1.5x,
                             which is a known and accepted state.
+
+RESPONSIVE VARIANTS (added 2026-09-18)
+
+Each post hero ships at three widths; the base file is the largest and stays
+the src fallback. See HANDOFF.md "Responsive images" for the sizes strings and
+why the 1600w tier matters more than it looks.
+
+  tools/web-photo.sh "Site photos/flhomes2.jpg"            blog/img/florida-subdivision-aerial-800w.jpg   0.50 0.50 1.00 800 16:9 60
+  tools/web-photo.sh "Site photos/stpetebchcondo2.jpg"     blog/img/st-pete-beach-condos-aerial-800w.jpg  0.50 0.50 1.00 800 16:9 60
+  tools/web-photo.sh "Site photos/contractor invoices.jpg" blog/img/uad-3-6-documentation-800w.jpg        0.50 0.46 0.95 800 16:9 60
+
+The -1600w files are NOT regenerated from source. They are the exact 1600x900
+files that shipped before the 2400 raise, restored from commit d419c85, because
+that tier is what a DPR-1 desktop actually downloads and those bytes were
+already proven. Regenerating them at a 200KB cap gave q30 for the florida
+aerial, below the q40 that had shipped, which would have been a quiet
+downgrade for most desktop readers.
+
+  git show d419c85:blog/img/<slug>.jpg > blog/img/<slug>-1600w.jpg
+
+quartzite-kitchen has a -800w only, downscaled from the 1600 derivative rather
+than a source, since it has no source. That is a resize of an already-lossy
+file, which is acceptable going down but is why it has no 2400w tier.

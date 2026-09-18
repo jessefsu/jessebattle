@@ -70,3 +70,32 @@ reno-generator      Replaced 2026-09-18. The original was an AI-generated image
 Note: "Site photos/generator website.jpg" was deleted 2026-09-18 along with the
 derivative it produced. It was the AI-generated placeholder, and keeping the
 source around invites someone regenerating from it by mistake.
+
+RESPONSIVE VARIANTS (added 2026-09-18)
+
+Same crops, smaller outputs. The base file stays the largest and remains the
+src fallback; see HANDOFF.md "Responsive images" for the sizes strings.
+
+  tools/web-photo.sh "Site photos/uad-3-6-framing.jpg"     img/reno-hero-framing-1600w.jpg 0.50 0.48 0.90 1600 2560:1200 260
+  tools/web-photo.sh "Site photos/uad-3-6-framing.jpg"     img/reno-hero-framing-800w.jpg  0.50 0.48 0.90  800 2560:1200 80
+  tools/web-photo.sh "Site photos/bathroom_demo.JPG"       img/reno-demo-1600w.jpg         0.50 0.42 1.00 1600 2560:1200 260
+  tools/web-photo.sh "Site photos/bathroom_demo.JPG"       img/reno-demo-800w.jpg          0.50 0.42 1.00  800 2560:1200 80
+  tools/web-photo.sh "Site photos/kitchen wide angle.jpg"  img/reno-kitchen-large-800w.jpg 0.50 0.52 0.90  800 16:9 70
+  tools/web-photo.sh "Site photos/bathroom modern.jpg"     img/reno-bath-large-800w.jpg    0.50 0.56 1.00  800 16:9 70
+  tools/web-photo.sh "Site photos/tile floor.jpg"          img/reno-flooring-800w.jpg      0.33 0.62 0.50  800 16:9 70
+  tools/web-photo.sh "Site photos/shelllock pavers 2.jpeg" img/reno-pavers-large-800w.jpg  0.45 0.55 0.90  800 16:9 70
+  tools/web-photo.sh "Site photos/floor-plan.jpg"          img/reno-floor-plan-800w.jpg    0.50 0.50 1.00  800 1:1  110
+
+The four .reno-lg photos and the floor plan keep their existing file as the
+largest tier and gain only an 800w. They are 1600 and 1400 wide, which already
+matches what a desktop renders, so a larger tier would add weight without
+adding resolution.
+
+The 2-up and 4-up tiles (reno-kitchen-range, reno-bath-tub-niche,
+reno-bath-guest, reno-pavers-detail, reno-generator, reno-ev-charger) are
+800x600 and 800x800 and were left alone. They render at about 787px in a 2-up
+row, so 800w is already the right file there; only the 4-up row (about 380px)
+and the stacked phone layout over-fetch, and at 57-220KB each the saving did
+not justify six more files this pass. reno-generator at 220KB and
+reno-pavers-detail at 204KB are the two worth revisiting if the page is
+profiled again.

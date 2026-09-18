@@ -133,6 +133,62 @@ were added 2026-09-18 for exactly one frame; everything else on the site still
 lands at 40 or above. If a photo bottoms out at 26 and is still over cap,
 reduce the output width rather than extending the ladder further.
 
+### Responsive images — srcset and sizes
+
+Added 2026-09-18. A single large file is the wrong answer on a phone: before
+this, a 390px-wide phone downloaded the full 2400w hero, 377KB for a 334px
+slot. Every image large enough to matter now ships at several widths and the
+browser picks.
+
+**Naming.** The base file keeps its name and is always the LARGEST width, so
+`src` stays a valid fallback for anything that ignores `srcset`. Smaller ones
+take a `-<width>w` suffix:
+
+```
+blog/img/florida-subdivision-aerial.jpg        2400w   <- base, and src
+blog/img/florida-subdivision-aerial-1600w.jpg  1600w
+blog/img/florida-subdivision-aerial-800w.jpg    800w
+```
+
+**`sizes` must describe the real CSS slot, not the image.** Get this wrong and
+the browser picks wrong in whichever direction the error points, which is worse
+than no srcset at all — an over-wide `sizes` downloads too much everywhere. Each
+clause has to be read off the stylesheet and match its breakpoint exactly. The
+ones in use:
+
+```
+post lead image   (min-width: 900px) min(90vw, 1600px), calc(100vw - 3.5rem)
+/blog/ card       (min-width: 721px) 22rem, calc(100vw - 3.5rem)
+.reno-lg row      (min-width: 900px) min(90vw, 1600px), calc(100vw - 3.5rem)
+.bleed / hero     100vw
+.reno-plan plan   (min-width: 900px) calc(min(86vw, 1280px) - 22rem),
+                  (min-width: 760px) 36rem, calc(100vw - 3.5rem)
+```
+
+`calc(100vw - 3.5rem)` is `.wrap`'s content box: 64rem max, 1.75rem of padding
+each side. The 900px figures are the `--img-wide` breakout gate; the 720/721
+and 760 figures are existing `max-width` breakpoints, so the srcset clause is
+`min-width: 721px` against a `max-width: 720px` rule. **If you move a
+breakpoint in style.css, these go stale silently** — nothing errors, the page
+just picks a worse file.
+
+`min()` inside `sizes` is fine; verified parsing in this browser against a
+plain-`px` control. If a parser ever rejects the attribute it falls back to
+`100vw`, which over-selects but still renders.
+
+**The 1600w tier is not a mobile tier — it is what most desktops actually get.**
+At DPR 1, a 1920 viewport renders the lead at 1600px and therefore picks 1600w,
+not 2400w. Only DPR >= 1.5 reaches for 2400w. So the 1600w files are the ones
+most desktop readers see, and they must be good: the three post heroes' 1600w
+files are the exact bytes that shipped before the 2400 raise, restored from git
+rather than re-encoded, so that tier is known-good.
+
+**Caches do not downgrade.** Once a browser holds a larger candidate it will
+keep using it even when `sizes` says a smaller one would do. That makes
+selection impossible to test on a page whose big file is already cached — add a
+cache-busting query string to each candidate when verifying, or the reading is
+meaningless. This cost real time; do not re-learn it.
+
 `blog/img/florida-subdivision-aerial.jpg` is the worked example: a nadir drone
 shot of a subdivision, every pixel textured. Its size/quality curve is nearly
 flat -- at 2400 wide, q34 gives 471KB and q24 still gives 338KB -- so there is
