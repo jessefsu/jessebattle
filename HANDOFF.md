@@ -452,6 +452,32 @@ size change does not affect it.
 path renders a card with a blank space where the picture should be, and the
 file looks perfectly fine in the editor.
 
+### The Pinellas map's labels, and what it does NOT cover
+
+`blog/img/pinellas-peninsula-satellite.jpg` carries an inline SVG label layer
+in `blog/index.html`, not text burned into the JPG. The SVG's viewBox is the
+image's own 900x900 pixel grid, so **a label's x/y ARE its pixel coordinates on
+the satellite** — place by eye against the photograph and paste the numbers
+straight in. Type sizes are in user units, so they scale with the container
+(968px at content width, a 1.076 scale). The halo is `paint-order:stroke`
+against `--ink` rather than a box, which is what survives the crossing from
+bright Gulf water to dark land. Tiers: `.mj` major, `.mn` minor, `.wt` water.
+
+**The image does not reach Tarpon Springs or Palm Harbor, and re-cropping
+cannot fix that.** The top edge is about 28.06N. Tarpon Springs is at 28.146N,
+roughly 10km beyond it; Palm Harbor at 28.078N sits just past it. The square
+crop is not the cause — mask-matching the derivative against
+`Site photos/pinellas co map.jpg` puts the crop at essentially the full source
+height (side ~1728-1744 out of 1758, y-offset ~0-16), so the source stops at
+the same latitude. Only a new, taller source image would bring them in. Do not
+re-run this investigation; the south end is fine, reaching past Tierra Verde
+and Fort De Soto to about 27.54N.
+
+Scale, if you ever need to convert: roughly 0.00057 degrees of latitude per
+pixel, calibrated on the Courtney Campbell causeway (y~150) and the Gandy
+bridge (y~308), and cross-checked against the southern tip of the mainland at
+Pinellas Point (predicted y=638, measured ~655).
+
 **Preview cards are 1.91:1 landscape. Most of the site's images are not.**
 Check the crop before reusing a file; the platforms centre-crop without asking:
 
