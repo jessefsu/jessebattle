@@ -12,6 +12,10 @@
   --d2:clamp(1.75rem,3.6vw,2.15rem);/* 28-34px  page titles, closing headline */
   --d3:clamp(1.5rem,3vw,1.8rem);    /* 24-29px  section heads */
   --h1:1.5rem; --h2:1.25rem; --h3:1.05rem;
+  /* --base is running prose everywhere. Three exceptions, and only three:
+     --lead  a single deck directly under an H1
+     --small card and summary copy
+     --xsmall source notes at the foot of an article */
   --lead:1.15rem; --base:1.075rem; --small:.95rem; --xsmall:.875rem;
   --l1:.875rem; --l2:.8125rem; --l3:.75rem;
 
@@ -173,7 +177,7 @@ nav .wrap{display:flex;align-items:stretch;justify-content:space-between;padding
 
 
 .page-head{padding:2.4rem 0 1.8rem}
-.wh h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d2);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;max-width:14ch}
+.wh h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d1);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;max-width:14ch}
 .wh h1 span{color:var(--pb)}
 .wh .deck{margin-top:1.6rem;max-width:var(--w-measure);color:rgba(234,244,250,.82);font-size:var(--lead)}
 .wh-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:start}
@@ -197,7 +201,7 @@ nav .wrap{display:flex;align-items:stretch;justify-content:space-between;padding
   .wh-map{display:none}
 }
 .eyebrow{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.24em;text-transform:uppercase;color:var(--pb);margin-bottom:1.2rem}
-h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d2);line-height:1.05;letter-spacing:.01em;text-transform:uppercase}
+h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d1);line-height:1.05;letter-spacing:.01em;text-transform:uppercase}
 .page-head p{margin-top:1.4rem;max-width:var(--w-measure);color:rgba(234,244,250,.84)}
 
 /* ---- post cards ---- */
@@ -313,7 +317,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
 .home .writing-head h3{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d3);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;max-width:20ch;margin:0}
 /* EXCEPTION 2 of 2 to --w-measure: sits beside a heading in a two-column row,
    so it has to stay short enough not to crowd it. */
-.home .writing-head .deck{max-width:38ch;color:rgba(234,244,250,.82);font-size:var(--lead);margin:0}
+.home .writing-head .deck{max-width:38ch;color:rgba(234,244,250,.82);margin:0}
 .home .writing-sec{padding-top:4.5rem;padding-bottom:4.5rem}
 /* Compact post strip: three cards that scan in a couple of seconds. Roughly half
    the height of the single featured card this replaced — thumbnail 10rem instead
@@ -360,7 +364,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
 .home .review-link svg{width:1rem;height:1rem;fill:currentColor}
 .home section{padding:5rem 0}
 .home .close-h{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d2);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;max-width:13ch;margin-top:2.2rem}
-.home .close-deck{margin-top:1.5rem;max-width:var(--w-measure);font-size:var(--lead);color:rgba(234,244,250,.84)}
+.home .close-deck{margin-top:1.5rem;max-width:var(--w-measure);color:rgba(234,244,250,.84)}
 .home .soc-h{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.2em;text-transform:uppercase;color:var(--pb);margin:2.8rem 0 0;font-weight:500}
 .home .sec-label{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.22em;text-transform:uppercase;color:var(--pb);margin-bottom:1.2rem}
 .home h3.big{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d3);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;max-width:18ch;margin-bottom:1.6rem}
@@ -581,7 +585,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
 @media(max-width:720px){.reno-2{grid-template-columns:1fr;gap:2.2rem}}
 
 /* --- 5. flooring: medium, with two lines of prose --- */
-.reno-note{font-size:var(--lead);color:rgba(234,244,250,.86);max-width:var(--w-measure);margin-top:1.7rem}
+.reno-note{color:rgba(234,244,250,.86);max-width:var(--w-measure);margin-top:1.7rem}
 
 /* --- 6. walls and layout: full-bleed demo, square plan beside the caption --- */
 .reno-plan{display:grid;grid-template-columns:1fr 36rem;gap:2.6rem;align-items:start;margin-top:1.9rem}
@@ -605,7 +609,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
 @media(max-width:560px){
   /* the figcaption tracking override that used to live here clawed width back
      from .13em; the base is .055em now, so it would only loosen it again */
-  .reno-note{font-size:var(--base);max-width:none}
+  .reno-note{max-width:none}
 }
 
 /* --- 9. close: quiet --- */

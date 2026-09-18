@@ -4,7 +4,7 @@ Working doc for a multi-commit design system pass on jessebattle.com. Written
 so a cold session can pick this up mid-sequence. Not served: `*.md` is in
 `.assetsignore`, so this is in the repo and 404s on the web.
 
-**Status: stage 1 of 7 landed. Stages 2–7 remain.**
+**Status: stages 1–2 of 7 landed. Stages 3–7 remain.**
 
 ---
 
@@ -96,12 +96,30 @@ Two things surfaced that were not in the plan:
 Result at 1440 on a post: nav 1024 / content 1024 / social 1024 / footer 1024.
 Post prose measure 601px = 68ch.
 
-### Stage 2 — type — TODO
-One heading scale used everywhere. Writing index and all four posts get `--d1`
-so the page title stops rendering at half size. One body size, `--base`
-17.2px, for running prose, with three named exceptions: `--lead` 18.4px for a
-single deck under an H1, `--small` 15.2px for card summaries, `--xsmall` 14px
-for source notes.
+### Stage 2 — type — **DONE, commit `45fb0e7`**
+
+Global `h1` and `.wh h1` moved `--d2` -> `--d1`, so Writing index and all four
+posts render the page title at the same size as Home and Renovation.
+
+`--lead` now has exactly two users, both decks directly under an H1:
+`.wh .deck` and `.home .kicker`. Three demotions to `--base`:
+`.home .close-deck`, `.home .writing-head .deck`, `.reno-note`.
+`--xsmall` stays on `.sourcenote` in the blog inline styles (folded in at
+stage 7).
+
+**Owner decision — mobile H1 moves, and that is intended.** `--d1` is a fluid
+clamp with a different floor than `--d2`, so Writing H1 goes 28 -> 38.4 at
+320 and 28 -> 47.6 at 768. Scoping it to desktop would need a media query,
+which is out of scope this pass. Home and Renovation already rendered 38.4 at
+320, so this aligns all eight pages rather than breaking anything. Everything
+else at mobile is byte-identical to production: eyebrow 14, deck 18.4, card
+title 20, card copy 15.2, body 14/15.2/17.2.
+
+**Caught and reverted:** adding `font-size:var(--lead)` to `.page-head p` also
+matched `p.eyebrow` and blew the mono eyebrow 14 -> 18.4px on every blog page.
+`.page-head` on posts contains only an eyebrow and an `h1` — there is no deck
+there to style, and blog index's deck already gets `--lead` from `.wh .deck`.
+Rule reverted entirely.
 
 ### Stage 3 — images and cards — TODO
 Fixed 16:9 thumbnail box on blog cards so the crop stops depending on summary
