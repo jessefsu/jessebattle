@@ -55,8 +55,11 @@ Other findings:
 - **Two photographs appear in multiple places.** `Site photos/uad-3-6-framing.jpg`
   is the renovation hero (1680 full-bleed), the UAD post lead (712) and the UAD
   card (240) — three placements, different crops, same photo.
-  `Site photos/kitchen.jpg` feeds `blog/img/quartzite-kitchen.jpg`,
-  `img/inspiration-cabinet-detail.jpg` and `img/reno-kitchen-range.jpg`.
+  `Site photos/kitchen.jpg` feeds `img/inspiration-cabinet-detail.jpg` and
+  `img/reno-kitchen-range.jpg`. (Corrected 2026-09-18: it does NOT feed
+  `blog/img/quartzite-kitchen.jpg`. That hero has no source in the repo — it
+  arrived via commit 7ee982e "Add files via upload" and every kitchen frame in
+  `Site photos/` was ruled out by comparison. See blog/img/CROPS.md.)
 
 ## Decisions taken by the owner
 

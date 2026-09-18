@@ -70,7 +70,7 @@ print(cw,ch,left,top,round(ow*ad/an))")"
 
 sips --cropToHeightWidth "$ch" "$cw" --cropOffset "$top" "$left" "$tmp/a.jpg" >/dev/null
 sips --resampleHeightWidth "$oh" "$ow" "$tmp/a.jpg" >/dev/null
-for q in 72 64 58 52 46 40 34; do
+for q in 72 64 58 52 46 40 34 30 26; do
   sips -s formatOptions "$q" "$tmp/a.jpg" --out "$dest" >/dev/null
   # Drop the EXIF block: it still carries the now-baked-in orientation tag,
   # which would rotate the image a second time in the browser, and phone
