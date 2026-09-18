@@ -25,7 +25,15 @@ import numpy as np
 from PIL import Image
 from scipy import ndimage
 
-SRC   = "Site photos/Headshot1.JPG"
+# The 2026-09 reshoot supersedes Headshot1.JPG. Jesse supplied the same frame on
+# two backdrops; this is the light one, and that is not a stylistic choice. The
+# key on line ~70 scores a pixel as backdrop from LOW chroma and HIGH luma, so
+# the navy version scores 0.1% of its frame as backdrop against this one's 63.8%
+# and the deep-backdrop sample below would come back empty. The backdrop is
+# replaced by INK either way, so the source backdrop only decides whether the
+# key can find it. Override with --src for a future shoot.
+SRC   = ("Site photos/updated head shot with light background.jpg"
+         if "--src" not in sys.argv else sys.argv[sys.argv.index("--src") + 1])
 INK   = np.array([6, 16, 25], float)
 OUT_W, OUT_H = 605, 757
 DECON = "--no-decon" not in sys.argv
@@ -49,10 +57,11 @@ hx = np.where(head.any(0))[0]
 cx = (hx.min() + hx.max()) // 2
 
 cw = int(round(H * OUT_W / OUT_H))
-# The centroid below lands ~20 source px right of the framing the published
-# headshot uses. Nudge back so a rebuild is registered with the existing file
-# and the only visible change is the edge, not an 8px reframe.
-FRAMING_NUDGE = -20
+# Head-centroid detection is approximate, so this nudges the crop to keep the
+# face where the page expects it. Re-derive it per source: the value below is
+# for the 2026-09 light-backdrop frame, measured by comparing head width and
+# centre against the previous published file. It was -20 for Headshot1.JPG.
+FRAMING_NUDGE = int(sys.argv[sys.argv.index("--nudge") + 1]) if "--nudge" in sys.argv else -13
 x0 = int(np.clip(cx - cw // 2 + FRAMING_NUDGE, 0, W - cw))
 a = a[:, x0:x0 + cw]
 L = a.mean(2)
@@ -82,6 +91,9 @@ band = ndimage.binary_dilation(M, iterations=10)
 
 alpha = np.where(band, 1.0 - s, 1.0)          # subject opacity
 alpha = np.clip(alpha, 0, 1)
+# Measured here, before the fade in step 5 turns the whole lower half
+# fractional by design and makes the number meaningless.
+KEY_FRAC_EDGE = ((alpha > 0.05) & (alpha < 0.999)).mean() * 100
 
 # ---- 3. sample the backdrop, then decontaminate the edge -------------------
 deep = ndimage.binary_erosion(s > 0.95, iterations=4)
@@ -126,3 +138,8 @@ q, n_bytes, data = best
 open(OUT, "wb").write(data)
 print(f"{OUT}: {OUT_W}x{OUT_H} q={q} {n_bytes/1024:.1f}KB "
       f"decontamination={'ON' if DECON else 'OFF'} backdrop B={B.round(1)}")
+print(f"  src={SRC}  crop={cw}x{H} ({cw/OUT_W:.2f}x downsample)  nudge={FRAMING_NUDGE}")
+# HANDOFF: fractional-alpha pixels should be ~1% of the frame; 7% is already
+# wrong. Printed rather than assumed, because it is the first thing that drifts
+# when the source changes.
+print(f"  fractional-alpha pixels: {KEY_FRAC_EDGE:.2f}%  (target ~1%, >5% means the luma ramp is too wide)")
