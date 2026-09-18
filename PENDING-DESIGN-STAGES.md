@@ -4,7 +4,7 @@ Working doc for a multi-commit design system pass on jessebattle.com. Written
 so a cold session can pick this up mid-sequence. Not served: `*.md` is in
 `.assetsignore`, so this is in the repo and 404s on the web.
 
-**Status: stages 1–4 of 7 landed. Stages 5–7 remain.**
+**Status: stages 1–5 of 7 landed. Stages 6–7 remain.**
 
 ---
 
@@ -159,9 +159,22 @@ label pattern does not help: `.page-head p` is (0,1,1) and `.eyebrow` is
 keeps its measure, the label does not take one. Eyebrow rule now spans 968,
 flush with the H1.
 
-### Stage 5 — renovation rows — TODO
-Constant-width rows, varying column count. 2-up grid tiles, 4-up specialty.
-Removes the 332px (22%) and 752px (50%) voids beside the supporting rows.
+### Stage 5 — renovation rows — **DONE, commit `dbd8725`**
+
+`--md` and `--sm` are gone. Every row is `--lg` wide and hierarchy comes from
+the column count: `.out-md` is 2-up, `.out-sm` is 4-up. The `.to-right`
+modifier and both alternating rules are deleted from CSS and markup.
+
+At 1440 all eight rows now span 1296 (65 to 1361). Tiers are 1296 large /
+635 grid tile / 305 specialty.
+
+**Judgement call worth knowing:** only two specialty photos exist (generator,
+EV charger), so a plain `repeat(4,1fr)` would have left two empty cells and
+re-created the hole the stage was meant to remove. `.out-sm` uses
+`repeat(auto-fit, calc((100% - 3*1.6rem)/4))` with `justify-content:center`,
+so tiles keep 4-up size and the row centres what exists — measured at 395-1030
+inside a 65-1361 row, centred to within half a pixel. It fills out on its own
+when the pavers and landscaping photos arrive.
 
 ### Stage 6 — homepage — TODO
 Portrait 320 -> ~480px. Pinellas map at content width. (Note: the map already

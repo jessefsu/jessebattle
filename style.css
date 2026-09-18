@@ -656,23 +656,24 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
    --------------------------------------------------------- */
 @media(min-width:900px){
   .reno{
-    --lg: var(--img-wide);       /* large "look at this" images   */
-    --md: min(72vw, 1180px);    /* supporting grid rows          */
-    --sm: min(46vw,  760px);    /* specialty row                 */
+    --lg: var(--img-wide);       /* every row spans this          */
     --plan: min(86vw, 1280px);  /* walls and layout block        */
   }
 
-  /* left edge of the large span — the page's outer image margin */
+  /* Every row is the same width. Hierarchy comes from how many columns
+     share it, not from narrowing the container — the old --md/--sm rows sat
+     1180 and 760 inside a 1512 span, which left 332px and 752px of dead
+     ground beside them, and alternating the side only moved the hole. */
   .reno .reno-lg,
   .reno .out-md,
-  .reno .out-sm      {margin-left:calc(50% - var(--lg)/2)}
-  .reno .reno-lg     {width:var(--lg)}
-  .reno .out-md      {width:var(--md)}
-  .reno .out-sm      {width:var(--sm)}
-  /* ...or flush to its right edge, so the supporting block alternates
-     sides down the page instead of every section stacking on one edge */
-  .reno .out-md.to-right{margin-left:calc(50% + var(--lg)/2 - var(--md))}
-  .reno .out-sm.to-right{margin-left:calc(50% + var(--lg)/2 - var(--sm))}
+  .reno .out-sm  {width:var(--lg);margin-left:calc(50% - var(--lg)/2)}
+  .reno .out-md  {grid-template-columns:repeat(2,1fr)}   /* 2-up tiles     */
+  /* 4-up sizing, but auto-fit collapses the tracks the two existing tiles do
+     not fill and justify-content centres what is left, so the row reads as
+     deliberate rather than left-weighted. It fills out on its own when the
+     pavers and landscaping photos arrive. */
+  .reno .out-sm  {grid-template-columns:repeat(auto-fit,calc((100% - 3 * 1.6rem) / 4));
+                  justify-content:center}
 
   /* A section with one supporting tile: the tile keeps the same width it
      would have had in a two-up row, and its caption takes the cell beside
@@ -689,7 +690,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
   .reno .reno-plan{width:var(--plan);margin-left:calc(50% - var(--plan)/2);
     grid-template-columns:minmax(0,19rem) minmax(0,1fr);gap:3rem;align-items:center}
 
-  /* Specialty stays the smallest tier, but 243px beside a 1296px photo
-     read as an afterthought rather than as a deliberate step down. */
+  /* the 4-up row sets specialty size now, so no cap */
   .reno .reno-spec{max-width:none}
 }
