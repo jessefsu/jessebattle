@@ -242,3 +242,101 @@ which is the point: the same styling, declared once instead of five times.
 
 The 13 breakpoints were left alone by agreement — consolidating them touches
 mobile and belongs in its own pass.
+
+---
+
+## The local dev server is unreliable — read this before verifying anything
+
+`preview_start` runs the `site` config from `.claude/launch.json`:
+
+```
+npx wrangler dev --assets=. --compatibility-date=2026-08-15 --port 8787
+```
+
+**It cost more failed tool calls than the actual work during this pass.** Do
+not plan a verification approach that depends on it.
+
+### What it does
+
+It stops answering. The process does **not** exit — `workerd` keeps the port
+open:
+
+```
+$ lsof -nP -iTCP:8787 -sTCP:LISTEN
+workerd  67306  ...  TCP [::1]:8787 (LISTEN)
+$ curl --max-time 12 http://localhost:8787/
+(exit 28, timeout, %{http_code} 000)
+```
+
+Because the socket stays bound you get a **timeout, not connection-refused**,
+which is why every browser call against it burns its full budget before
+failing. Symptoms seen, in the order they usually appear:
+
+1. One route starts hanging while others still answer. The extensionless root
+   `/` goes first; `/style.css` and `/blog/…` often keep working for a while.
+2. `curl` returns `000` on more and more paths.
+3. `preview_logs` fills with `Reloading local server... / Local server updated
+   and ready` repeating, and nothing is ever served again.
+4. Eventually `preview_stop` reports the process already exited with code 1.
+
+One run exited after 51 minutes. Later restarts survived only a few minutes
+each, and restart #6 went straight into the reload loop without ever serving
+a page.
+
+### What was tried
+
+- **Restarting it** (six or seven times). Works briefly, for shorter and
+  shorter periods.
+- **An iframe harness** that loaded four pages at four widths from one parent
+  page. This made things much worse — sixteen near-simultaneous requests is
+  apparently what tips it over. Abandoned; do not rebuild it.
+- **`python3 -m http.server`** as the `static` launch config. Fails in this
+  sandbox before it binds: `PermissionError: [Errno 1] Operation not
+  permitted` raised from `os.getcwd()` inside argparse, so it cannot even
+  parse its own arguments. The config entry is still in `launch.json` but does
+  not work.
+- **`file://`** — does **not** work here, despite every stylesheet path being
+  relative (`style.css` at the root, `../style.css` in `blog/`). `navigate`
+  accepts the URL and reports "opened … in the preview pane (files outside the
+  project folder render as static snapshots)", but the tab itself stays on its
+  previous page, or on `about:blank` in a fresh tab. `location.protocol` still
+  reads `https:` and `document.styleSheets` still lists the production
+  stylesheet. The JS measurement tools therefore never reach the local file.
+  Tested twice, in an existing tab and a clean one.
+
+### What actually works
+
+Two server-free methods carried all seven stages:
+
+**1. Inject the changed rules over the live site.** Navigate to the real page
+on `jessebattle.com` and append a `<style>` with the rules under test.
+
+- **Always include the surrounding media queries, in the same order as the
+  real file.** An injected rule lands at the end of the cascade, so a base
+  rule injected alone will beat a `@media(max-width:720px)` block that would
+  have overridden it in the real stylesheet. This produced a wrong "mobile is
+  unchanged" reading once before it was caught.
+- **Injection cannot delete a rule.** Where a change *removes* a declaration,
+  simulate it with a higher-specificity override — e.g. confirming the
+  `.page-head p:not(.eyebrow)` fix needed `.page-head p.eyebrow{max-width:none}`
+  (0,2,1) to beat production's `.page-head p` (0,1,1).
+- Compare mobile against production rather than a stored number, so both
+  sides are measured the same way.
+
+**2. Static analysis of the stylesheet.** Cheap, fast and it catches things a
+browser cannot:
+
+- brace balance and dangling/empty selectors — this is what would have caught
+  the stage 1 `.foot-social .wrap,.reno ` fragment immediately;
+- comparing every selector and declaration against `git show HEAD:style.css`,
+  which is how stage 7's refactor was proved to have lost nothing across 45
+  moved selectors. A refactor that drops a rule does not necessarily *look*
+  wrong on screen.
+
+### Worth fixing properly
+
+Root cause is unknown. Candidates: the `--assets=.` watcher reacting to its
+own `.wrangler/` writes and never settling; a wrangler version issue; or
+sandbox restrictions on the workerd child process. A working local preview
+would make this kind of pass substantially cheaper, so it is worth an hour on
+its own rather than being worked around again.
