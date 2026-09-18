@@ -185,7 +185,9 @@ nav .wrap{display:flex;align-items:stretch;justify-content:space-between;padding
 .wh h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d1);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;max-width:14ch}
 .wh h1 span{color:var(--pb)}
 .wh .deck{margin-top:1.6rem;max-width:var(--w-measure);color:rgba(234,244,250,.82);font-size:var(--lead)}
-.wh-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:start}
+/* The map is a distinctive graphic and was rendering 297px in a side column.
+   Stacked, it runs the full content width. */
+.wh-grid{display:grid;grid-template-columns:1fr;gap:2.4rem;align-items:start}
 .wh .deck{margin-top:1.2rem}
 .wh-map{margin:0}
 .map-frame{position:relative;border:1px solid var(--hair);line-height:0;overflow:hidden}
@@ -197,7 +199,7 @@ nav .wrap{display:flex;align-items:stretch;justify-content:space-between;padding
   text-shadow:0 1px 4px rgba(6,16,25,.95),0 0 2px rgba(6,16,25,.9);pointer-events:none;white-space:nowrap;line-height:1}
 .map-lab-key{color:var(--pb)}
 .map-lab-vert{transform:translate(-50%,-50%) rotate(-90deg)}
-.wh-map figcaption{margin-top:.8rem;text-align:right}
+.wh-map figcaption{margin-top:.8rem}
 @media(max-width:860px){
   .wh-grid{grid-template-columns:1fr;gap:2.2rem}
   /* the peninsula map is desktop context; on a stacked layout it pushed the
@@ -298,11 +300,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
     background-size:44px 44px;
     mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%);
     -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%);}
-.home header .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.35fr 1fr;gap:3.5rem;align-items:center}
+/* The homepage is the page most visitors land on and it had the least visual
+   weight of any page -- its largest image was 320px against renovation's 1680.
+   Even columns give the portrait room to roughly 480. */
+.home header .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
 .home h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d1);line-height:1.05;letter-spacing:.01em;text-transform:uppercase}
 .home h1 .last{color:var(--pb);display:block}
 .home .kicker{margin-top:1.7rem;max-width:var(--w-measure);font-size:var(--lead);line-height:1.6;color:rgba(234,244,250,.85)}
-.home .portrait{position:relative;justify-self:end;width:100%;max-width:20rem}
+.home .portrait{position:relative;justify-self:end;width:100%;max-width:30rem}
 .home .portrait::before{content:"";position:absolute;left:-.85rem;top:.85rem;right:.85rem;bottom:-.85rem;border:1px solid var(--pb);z-index:0}
 .home .portrait img{position:relative;z-index:1;width:100%;height:auto;filter:none}
 .home .portrait figcaption{position:relative;z-index:1;margin-top:1rem}

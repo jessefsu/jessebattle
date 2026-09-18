@@ -4,7 +4,7 @@ Working doc for a multi-commit design system pass on jessebattle.com. Written
 so a cold session can pick this up mid-sequence. Not served: `*.md` is in
 `.assetsignore`, so this is in the repo and 404s on the web.
 
-**Status: stages 1–5 of 7 landed. Stages 6–7 remain.**
+**Status: stages 1–6 of 7 landed. Stage 7 remains.**
 
 ---
 
@@ -176,9 +176,18 @@ so tiles keep 4-up size and the row centres what exists — measured at 395-1030
 inside a 65-1361 row, centred to within half a pixel. It fills out on its own
 when the pavers and landscaping photos arrive.
 
-### Stage 6 — homepage — TODO
-Portrait 320 -> ~480px. Pinellas map at content width. (Note: the map already
-grew 297 -> 412 as a side effect of stage 1's container change.)
+### Stage 6 — homepage — **DONE, commit `99257e1`**
+
+`.home header .wrap` goes 1.35fr/1fr -> 1fr/1fr and `.home .portrait` caps at
+30rem, so the portrait renders **456px** where it was 320. The hero grid had to
+give it the room; raising the cap alone would have done nothing.
+
+`.wh-grid` stacks instead of splitting 1.1fr/.9fr, so the Pinellas map runs
+**966px** at content width where it was 412 (and 297 before stage 1). Its
+caption loses `text-align:right`, which only made sense in a side column.
+
+Mobile untouched: the map is already `display:none` below 860 and the portrait
+keeps its 15rem cap below 840.
 
 ### Stage 7 — cleanup — TODO
 Delete the 7 orphaned images. Fold the 62 inline `<style>` rules into
