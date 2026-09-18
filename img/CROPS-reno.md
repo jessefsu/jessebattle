@@ -10,7 +10,7 @@ Crops used for the renovation page derivatives. Regenerate with tools/web-photo.
   tools/web-photo.sh "Site photos/bathroom shower large format tile niche.jpg" img/reno-bath-tub-niche.jpg 0.33 0.50 0.65  800 4:3       400
   tools/web-photo.sh "Site photos/bathroom_wide_angle.jpg"                     img/reno-bath-guest.jpg     0.55 0.55 0.70  800 4:3       400
   tools/web-photo.sh "Site photos/floor-plan.jpg"                              img/reno-floor-plan.jpg     0.50 0.50 1.00 1400 1:1       400
-  tools/web-photo.sh "Site photos/generator website.jpg"                       img/reno-generator.jpg      0.50 0.52 1.00  800 1:1       400
+  tools/web-photo.sh "Site photos/PGE Gen.jpg"                                 img/reno-generator.jpg      0.47 0.55 0.82  800 1:1       400
   tools/web-photo.sh "Site photos/car charger.jpg"                             img/reno-ev-charger.jpg     0.42 0.45 0.70  800 1:1       400
 
 Args are <source> <dest> <cx> <cy> <zoom> <outWidth> <aspect> <maxKB>. The last
@@ -57,3 +57,12 @@ reno-pavers-detail  Travertine pavers, freeform pool, open water. The source is
 
 Both are phone photos of client properties. web-photo.sh strips the EXIF block,
 which is what takes the GPS coordinates off them -- verified clean on both.
+
+reno-generator      Replaced 2026-09-18. The original was an AI-generated image
+                    with a garbled decal and an invented model number on a real
+                    Generac trademark; it shipped as a placeholder and is now
+                    retired, along with its source. This is a real install
+                    photographed by PGE, Jesse's electrical partner: 1504x2016
+                    portrait, so a square crop has 1504px to work with against
+                    an 800px slot. zoom 0.82 at cy 0.55 fills the tile with the
+                    unit and keeps the concrete pad and a marking flag in frame.
