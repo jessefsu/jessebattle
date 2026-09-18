@@ -66,3 +66,7 @@ reno-generator      Replaced 2026-09-18. The original was an AI-generated image
                     portrait, so a square crop has 1504px to work with against
                     an 800px slot. zoom 0.82 at cy 0.55 fills the tile with the
                     unit and keeps the concrete pad and a marking flag in frame.
+
+Note: "Site photos/generator website.jpg" was deleted 2026-09-18 along with the
+derivative it produced. It was the AI-generated placeholder, and keeping the
+source around invites someone regenerating from it by mistake.
