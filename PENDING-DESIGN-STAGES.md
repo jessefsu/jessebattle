@@ -4,7 +4,7 @@ Working doc for a multi-commit design system pass on jessebattle.com. Written
 so a cold session can pick this up mid-sequence. Not served: `*.md` is in
 `.assetsignore`, so this is in the repo and 404s on the web.
 
-**Status: stages 1–3 of 7 landed. Stages 4–7 remain.**
+**Status: stages 1–4 of 7 landed. Stages 5–7 remain.**
 
 ---
 
@@ -142,9 +142,22 @@ inside a 262px column at 320. The min-height existed to stop a stretched grid
 cell collapsing and is unnecessary once the ratio is fixed, so it is gone from
 the 720px media query.
 
-### Stage 4 — section headers — TODO
-The eyebrow-plus-rule from renovation, used on every page. One pattern
-replaces four divergent treatments.
+### Stage 4 — section headers — **DONE, commit `4b7951b`**
+
+One rule now carries `.eyebrow`, `.home .eyebrow`, `.home .sec-label`,
+`.home .soc-h`, `.foot-social h2` and `.reno-lab`: mono, `--l2` 13px, `.13em`,
+`--pb`, over a hairline. Five separate declarations became one plus a single
+`margin-top` override for `.home .soc-h`.
+
+`article h2` keeps its Archivo size — it is a heading inside prose, not a
+label — but gains the same hairline so a section start reads consistently.
+
+**Caught and fixed:** `.page-head p` was capping the eyebrow at `--w-measure`,
+so its rule stopped at 530px under a 968px heading. `max-width:none` on the
+label pattern does not help: `.page-head p` is (0,1,1) and `.eyebrow` is
+(0,1,0), so the cap wins. The fix is `.page-head p:not(.eyebrow)` — the deck
+keeps its measure, the label does not take one. Eyebrow rule now spans 968,
+flush with the H1.
 
 ### Stage 5 — renovation rows — TODO
 Constant-width rows, varying column count. 2-up grid tiles, 4-up specialty.
