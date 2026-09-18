@@ -192,13 +192,21 @@ nav .wrap{display:flex;align-items:stretch;justify-content:space-between;padding
 .wh-map{margin:0}
 .map-frame{position:relative;border:1px solid var(--hair);line-height:0;overflow:hidden}
 .map-frame img{width:100%;height:auto;display:block}
-.map-mark{position:absolute;width:2.4rem;height:2.4rem;transform:translate(-50%,-50%);pointer-events:none}
-.map-mark svg{width:100%;height:100%;display:block}
-.map-lab{position:absolute;transform:translate(-50%,-50%);font-family:'JetBrains Mono',monospace;
-  font-size:var(--l3);letter-spacing:.16em;text-transform:uppercase;color:var(--paper);
-  text-shadow:0 1px 4px rgba(6,16,25,.95),0 0 2px rgba(6,16,25,.9);pointer-events:none;white-space:nowrap;line-height:1}
-.map-lab-key{color:var(--pb)}
-.map-lab-vert{transform:translate(-50%,-50%) rotate(-90deg)}
+/* Neighbourhood labels are an inline SVG laid over the image rather than text
+   burned into the JPG, so they stay crisp at any size, scale with the layout
+   and can be edited without regenerating the photograph. The viewBox is the
+   image's own 900x900 pixel grid, so a label's coordinates ARE its pixel
+   position on the satellite -- place by eye against the image, paste straight
+   in. Font sizes are in user units and therefore scale with the container.
+   The dark halo is paint-order:stroke rather than a box, which keeps the
+   labels legible over both bright Gulf water and dark land. */
+.map-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.map-svg text{font-family:'JetBrains Mono',monospace;text-transform:uppercase;
+  paint-order:stroke;stroke:var(--ink);stroke-width:3.2;stroke-linejoin:round;
+  dominant-baseline:middle}
+.map-svg .mj{font-size:15px;letter-spacing:2.4px;font-weight:500;fill:var(--paper)}
+.map-svg .mn{font-size:11.5px;letter-spacing:1.5px;fill:var(--slate)}
+.map-svg .wt{font-size:12.5px;letter-spacing:4px;fill:var(--pb-mid);opacity:.9}
 .wh-map figcaption{margin-top:.8rem}
 @media(max-width:860px){
   .wh-grid{grid-template-columns:1fr;gap:2.2rem}
