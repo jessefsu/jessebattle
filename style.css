@@ -15,6 +15,13 @@
   --lead:1.15rem; --base:1.075rem; --small:.95rem; --xsmall:.875rem;
   --l1:.875rem; --l2:.8125rem; --l3:.75rem;
 
+  /* ---- WIDTH SCALE (see HANDOFF.md) ----
+     One container width for the whole site. nav, footer, article, cards and
+     the social strip all sit on --w-content, so navigation is never wider
+     than the content beneath it. --w-measure caps running prose; it is a
+     reading limit, not a layout width, which is why it is in ch. */
+  --w-measure:68ch;
+  --w-content:64rem;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -23,7 +30,7 @@ body{
   font-family:'Source Serif 4',Georgia,serif;
   font-size:var(--base);line-height:1.65;overflow-x:hidden;
 }
-.wrap{max-width:48rem;margin:0 auto;padding:0 1.75rem}
+.wrap{max-width:var(--w-content);margin:0 auto;padding:0 1.75rem}
 
 /* A caption is a caption regardless of which page it is on. This is the single
    definition; per-page rules set only position, spacing and alignment.
@@ -35,7 +42,7 @@ img{display:block;max-width:100%}
 
 /* ---- title block nav (identical on every page) ---- */
 nav{position:sticky;top:0;z-index:50;background:rgba(6,16,25,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
-nav .wrap{max-width:64rem;display:flex;align-items:stretch;justify-content:space-between;padding-left:0;padding-right:0}
+nav .wrap{display:flex;align-items:stretch;justify-content:space-between;padding-left:0;padding-right:0}
 .tb-brand{display:flex;flex-direction:column;justify-content:center;gap:.28rem;padding:.85rem 1.75rem;border-right:1px solid var(--hair);text-decoration:none;min-width:0}
 .tb-brand .nm{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--h3);letter-spacing:.01em;text-transform:uppercase;color:var(--paper);display:flex;align-items:center;gap:.45rem;line-height:1.05;transition:color .2s}
 .tb-brand .iv{font-family:'JetBrains Mono',monospace;font-size:var(--l3);font-weight:500;letter-spacing:.1em;color:var(--pb);border:1px solid var(--pb);padding:.15rem .33rem;line-height:1}
@@ -168,7 +175,7 @@ nav .wrap{max-width:64rem;display:flex;align-items:stretch;justify-content:space
 .page-head{padding:2.4rem 0 1.8rem}
 .wh h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d2);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;max-width:14ch}
 .wh h1 span{color:var(--pb)}
-.wh .deck{margin-top:1.6rem;max-width:46ch;color:rgba(234,244,250,.82);font-size:var(--lead)}
+.wh .deck{margin-top:1.6rem;max-width:var(--w-measure);color:rgba(234,244,250,.82);font-size:var(--lead)}
 .wh-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:start}
 .wh .deck{margin-top:1.2rem}
 .wh-map{margin:0}
@@ -191,7 +198,7 @@ nav .wrap{max-width:64rem;display:flex;align-items:stretch;justify-content:space
 }
 .eyebrow{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.24em;text-transform:uppercase;color:var(--pb);margin-bottom:1.2rem}
 h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d2);line-height:1.05;letter-spacing:.01em;text-transform:uppercase}
-.page-head p{margin-top:1.4rem;max-width:46ch;color:rgba(234,244,250,.84)}
+.page-head p{margin-top:1.4rem;max-width:var(--w-measure);color:rgba(234,244,250,.84)}
 
 /* ---- post cards ---- */
 .posts{list-style:none;padding:1.8rem 0 4rem;display:grid;gap:2rem}
@@ -205,7 +212,7 @@ h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d2);line-hei
 .posts time{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.16em;text-transform:uppercase;color:var(--slate);display:block;margin-bottom:.75rem}
 .posts h2{font-family:'Archivo',sans-serif;font-weight:700;font-size:var(--h2);letter-spacing:-.025em;line-height:1.18;margin:0 0 .75rem}
 .posts a:hover h2{color:var(--pb)}
-.posts p{color:rgba(234,244,250,.78);font-size:var(--small);max-width:60ch;margin-bottom:1.1rem}
+.posts p{color:rgba(234,244,250,.78);font-size:var(--small);max-width:var(--w-measure);margin-bottom:1.1rem}
 .posts .more{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.16em;text-transform:uppercase;color:var(--pb)}
 @media(max-width:720px){
   .posts a{grid-template-columns:1fr}
@@ -214,9 +221,8 @@ h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d2);line-hei
 }
 
 .foot-social{padding:3rem 0;border-top:1px solid var(--hair)}
-.foot-social .wrap{max-width:48rem}
 .foot-social h2{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.2em;text-transform:uppercase;color:var(--pb);margin:0 0 .35rem;font-weight:500}
-.foot-social p{font-size:var(--small);color:rgba(234,244,250,.72);margin:0}
+.foot-social p{font-size:var(--small);color:rgba(234,244,250,.72);margin:0;max-width:var(--w-measure)}
 .foot-social .social-grid{margin-top:1.6rem}
 
 /* ---- article ---- */
@@ -231,6 +237,10 @@ article{padding:3rem 0 4rem}
 article time{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.16em;text-transform:uppercase;color:var(--slate);display:block;margin-bottom:1.5rem}
 article h2{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--h1);letter-spacing:.01em;text-transform:uppercase;margin:2.75rem 0 1rem;line-height:1.1}
 article h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:var(--h3);margin:2rem 0 .75rem}
+/* Post body prose. These never carried a cap: the old 48rem container was
+   doing the job by accident, so widening it to --w-content ran the measure out
+   to ~110ch. The cap belongs on the prose, not on the container. */
+article p,article ul,article ol,article blockquote{max-width:var(--w-measure)}
 article p{margin-bottom:1.25rem;color:rgba(234,244,250,.86)}
 article ul,article ol{margin:0 0 1.25rem 1.35rem;color:rgba(234,244,250,.86)}
 article li{margin-bottom:.55rem}
@@ -242,7 +252,7 @@ article strong{color:var(--paper)}
 .post-nav a{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.16em;text-transform:uppercase;color:var(--pb);text-decoration:none}
 
 footer{border-top:1px solid var(--hair);padding:2.6rem 0;font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.11em;line-height:2;color:var(--slate);text-transform:uppercase}
-footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
@@ -253,9 +263,6 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
    cannot reach the blog pages. Everything shared — nav, datum,
    stations, social cards, type scale — lives above this line.
    ========================================================= */
-.home .wrap{max-width:64rem}  /* override ONLY the width; margin/padding stay
-                                 inherited from .wrap so nav .wrap's padding:0
-                                 is not clobbered by specificity */
 .home header{position:relative;padding:5rem 0 3.5rem;overflow:hidden}
 .home .grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.5;
     background-image:
@@ -268,7 +275,7 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
 .home .eyebrow{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.24em;text-transform:uppercase;color:var(--pb);margin-bottom:1.3rem}
 .home h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d1);line-height:1.05;letter-spacing:.01em;text-transform:uppercase}
 .home h1 .last{color:var(--pb);display:block}
-.home .kicker{margin-top:1.7rem;max-width:40ch;font-size:var(--lead);line-height:1.6;color:rgba(234,244,250,.85)}
+.home .kicker{margin-top:1.7rem;max-width:var(--w-measure);font-size:var(--lead);line-height:1.6;color:rgba(234,244,250,.85)}
 .home .portrait{position:relative;justify-self:end;width:100%;max-width:20rem}
 .home .portrait::before{content:"";position:absolute;left:-.85rem;top:.85rem;right:.85rem;bottom:-.85rem;border:1px solid var(--pb);z-index:0}
 .home .portrait img{position:relative;z-index:1;width:100%;height:auto;filter:none}
@@ -283,6 +290,8 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
 .home .hat:last-child{padding-left:2.25rem;padding-right:0;border-left:1px solid var(--hair)}
 .home .hat-num{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.2em;text-transform:uppercase;color:var(--pb);margin-bottom:1rem}
 .home .hat h2{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--h1);letter-spacing:.01em;text-transform:uppercase;line-height:1.05;margin-bottom:.9rem}
+/* EXCEPTION 1 of 2 to --w-measure: this sits in a three-up credential strip,
+   where the 34ch cap is what keeps the three columns balanced. */
 .home .hat p{font-size:var(--small);color:rgba(234,244,250,.8);max-width:34ch}
 .home .hat dl{margin-top:1.4rem;font-family:'JetBrains Mono',monospace;font-size:var(--l1);display:grid;grid-template-columns:auto 1fr;gap:.55rem 1.2rem}
 .home .hat dt{color:var(--slate);font-size:var(--l3);letter-spacing:.14em;text-transform:uppercase;padding-top:.12rem}
@@ -302,6 +311,8 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
 .home .writing-feature{background:var(--ink-2);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
 .home .writing-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:2.25rem}
 .home .writing-head h3{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d3);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;max-width:20ch;margin:0}
+/* EXCEPTION 2 of 2 to --w-measure: sits beside a heading in a two-column row,
+   so it has to stay short enough not to crowd it. */
 .home .writing-head .deck{max-width:38ch;color:rgba(234,244,250,.82);font-size:var(--lead);margin:0}
 .home .writing-sec{padding-top:4.5rem;padding-bottom:4.5rem}
 /* Compact post strip: three cards that scan in a couple of seconds. Roughly half
@@ -349,14 +360,14 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
 .home .review-link svg{width:1rem;height:1rem;fill:currentColor}
 .home section{padding:5rem 0}
 .home .close-h{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d2);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;max-width:13ch;margin-top:2.2rem}
-.home .close-deck{margin-top:1.5rem;max-width:46ch;font-size:var(--lead);color:rgba(234,244,250,.84)}
+.home .close-deck{margin-top:1.5rem;max-width:var(--w-measure);font-size:var(--lead);color:rgba(234,244,250,.84)}
 .home .soc-h{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.2em;text-transform:uppercase;color:var(--pb);margin:2.8rem 0 0;font-weight:500}
 .home .sec-label{font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.22em;text-transform:uppercase;color:var(--pb);margin-bottom:1.2rem}
 .home h3.big{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d3);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;max-width:18ch;margin-bottom:1.6rem}
-.home .body-col{max-width:56ch}
+.home .body-col{max-width:var(--w-measure)}
 .home .story-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:4rem;align-items:start}
 .home .story-grid h3.big{margin-bottom:0;max-width:14ch}
-.home .story-grid .body-col{max-width:52ch}
+.home .story-grid .body-col{max-width:var(--w-measure)}
 @media(max-width:900px){
   .home .story-grid{grid-template-columns:1fr;gap:1.75rem}
   .home .story-grid h3.big{max-width:18ch}
@@ -528,10 +539,6 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
    .home above. Photos carry the page; Archivo and JetBrains Mono
    are held back to the nav, section labels and captions.
    ========================================================= */
-.reno .wrap{max-width:64rem}   /* width only — padding stays inherited, so
-                                  nav .wrap's padding:0 is not disturbed */
-.foot-social .wrap,.reno .foot-social .wrap{max-width:48rem}
-
 /* Full-bleed escape hatch. body sets overflow-x:hidden, so 100vw cannot
    introduce a horizontal scrollbar on a page that has a scrollbar. */
 .reno .bleed{width:100vw;margin-left:calc(50% - 50vw)}
@@ -574,7 +581,7 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
 @media(max-width:720px){.reno-2{grid-template-columns:1fr;gap:2.2rem}}
 
 /* --- 5. flooring: medium, with two lines of prose --- */
-.reno-note{font-size:var(--lead);color:rgba(234,244,250,.86);max-width:46ch;margin-top:1.7rem}
+.reno-note{font-size:var(--lead);color:rgba(234,244,250,.86);max-width:var(--w-measure);margin-top:1.7rem}
 
 /* --- 6. walls and layout: full-bleed demo, square plan beside the caption --- */
 .reno-plan{display:grid;grid-template-columns:1fr 36rem;gap:2.6rem;align-items:start;margin-top:1.9rem}
