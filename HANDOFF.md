@@ -98,12 +98,17 @@ HOW-TO-POST.md                         non-technical posting instructions
 git-ignored on purpose. Only processed derivatives in `blog/img/` are
 committed. That matters because the Worker serves the repo root, so anything
 committed is publicly downloadable at full size. Process to the house spec
-before committing: 1600x900 for a hero, progressive JPEG, roughly 150-200KB.
+before committing: 2400x1350 for a post hero, progressive JPEG, cap 360KB.
+(Raised from 1600x900 / 150-200KB on 2026-09-18 -- see the render-size note
+below. Other slots keep their own sizes; see img/CROPS-reno.md.)
 Keep the original in `Site photos/` so a photo can be re-cropped later without
 re-shooting it.
 
-**Quality is set by the file size, not by a fixed number.** 150-200KB is the
-target; the JPEG quality that gets you there depends entirely on how much
+**Quality is set by the file size, not by a fixed number.** The cap is the
+target -- 360KB for a post hero, 150-200KB for smaller slots -- and
+`tools/web-photo.sh` takes its `maxKB` argument and walks a quality ladder
+down until the output fits, so you pass a size, not a number. The JPEG
+quality that gets you there depends entirely on how much
 high-frequency detail the frame holds, and the spread is much wider than it
 looks. Tune quality to hit the size — do not reuse a number from a previous
 photo.
@@ -120,11 +125,26 @@ q=88 at 1200x630 (`social-writing.jpg`, 193KB) because downsampling to 1200px
 has already discarded most of the fine detail that was expensive at 1600px.
 Tune per file; the table is a starting point, not a lookup.
 
+**The ladder is `72 64 58 52 46 40 34 30 26`** (in `tools/web-photo.sh`). It
+takes the **highest** quality that fits `maxKB`, so the rungs below 34 only
+ever engage on a source dense enough to overshoot at 34 -- adding them cannot
+lower the quality of any image that was already fitting. The 30 and 26 rungs
+were added 2026-09-18 for exactly one frame; everything else on the site still
+lands at 40 or above. If a photo bottoms out at 26 and is still over cap,
+reduce the output width rather than extending the ladder further.
+
 `blog/img/florida-subdivision-aerial.jpg` is the worked example: a nadir drone
-shot of a subdivision, every pixel textured, which needed **q=40** to land at
-192KB. It still looks clean, because a hero renders at roughly 712px wide and
-the mush is below what that resolution shows. Judge the output at render size,
-not at 100%.
+shot of a subdivision, every pixel textured. Its size/quality curve is nearly
+flat -- at 2400 wide, q34 gives 471KB and q24 still gives 338KB -- so there is
+no setting that buys much back. It ships at **q=26 / 369KB**, and it is the
+only image on the site that needed the extended ladder.
+
+It still looks clean, because a post hero renders at **1600px** wide at a 1920
+viewport and the mush is below what that resolution shows. Judge the output at
+render size, not at 100%. (That 1600px figure is post-design-pass: a lead image
+now breaks out to `--img-wide`. It used to render at 712px, and an older
+version of this note said so -- if you find 712 quoted anywhere else, it is
+stale.)
 
 There is no split any more. `style.css` is the only stylesheet. Homepage-only
 rules live at the bottom of it, every selector prefixed with `.home`, which is
@@ -306,8 +326,9 @@ credential is relevant, which is the point. `.role` deliberately has no rule
 of its own — it inherits, and adding an empty rule for it would be dead CSS.
 
 **No licence number in the byline.** With the role added, the full string
-`Certified General Contractor CGC1506583` pushed the line 39px past the 712px
-article column and orphaned the date on a second row. The number is dropped
+`Certified General Contractor CGC1506583` pushed the line 39px past the
+article column, which was 712px at the time (the design pass has since widened
+it; the measurement is kept here only because it is why the number was dropped) and orphaned the date on a second row. The number is dropped
 here rather than the phrase, because a bare `CGC1506583` means nothing to a
 reader — and the number is already on screen twice regardless: the nav
 sub-label reads `REALTOR · CGC1506583` on every page, and the author box gives
@@ -362,8 +383,14 @@ ignores og entirely, so both sets exist and must agree. `twitter:card` is
 ```
 /                     social-home.jpg      1200x630   q92,  71KB
 /blog/                social-writing.jpg   1200x630   q88, 193KB
-each blog post        its own hero         1600x900
+each blog post        its own hero         2400x1350
 ```
+
+The post heroes are 2400x1350 as of 2026-09-18, except `quartzite-kitchen`,
+which is still 1600x900 because its source is gone (see blog/img/CROPS.md).
+Both sizes are 16:9, not 1.91:1, so they are cropped by the platforms rather
+than letterboxed -- that is the long-standing tradeoff noted below, and the
+size change does not affect it.
 
 **Every URL must be absolute** — `https://jessebattle.com/...`. A relative
 path renders a card with a blank space where the picture should be, and the

@@ -56,15 +56,26 @@ uad-3-6-documentation       Added 2026-09-18, replacing uad-3-6-framing.jpg. Tha
                             invoices, binder and calculator and crops the head out
                             at the bottom edge.
 
-quartzite-kitchen           EXCEPTION: still 1600x900. Its source is not in the
-                            repo and not in Site photos/. The file entered in
-                            commit 7ee982e "Add files via upload", a GitHub web
-                            upload, so no local original ever existed. Ruled out
-                            by comparison against every kitchen frame on hand:
+quartzite-kitchen           EXCEPTION: still 1600x900, and staying there.
+                            DO NOT SEARCH FOR ITS SOURCE AGAIN. It is not in
+                            the repo and not in Site photos/. The file entered
+                            in commit 7ee982e "Add files via upload", a GitHub
+                            web upload, so no local original ever existed.
+
+                            Already ruled out, by image comparison, 2026-09-18:
                             kitchen.jpg, kitchen with island.jpg, kitchen wide
                             angle.jpg (MAE 40-49, against 0.90-3.81 for a
-                            confirmed match) and kitchen finished.jpg, which is
-                            coincidentally already 2400x1350 but is a different,
-                            much brighter room. Not upscaled. To bring this one
-                            to convention, supply the original at 2400 wide or
-                            better and run it through the ladder like the others.
+                            confirmed match) and kitchen finished.jpg -- which
+                            is coincidentally already 2400x1350 and is the
+                            tempting false lead, but is a different, much
+                            brighter room with no waterfall island. That is
+                            every kitchen frame in Site photos/. There is
+                            nothing left to check.
+
+                            It is not upscaled, per the house rule against
+                            upscaling. The only way to bring it to convention
+                            is for the owner to supply the original at 2400
+                            wide or better; then run it through the ladder like
+                            the others. Until then this one post hero is 1x at
+                            a 1920 viewport while the other three are 1.5x,
+                            which is a known and accepted state.
