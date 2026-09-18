@@ -215,20 +215,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 <style>
-  .keytake{border:1px solid var(--hair);background:var(--ink-2);padding:1.6rem 1.75rem;margin:2rem 0;}
-  .keytake h3{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.2em;text-transform:uppercase;color:var(--pb);margin:0 0 .9rem;font-weight:500;}
-  .keytake p:last-child{margin-bottom:0;}
-  .keytake ul:last-child,.keytake ol:last-child{margin-bottom:0;}
-  .sourcenote{font-size:var(--xsmall);color:var(--slate);border-top:1px solid var(--hair);padding-top:1.5rem;margin-top:2.5rem;}
-  .datelist{list-style:none;padding:0;margin:0;}
-  .datelist li{border-top:1px solid var(--hair);padding:1rem 0;}
-  .datelist li:first-child{border-top:0;padding-top:0;}
-  .datelist .d{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.14em;text-transform:uppercase;color:var(--pb);display:block;margin-bottom:.3rem;}
-
-  .hero-img{margin:0 0 2.5rem;}
-  .hero-img img{width:100%;height:auto;}
-  .hero-img figcaption{margin-top:.7rem}
-
   /* Article-specific: the four-stop schedule graphic under the hero. */
   .hero-tl{margin:0 0 2.75rem;}
   .tl-grid{display:grid;grid-template-columns:repeat(4,1fr);column-gap:1.25rem;}
@@ -238,24 +224,24 @@
            font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.14em;text-transform:uppercase;color:var(--pb);}
   .tl-stop{grid-row:2;position:relative;border-top:1px solid var(--pb-mid);padding:1rem .25rem 0 0;}
   .tl-stop::before{content:"";position:absolute;top:-4px;left:0;width:7px;height:7px;background:var(--pb-mid);}
-  .tl-stop.s1{grid-column:1;} .tl-stop.s2{grid-column:2;}
-  .tl-stop.s3{grid-column:3;} .tl-stop.s4{grid-column:4;}
+  .tl-stop.s1{grid-column:1;}
+  .tl-stop.s2{grid-column:2;}
+  .tl-stop.s3{grid-column:3;}
+  .tl-stop.s4{grid-column:4;}
   .tl-stop.tl-key{border-top-color:var(--pb);}
   .tl-stop.tl-key::before{background:var(--pb);}
   .tl-d{display:block;font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.16em;text-transform:uppercase;color:var(--pb);margin-bottom:.4rem;}
   .tl-t{display:block;font-size:var(--small);color:rgba(234,244,250,.82);line-height:1.35;}
   .tl-stop.tl-far .tl-d,.tl-stop.tl-far .tl-t{color:var(--slate);}
-  .hero-tl figcaption{margin-top:1.1rem}
   @media(max-width:760px){
     .tl-grid{grid-template-columns:1fr;column-gap:0;}
-    /* Two classes, to match the specificity of .tl-stop.s2 etc. A media query adds
+  /* Two classes, to match the specificity of .tl-stop.s2 etc. A media query adds
        no specificity of its own, so a bare .tl-stop selector loses to those rules. */
     .tl-band,.tl-stop.s1,.tl-stop.s2,.tl-stop.s3,.tl-stop.s4{grid-row:auto;grid-column:1;}
-    .tl-band{text-align:left;border-bottom:1px solid var(--hair);margin-top:1.1rem;margin-right:0;}
-    .tl-stop{padding-bottom:1.1rem;}
-    .tl-stop.s3{border-top:0;padding-top:1rem;}
-    .tl-stop.s3::before{display:none;}
-  }
+  .tl-band{text-align:left;border-bottom:1px solid var(--hair);margin-top:1.1rem;margin-right:0;}
+  .tl-stop{padding-bottom:1.1rem;}
+  .tl-stop.s3{border-top:0;padding-top:1rem;}
+  .tl-stop.s3::before{display:none;}
 </style>
 </head>
 <body>

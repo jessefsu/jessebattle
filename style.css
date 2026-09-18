@@ -698,3 +698,28 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
   /* the 4-up row sets specialty size now, so no cap */
   .reno .reno-spec{max-width:none}
 }
+
+/* =========================================================
+   ARTICLE COMPONENTS
+   These lived in an inline <style> in every post, duplicated four times over
+   with no shared source. The key-take box, source note, date list and hero
+   figure are site components, so they belong here.
+
+   The two bespoke graphics stay inline on purpose: the ROAD Act post's
+   schedule timeline (.tl-*) and the condo post's band. They are one-page
+   drawings, and hoisting ~20 rules that match a single article into the
+   global sheet trades one kind of mess for another.
+   ========================================================= */
+.keytake{border:1px solid var(--hair);background:var(--ink-2);padding:1.6rem 1.75rem;margin:2rem 0}
+.keytake h3{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.2em;text-transform:uppercase;color:var(--pb);margin:0 0 .9rem;font-weight:500}
+.keytake p:last-child,.keytake ul:last-child,.keytake ol:last-child{margin-bottom:0}
+.sourcenote{font-size:var(--xsmall);color:var(--slate);border-top:1px solid var(--hair);padding-top:1.5rem;margin-top:2.5rem}
+.datelist{list-style:none;padding:0;margin:0}
+.datelist li{border-top:1px solid var(--hair);padding:1rem 0}
+.datelist li:first-child{border-top:0;padding-top:0}
+.datelist .d{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.14em;text-transform:uppercase;color:var(--pb);display:block;margin-bottom:.3rem}
+.hero-img{margin:0 0 2.5rem}
+.hero-img img,.figure-inline img{width:100%;height:auto}
+.hero-img figcaption,.figure-inline figcaption{margin-top:.7rem}
+.hero-tl figcaption{margin-top:1.1rem}
+.figure-inline{margin:2.5rem auto;max-width:var(--w-measure)}

@@ -4,7 +4,7 @@ Working doc for a multi-commit design system pass on jessebattle.com. Written
 so a cold session can pick this up mid-sequence. Not served: `*.md` is in
 `.assetsignore`, so this is in the repo and 404s on the web.
 
-**Status: stages 1–6 of 7 landed. Stage 7 remains.**
+**Status: all seven stages landed.**
 
 ---
 
@@ -189,9 +189,24 @@ caption loses `text-align:right`, which only made sense in a side column.
 Mobile untouched: the map is already `display:none` below 860 and the portrait
 keeps its 15rem cap below 840.
 
-### Stage 7 — cleanup — TODO
-Delete the 7 orphaned images. Fold the 62 inline `<style>` rules into
-`style.css`.
+### Stage 7 — cleanup — **DONE, commit `f40e16c`**
+
+Seven orphaned images deleted (~1.4MB): the six `img/inspiration-*.jpg` left
+behind when that page became a redirect, and `img/reno-kitchen-island.jpg`
+from the duplicate-kitchen removal.
+
+Shared article components hoisted into `style.css`: `.keytake`, `.sourcenote`,
+`.datelist`, `.hero-img`, `.figure-inline`, `.hero-tl figcaption`. 42
+duplicated rule blocks removed from the four posts; three posts now have no
+inline `<style>` at all.
+
+**Deliberately left inline:** the ROAD Act post's schedule timeline (`.tl-*`,
+16 selectors). HANDOFF already records these as article-specific, and hoisting
+20 rules that match one article into the global sheet trades one mess for
+another. The duplication was the actual problem and it is gone.
+
+Verified statically rather than in a browser: 45 individual selectors compared
+against their `HEAD` declarations, all present with identical bodies.
 
 ---
 
@@ -215,10 +230,15 @@ difference is the harness, not a regression.
 
 ## Rule counts
 
-| Point | lines | rule blocks | selectors | declarations |
-|---|---|---|---|---|
-| Before stage 1 | 663 | 349 | 359 | 918 |
-| After stage 1 | 670 | 346 | 358 | 919 |
+| Point | style.css lines | rule blocks | selectors | declarations | inline rules | total rules |
+|---|---|---|---|---|---|---|
+| Before stage 1 | 663 | 349 | 359 | 918 | 62 | **411** |
+| After stage 7 | 725 | 352 | 374 | 918 | 20 | **372** |
 
-Plus 62 rule blocks in inline `<style>` across 4 blog posts, untouched until
-stage 7.
+Net **-39 rule blocks**. style.css grows by 3 blocks and 62 lines because it
+absorbed the shared article components and the explanatory comments, while 42
+duplicated blocks came out of the posts. Declaration count is unchanged at 918,
+which is the point: the same styling, declared once instead of five times.
+
+The 13 breakpoints were left alone by agreement — consolidating them touches
+mobile and belongs in its own pass.
