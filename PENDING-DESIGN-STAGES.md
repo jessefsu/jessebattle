@@ -4,7 +4,7 @@ Working doc for a multi-commit design system pass on jessebattle.com. Written
 so a cold session can pick this up mid-sequence. Not served: `*.md` is in
 `.assetsignore`, so this is in the repo and 404s on the web.
 
-**Status: stages 1–2 of 7 landed. Stages 3–7 remain.**
+**Status: stages 1–3 of 7 landed. Stages 4–7 remain.**
 
 ---
 
@@ -121,10 +121,26 @@ matched `p.eyebrow` and blew the mono eyebrow 14 -> 18.4px on every blog page.
 there to style, and blog index's deck already gets `--lead` from `.wh .deck`.
 Rule reverted entirely.
 
-### Stage 3 — images and cards — TODO
-Fixed 16:9 thumbnail box on blog cards so the crop stops depending on summary
-length. Extend the renovation tier system site-wide. Post lead images to
-`--img-wide`.
+### Stage 3 — images and cards — **DONE, commit `90a490b`**
+
+`.posts .shot` gets `aspect-ratio:16/9` and the card column widens 15rem ->
+22rem with `align-items:start`. Cards are 352x198 at 768 and above, 262x147 at
+320, and **0% cropped** everywhere — down from 51–64% varying per card.
+
+`--img-wide: min(90vw,1600px)` hoisted to `:root`; the renovation block's
+local `--lg` now points at it. `article .hero-img/.hero-tl` breaks out to it
+above 900px, so a post lead image goes 968 -> 1296 at 1440. Scoped to
+`article` so the blog inline rules cannot win on specificity.
+
+`.figure-inline`'s `max-width:520px` literal (the one stray px container in an
+inline style) -> `--w-measure`.
+
+**Caught and fixed:** `aspect-ratio` plus the existing mobile
+`min-height:10rem` is a trap. When the min-height exceeds what the ratio would
+give, the ratio drives the **width** up to satisfy it — the box rendered 284px
+inside a 262px column at 320. The min-height existed to stop a stretched grid
+cell collapsing and is unnecessary once the ratio is fixed, so it is gone from
+the 720px media query.
 
 ### Stage 4 — section headers — TODO
 The eyebrow-plus-rule from renovation, used on every page. One pattern

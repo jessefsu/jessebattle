@@ -26,6 +26,11 @@
      reading limit, not a layout width, which is why it is in ch. */
   --w-measure:68ch;
   --w-content:64rem;
+
+  /* ---- IMAGE TIERS ----
+     --img-wide breaks out past the content column for a page's lead image.
+     Everything else sits inside --w-content and is sized by its grid. */
+  --img-wide:min(90vw, 1600px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -207,10 +212,14 @@ h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d1);line-hei
 /* ---- post cards ---- */
 .posts{list-style:none;padding:1.8rem 0 4rem;display:grid;gap:2rem}
 .posts li{margin:0}
-.posts a{display:grid;grid-template-columns:15rem 1fr;border:1px solid var(--hair);background:var(--ink-2);text-decoration:none;color:inherit;transition:border-color .2s}
+.posts a{display:grid;grid-template-columns:22rem 1fr;align-items:start;border:1px solid var(--hair);background:var(--ink-2);text-decoration:none;color:inherit;transition:border-color .2s}
 .posts a:hover{border-color:var(--pb)}
 .posts a:focus-visible{outline:2px solid var(--pb);outline-offset:4px}
-.posts .shot{overflow:hidden;background:var(--ink);min-height:11rem}
+/* The thumbnail was a grid cell stretched by its own row, so the box height
+   came from how long the summary was and every card cropped its 1600x900
+   source differently -- 51 to 64 percent of the frame, varying per card.
+   A fixed 16:9 box matches the sources, so cover crops nothing. */
+.posts .shot{overflow:hidden;background:var(--ink);aspect-ratio:16/9}
 .posts .shot img{width:100%;height:100%;object-fit:cover;display:block}
 .posts .meta{padding:1.9rem}
 .posts time{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.16em;text-transform:uppercase;color:var(--slate);display:block;margin-bottom:.75rem}
@@ -220,7 +229,9 @@ h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d1);line-hei
 .posts .more{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.16em;text-transform:uppercase;color:var(--pb)}
 @media(max-width:720px){
   .posts a{grid-template-columns:1fr}
-  .posts .shot{min-height:10rem}
+  /* no min-height here: with aspect-ratio set, a min-height taller than the
+     ratio would give drives the WIDTH up instead, and the box overflows its
+     column (284px inside 262px at 320). The ratio sets the height now. */
   .posts .meta{padding:1.6rem}
 }
 
@@ -619,6 +630,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
 .reno-close .cred{color:var(--pb)}
 
 
+/* A post's lead image is that page's --img-wide tier. Scoped to article and
+   gated at 900px so the blog inline rules cannot win and mobile is untouched.
+   Percentage margins resolve against .wrap's centred content box, so the
+   breakout is 50% - width/2, the same trick the renovation page uses. */
+@media(min-width:900px){
+  article .hero-img,article .hero-tl{
+    width:var(--img-wide);margin-left:calc(50% - var(--img-wide)/2)}
+}
+
 /* ---------------------------------------------------------
    RENOVATION — desktop hierarchy
    Everything below is gated at 900px and up. Image width used to be
@@ -635,7 +655,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
    --------------------------------------------------------- */
 @media(min-width:900px){
   .reno{
-    --lg: min(90vw, 1600px);    /* large "look at this" images   */
+    --lg: var(--img-wide);       /* large "look at this" images   */
     --md: min(72vw, 1180px);    /* supporting grid rows          */
     --sm: min(46vw,  760px);    /* specialty row                 */
     --plan: min(86vw, 1280px);  /* walls and layout block        */
