@@ -42,37 +42,184 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "What the November 2 Appraisal Change Means for Pinellas County Rebuilds",
-  "description": "UAD 3.6 takes effect November 2, 2026. What actually changes, what does not, and what it means if your Pinellas County home was rebuilt after Helene or Milton.",
-  "datePublished": "2026-08-31",
-  "dateModified": "2026-08-31",
-  "url": "https://jessebattle.com/blog/2026-uad-3-6-appraisal-changes-pinellas",
-  "image": "https://jessebattle.com/blog/img/uad-3-6-framing.jpg",
-  "author": {
-    "@type": "Person",
-    "name": "Jesse Battle IV",
-    "jobTitle": "REALTOR and Certified General Contractor",
-    "url": "https://jessebattle.com/",
-    "sameAs": [
-      "https://x.com/Jesse_Battle",
-      "https://www.instagram.com/jessebattle.realtor/",
-      "https://www.yelp.com/biz/jesse-battle-charles-rutenberg-realty-st-petersburg",
-      "https://www.reddit.com/user/JesseBattleStPete/"
-    ],
-    "worksFor": {
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://jessebattle.com/blog/2026-uad-3-6-appraisal-changes-pinellas#post",
+      "headline": "What the November 2 Appraisal Change Means for Pinellas County Rebuilds",
+      "description": "UAD 3.6 takes effect November 2, 2026. What actually changes, what does not, and what it means if your Pinellas County home was rebuilt after Helene or Milton.",
+      "datePublished": "2026-08-31",
+      "dateModified": "2026-08-31",
+      "url": "https://jessebattle.com/blog/2026-uad-3-6-appraisal-changes-pinellas",
+      "image": "https://jessebattle.com/blog/img/uad-3-6-framing.jpg",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://jessebattle.com/blog/2026-uad-3-6-appraisal-changes-pinellas"
+      },
+      "isPartOf": {
+        "@id": "https://jessebattle.com/blog/#blog"
+      },
+      "author": {
+        "@id": "https://jessebattle.com/#jesse"
+      },
+      "publisher": {
+        "@id": "https://jessebattle.com/#jesse"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "Blog",
+      "@id": "https://jessebattle.com/blog/#blog",
+      "name": "Writing",
+      "url": "https://jessebattle.com/blog/",
+      "isPartOf": {
+        "@id": "https://jessebattle.com/#website"
+      },
+      "publisher": {
+        "@id": "https://jessebattle.com/#jesse"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://jessebattle.com/#jesse",
+      "name": "Jesse Battle IV",
+      "jobTitle": [
+        "REALTOR",
+        "Certified General Contractor"
+      ],
+      "url": "https://jessebattle.com/",
+      "image": "https://jessebattle.com/headshot.jpg",
+      "email": "jessebattleiv@gmail.com",
+      "telephone": "(727) 487-3200",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "St. Petersburg",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Florida State University"
+      },
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Certified General Contractor",
+        "identifier": "CGC1506583",
+        "recognizedBy": {
+          "@type": "GovernmentOrganization",
+          "name": "Florida Department of Business and Professional Regulation"
+        }
+      },
+      "worksFor": {
+        "@id": "https://jessebattle.com/#practice"
+      },
+      "owns": {
+        "@id": "https://jessebattle.com/#pinellasbuilders"
+      },
+      "sameAs": [
+        "https://x.com/Jesse_Battle",
+        "https://www.instagram.com/jessebattle.realtor/",
+        "https://www.yelp.com/biz/jesse-battle-charles-rutenberg-realty-st-petersburg",
+        "https://www.reddit.com/user/JesseBattleStPete/"
+      ],
+      "knowsAbout": [
+        "Pinellas County residential real estate",
+        "St. Petersburg Florida waterfront property",
+        "FEMA flood zones and elevation certificates",
+        "Florida floodplain ordinance and substantial improvement",
+        "residential construction and permit history"
+      ]
+    },
+    {
       "@type": "RealEstateAgent",
+      "@id": "https://jessebattle.com/#practice",
       "name": "Team Kym Coyle at Charles Rutenberg Realty",
-      "areaServed": "Pinellas County, Florida"
+      "url": "https://kymcoyle.com/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "St. Petersburg",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Pinellas County, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "St. Petersburg, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "St. Pete Beach, Florida"
+        }
+      ],
+      "employee": {
+        "@id": "https://jessebattle.com/#jesse"
+      }
+    },
+    {
+      "@type": "GeneralContractor",
+      "@id": "https://jessebattle.com/#pinellasbuilders",
+      "name": "Pinellas Builders",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "St. Petersburg",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Pinellas County, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "St. Petersburg, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "St. Pete Beach, Florida"
+        }
+      ],
+      "founder": {
+        "@id": "https://jessebattle.com/#jesse"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://jessebattle.com/#website",
+      "url": "https://jessebattle.com/",
+      "name": "Jesse Battle IV",
+      "publisher": {
+        "@id": "https://jessebattle.com/#jesse"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://jessebattle.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Writing",
+          "item": "https://jessebattle.com/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "What the November 2 Appraisal Change Means for Pinellas County Rebuilds",
+          "item": "https://jessebattle.com/blog/2026-uad-3-6-appraisal-changes-pinellas"
+        }
+      ]
     }
-  },
-  "publisher": { "@type": "Person", "name": "Jesse Battle IV" },
-  "about": [
-    "UAD 3.6 appraisal reporting standard",
-    "Pinellas County post-hurricane rebuilds",
-    "residential building permit documentation",
-    "FEMA substantial improvement rule",
-    "St. Petersburg Florida real estate"
   ]
 }
 </script>

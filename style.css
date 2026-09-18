@@ -558,7 +558,12 @@ footer .wrap{max-width:64rem;display:flex;justify-content:space-between;gap:2rem
 
 /* --- shared section scaffolding --- */
 .reno-sec{padding-bottom:5.5rem}
+/* These are <h2>: the page needs a real document outline. font-weight and
+   line-height are pinned because everything else here was already explicit,
+   and those two are the only properties where an h2's UA defaults (bold,
+   line-height:normal) differ from the <p> this used to be. */
 .reno-lab{font-family:'JetBrains Mono',monospace;font-size:var(--l2);letter-spacing:.13em;
+  font-weight:400;line-height:1.65;
   text-transform:uppercase;color:var(--pb);margin:0 0 1.6rem;padding-bottom:.9rem;
   border-bottom:1px solid var(--hair)}
 .reno figure{margin:0}

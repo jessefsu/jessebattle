@@ -42,37 +42,184 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "2026 Kitchen and Bath Trends: What Actually Works in St. Petersburg, Florida",
-  "description": "The 2026 kitchen and bath trends that hold up in Florida heat, humidity, and flood zones, plus the Pinellas County rules that decide what is possible on your house.",
-  "datePublished": "2026-08-18",
-  "dateModified": "2026-08-18",
-  "url": "https://jessebattle.com/blog/2026-kitchen-bath-trends-st-pete",
-  "image": "https://jessebattle.com/blog/img/quartzite-kitchen.jpg",
-  "author": {
-    "@type": "Person",
-    "name": "Jesse Battle IV",
-    "jobTitle": "REALTOR and Certified General Contractor",
-    "url": "https://jessebattle.com/",
-    "sameAs": [
-      "https://x.com/Jesse_Battle",
-      "https://www.instagram.com/jessebattle.realtor/",
-      "https://www.yelp.com/biz/jesse-battle-charles-rutenberg-realty-st-petersburg",
-      "https://www.reddit.com/user/JesseBattleStPete/"
-    ],
-    "worksFor": {
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://jessebattle.com/blog/2026-kitchen-bath-trends-st-pete#post",
+      "headline": "2026 Kitchen and Bath Trends: What Actually Works in St. Petersburg, Florida",
+      "description": "The 2026 kitchen and bath trends that hold up in Florida heat, humidity, and flood zones, plus the Pinellas County rules that decide what is possible on your house.",
+      "datePublished": "2026-08-18",
+      "dateModified": "2026-08-18",
+      "url": "https://jessebattle.com/blog/2026-kitchen-bath-trends-st-pete",
+      "image": "https://jessebattle.com/blog/img/quartzite-kitchen.jpg",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://jessebattle.com/blog/2026-kitchen-bath-trends-st-pete"
+      },
+      "isPartOf": {
+        "@id": "https://jessebattle.com/blog/#blog"
+      },
+      "author": {
+        "@id": "https://jessebattle.com/#jesse"
+      },
+      "publisher": {
+        "@id": "https://jessebattle.com/#jesse"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "Blog",
+      "@id": "https://jessebattle.com/blog/#blog",
+      "name": "Writing",
+      "url": "https://jessebattle.com/blog/",
+      "isPartOf": {
+        "@id": "https://jessebattle.com/#website"
+      },
+      "publisher": {
+        "@id": "https://jessebattle.com/#jesse"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://jessebattle.com/#jesse",
+      "name": "Jesse Battle IV",
+      "jobTitle": [
+        "REALTOR",
+        "Certified General Contractor"
+      ],
+      "url": "https://jessebattle.com/",
+      "image": "https://jessebattle.com/headshot.jpg",
+      "email": "jessebattleiv@gmail.com",
+      "telephone": "(727) 487-3200",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "St. Petersburg",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Florida State University"
+      },
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Certified General Contractor",
+        "identifier": "CGC1506583",
+        "recognizedBy": {
+          "@type": "GovernmentOrganization",
+          "name": "Florida Department of Business and Professional Regulation"
+        }
+      },
+      "worksFor": {
+        "@id": "https://jessebattle.com/#practice"
+      },
+      "owns": {
+        "@id": "https://jessebattle.com/#pinellasbuilders"
+      },
+      "sameAs": [
+        "https://x.com/Jesse_Battle",
+        "https://www.instagram.com/jessebattle.realtor/",
+        "https://www.yelp.com/biz/jesse-battle-charles-rutenberg-realty-st-petersburg",
+        "https://www.reddit.com/user/JesseBattleStPete/"
+      ],
+      "knowsAbout": [
+        "Pinellas County residential real estate",
+        "St. Petersburg Florida waterfront property",
+        "FEMA flood zones and elevation certificates",
+        "Florida floodplain ordinance and substantial improvement",
+        "residential construction and permit history"
+      ]
+    },
+    {
       "@type": "RealEstateAgent",
+      "@id": "https://jessebattle.com/#practice",
       "name": "Team Kym Coyle at Charles Rutenberg Realty",
-      "areaServed": "Pinellas County, Florida"
+      "url": "https://kymcoyle.com/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "St. Petersburg",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Pinellas County, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "St. Petersburg, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "St. Pete Beach, Florida"
+        }
+      ],
+      "employee": {
+        "@id": "https://jessebattle.com/#jesse"
+      }
+    },
+    {
+      "@type": "GeneralContractor",
+      "@id": "https://jessebattle.com/#pinellasbuilders",
+      "name": "Pinellas Builders",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "St. Petersburg",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Pinellas County, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "St. Petersburg, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "St. Pete Beach, Florida"
+        }
+      ],
+      "founder": {
+        "@id": "https://jessebattle.com/#jesse"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://jessebattle.com/#website",
+      "url": "https://jessebattle.com/",
+      "name": "Jesse Battle IV",
+      "publisher": {
+        "@id": "https://jessebattle.com/#jesse"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://jessebattle.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Writing",
+          "item": "https://jessebattle.com/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "2026 Kitchen and Bath Trends: What Actually Works in St. Petersburg, Florida",
+          "item": "https://jessebattle.com/blog/2026-kitchen-bath-trends-st-pete"
+        }
+      ]
     }
-  },
-  "publisher": { "@type": "Person", "name": "Jesse Battle IV" },
-  "about": [
-    "kitchen and bath remodeling trends",
-    "St. Petersburg Florida real estate",
-    "FEMA substantial improvement rule",
-    "Pinellas County flood zones",
-    "residential property value"
   ]
 }
 </script>

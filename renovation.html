@@ -33,24 +33,233 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "Renovation Work",
-  "description": "Kitchens, baths, flooring, layout and hardscape from thirty years of renovation work in Pinellas County, under Florida CGC1506583.",
-  "url": "https://jessebattle.com/renovation",
-  "author": {
-    "@type": "Person",
-    "name": "Jesse Battle IV",
-    "jobTitle": "REALTOR and Certified General Contractor",
-    "url": "https://jessebattle.com/",
-    "hasCredential": "Florida Certified General Contractor CGC1506583",
-    "sameAs": [
-      "https://x.com/Jesse_Battle",
-      "https://www.instagram.com/jessebattle.realtor/",
-      "https://www.yelp.com/biz/jesse-battle-charles-rutenberg-realty-st-petersburg",
-      "https://www.reddit.com/user/JesseBattleStPete/"
-    ]
-  },
-  "publisher": { "@type": "Person", "name": "Jesse Battle IV" }
+  "@graph": [
+    {
+      "@type": "ImageGallery",
+      "@id": "https://jessebattle.com/renovation#page",
+      "name": "Renovation Work",
+      "description": "Kitchens, baths, flooring, layout and hardscape from thirty years of renovation work in Pinellas County, under Florida CGC1506583.",
+      "url": "https://jessebattle.com/renovation",
+      "isPartOf": {
+        "@id": "https://jessebattle.com/#website"
+      },
+      "author": {
+        "@id": "https://jessebattle.com/#jesse"
+      },
+      "publisher": {
+        "@id": "https://jessebattle.com/#jesse"
+      },
+      "associatedMedia": [
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://jessebattle.com/img/reno-kitchen-large.jpg",
+          "url": "https://jessebattle.com/img/reno-kitchen-large.jpg",
+          "width": 1600,
+          "height": 900,
+          "caption": "Full-height marble slab, fluted island. Walnut and painted fronts."
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://jessebattle.com/img/reno-kitchen-range.jpg",
+          "url": "https://jessebattle.com/img/reno-kitchen-range.jpg",
+          "width": 800,
+          "height": 600,
+          "caption": "Range wall, undercabinet lighting on stone."
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://jessebattle.com/img/reno-bath-large.jpg",
+          "url": "https://jessebattle.com/img/reno-bath-large.jpg",
+          "width": 1600,
+          "height": 900,
+          "caption": "Large-format porcelain, curbless entry. Floating oak vanity, black stone top."
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://jessebattle.com/img/reno-bath-tub-niche.jpg",
+          "url": "https://jessebattle.com/img/reno-bath-tub-niche.jpg",
+          "width": 800,
+          "height": 600,
+          "caption": "Freestanding tub, clerestory glazing, recessed niche."
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://jessebattle.com/img/reno-bath-guest.jpg",
+          "url": "https://jessebattle.com/img/reno-bath-guest.jpg",
+          "width": 800,
+          "height": 600,
+          "caption": "Guest bath, sage subway, marble-look porcelain floor."
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://jessebattle.com/img/reno-flooring.jpg",
+          "url": "https://jessebattle.com/img/reno-flooring.jpg",
+          "width": 1600,
+          "height": 900,
+          "caption": "Wood-look porcelain plank, staggered, narrow joints."
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://jessebattle.com/img/reno-floor-plan.jpg",
+          "url": "https://jessebattle.com/img/reno-floor-plan.jpg",
+          "width": 1400,
+          "height": 1400,
+          "caption": "Three bed, two bath, attached garage."
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://jessebattle.com/img/reno-pavers-large.jpg",
+          "url": "https://jessebattle.com/img/reno-pavers-large.jpg",
+          "width": 1600,
+          "height": 900,
+          "caption": "Shellock pavers, pool and raised spa. Canal lot."
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://jessebattle.com/img/reno-pavers-detail.jpg",
+          "url": "https://jessebattle.com/img/reno-pavers-detail.jpg",
+          "width": 800,
+          "height": 600,
+          "caption": "Travertine, French pattern. Freeform coping, open water."
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://jessebattle.com/#jesse",
+      "name": "Jesse Battle IV",
+      "jobTitle": [
+        "REALTOR",
+        "Certified General Contractor"
+      ],
+      "url": "https://jessebattle.com/",
+      "image": "https://jessebattle.com/headshot.jpg",
+      "email": "jessebattleiv@gmail.com",
+      "telephone": "(727) 487-3200",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "St. Petersburg",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Florida State University"
+      },
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Certified General Contractor",
+        "identifier": "CGC1506583",
+        "recognizedBy": {
+          "@type": "GovernmentOrganization",
+          "name": "Florida Department of Business and Professional Regulation"
+        }
+      },
+      "worksFor": {
+        "@id": "https://jessebattle.com/#practice"
+      },
+      "owns": {
+        "@id": "https://jessebattle.com/#pinellasbuilders"
+      },
+      "sameAs": [
+        "https://x.com/Jesse_Battle",
+        "https://www.instagram.com/jessebattle.realtor/",
+        "https://www.yelp.com/biz/jesse-battle-charles-rutenberg-realty-st-petersburg",
+        "https://www.reddit.com/user/JesseBattleStPete/"
+      ],
+      "knowsAbout": [
+        "Pinellas County residential real estate",
+        "St. Petersburg Florida waterfront property",
+        "FEMA flood zones and elevation certificates",
+        "Florida floodplain ordinance and substantial improvement",
+        "residential construction and permit history"
+      ]
+    },
+    {
+      "@type": "RealEstateAgent",
+      "@id": "https://jessebattle.com/#practice",
+      "name": "Team Kym Coyle at Charles Rutenberg Realty",
+      "url": "https://kymcoyle.com/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "St. Petersburg",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Pinellas County, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "St. Petersburg, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "St. Pete Beach, Florida"
+        }
+      ],
+      "employee": {
+        "@id": "https://jessebattle.com/#jesse"
+      }
+    },
+    {
+      "@type": "GeneralContractor",
+      "@id": "https://jessebattle.com/#pinellasbuilders",
+      "name": "Pinellas Builders",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "St. Petersburg",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Pinellas County, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "St. Petersburg, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "St. Pete Beach, Florida"
+        }
+      ],
+      "founder": {
+        "@id": "https://jessebattle.com/#jesse"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://jessebattle.com/#website",
+      "url": "https://jessebattle.com/",
+      "name": "Jesse Battle IV",
+      "publisher": {
+        "@id": "https://jessebattle.com/#jesse"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://jessebattle.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Renovation",
+          "item": "https://jessebattle.com/renovation"
+        }
+      ]
+    }
+  ]
 }
 </script>
 </head>
@@ -89,7 +298,7 @@
 
 <!-- 3 — KITCHENS -->
 <section class="wrap reno-sec" aria-labelledby="lab-kitchens">
-  <p class="reno-lab" id="lab-kitchens">Kitchens</p>
+  <h2 class="reno-lab" id="lab-kitchens">Kitchens</h2>
 
   <figure class="reno-lg">
     <img src="img/reno-kitchen-large.jpg" width="1600" height="900"
@@ -112,7 +321,7 @@
 
 <!-- 4 — BATHS -->
 <section class="wrap reno-sec" aria-labelledby="lab-baths">
-  <p class="reno-lab" id="lab-baths">Baths</p>
+  <h2 class="reno-lab" id="lab-baths">Baths</h2>
 
   <figure class="reno-lg">
     <img src="img/reno-bath-large.jpg" width="1600" height="900"
@@ -139,7 +348,7 @@
 
 <!-- 5 — FLOORING -->
 <section class="wrap reno-sec" aria-labelledby="lab-flooring">
-  <p class="reno-lab" id="lab-flooring">Flooring</p>
+  <h2 class="reno-lab" id="lab-flooring">Flooring</h2>
 
   <figure class="reno-lg">
     <img src="img/reno-flooring.jpg" width="1600" height="900"
@@ -155,7 +364,7 @@
 <!-- 6 — WALLS AND LAYOUT. Demo runs edge to edge; the plan sits beside the
      caption at its native 1:1 and is never cropped to match the photos. -->
 <section class="reno-sec" aria-labelledby="lab-walls">
-  <div class="wrap"><p class="reno-lab" id="lab-walls">Walls and Layout</p></div>
+  <div class="wrap"><h2 class="reno-lab" id="lab-walls">Walls and Layout</h2></div>
 
   <figure class="bleed">
     <img src="img/reno-demo.jpg" width="2560" height="1200"
@@ -182,7 +391,7 @@
      same large treatment as kitchens and baths. The location clause is held
      back until the locations are confirmed; nothing stands in for it. -->
 <section class="wrap reno-sec" aria-labelledby="lab-pavers">
-  <p class="reno-lab" id="lab-pavers">Pavers</p>
+  <h2 class="reno-lab" id="lab-pavers">Pavers</h2>
 
   <figure class="reno-lg">
     <img src="img/reno-pavers-large.jpg" width="1600" height="900"
@@ -203,7 +412,7 @@
 
 <!-- 8 — SPECIALTY. Deliberately small. -->
 <section class="wrap reno-sec" aria-labelledby="lab-spec">
-  <p class="reno-lab" id="lab-spec">Specialty</p>
+  <h2 class="reno-lab" id="lab-spec">Specialty</h2>
 
   <div class="reno-spec out-sm to-right">
     <figure>
