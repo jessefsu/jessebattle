@@ -3,13 +3,13 @@
 
   <url>
     <loc>https://jessebattle.com/</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://jessebattle.com/blog/</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <priority>0.8</priority>
   </url>
 
@@ -39,9 +39,9 @@
 
   <url>
     <loc>https://jessebattle.com/blog/2026-uad-3-6-appraisal-changes-pinellas</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <priority>0.7</priority>
   </url>
 
   <!-- ADD ONE BLOCK LIKE THIS FOR EVERY NEW POST -->
-</urlset>
+  <url>     <loc>https://jessebattle.com/blog/2027-renovation-forecast-st-pete</loc>     <lastmod>2026-09-18</lastmod>     <priority>0.7</priority>   </url> </urlset>
