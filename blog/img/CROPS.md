@@ -102,3 +102,10 @@ downgrade for most desktop readers.
 quartzite-kitchen has a -800w only, downscaled from the 1600 derivative rather
 than a source, since it has no source. That is a resize of an already-lossy
 file, which is acceptable going down but is why it has no 2400w tier.
+
+
+2027-trends-hero  Added 2026-09-18. Source: Site photos/2027 trends kitchen.jpg, portrait 2515x3773.
+The 16:9 band is the full width, so cy 0.38 does all the work: it holds the hood, both cabinet runs,
+the island and all four stools. Lands at q72 on every derivative, no ladder drop needed.
+tools/web-photo.sh SOURCE blog/img/2027-trends-hero.jpg   0.50 0.38 1.00 2400 16:9 360
+tools/web-photo.sh SOURCE blog/img/thumb-2027-trends.jpg  0.50 0.38 0.70  480 5:4   40
