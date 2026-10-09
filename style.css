@@ -400,6 +400,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
 .home section{padding:5rem 0}
 .home .close-h{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d2);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;max-width:13ch;margin-top:2.2rem}
 .home .close-deck{margin-top:1.5rem;max-width:var(--w-measure);color:rgba(234,244,250,.84)}
+/* Second .portrait, reusing the hero's frame and widths. The hero gets its
+   spacing from the header grid gap; in block flow it needs a margin, and
+   2.6rem matches the .contact-stations step above it. justify-self:start
+   overrides the hero's desktop "end", which some browsers apply outside a
+   grid and some ignore; start lines it up with the column either way. */
+.home #contact .portrait{justify-self:start;margin-top:2.6rem}
 .home h3.big{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d3);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;max-width:18ch;margin-bottom:1.6rem}
 .home .body-col{max-width:var(--w-measure)}
 .home .story-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:4rem;align-items:start}

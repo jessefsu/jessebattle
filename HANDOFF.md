@@ -100,7 +100,8 @@ committed. That matters because the Worker serves the repo root, so anything
 committed is publicly downloadable at full size. Process to the house spec
 before committing: 2400x1350 for a post hero, progressive JPEG, cap 360KB.
 (Raised from 1600x900 / 150-200KB on 2026-09-18 -- see the render-size note
-below. Other slots keep their own sizes; see img/CROPS-reno.md.)
+below. Other slots keep their own sizes; see img/CROPS-reno.md and
+img/CROPS-portraits.md.)
 Keep the original in `Site photos/` so a photo can be re-cropped later without
 re-shooting it.
 
@@ -132,6 +133,19 @@ lower the quality of any image that was already fitting. The 30 and 26 rungs
 were added 2026-09-18 for exactly one frame; everything else on the site still
 lands at 40 or above. If a photo bottoms out at 26 and is still over cap,
 reduce the output width rather than extending the ladder further.
+
+**Optional ninth argument: a fixed quality.** Added 2026-10-09.
+`tools/web-photo.sh <source> <dest> <cx> <cy> <zoom> <outWidth> <aspect> <maxKB> <quality>`
+encodes once at that quality instead of walking the ladder, and `maxKB` is then
+not enforced. **Calls without it behave exactly as before**: the ladder and
+`maxKB` apply unchanged, and every command in the CROPS notes reproduces byte
+for byte (checked on `img/reno-generator.jpg` and on a q72 ladder run of
+`img/jesse-overhead.jpg`). Size-first is still the rule above. Reach for the
+ninth argument only when the quality itself is the point. The one use so far
+is the 2x tier of a srcset pair: `img/jesse-overhead.jpg` is pinned at q60
+because it is only chosen on dense screens, while its 1x file
+`img/jesse-overhead-500w.jpg` takes the top rung, q72. See
+img/CROPS-portraits.md.
 
 ### Responsive images — srcset and sizes
 

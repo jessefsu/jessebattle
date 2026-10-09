@@ -2,7 +2,7 @@
 # Crop a photo to an aspect ratio aimed at the subject, resize, and step the
 # JPEG quality down until the file is under a size ceiling.
 #
-#   tools/web-photo.sh <source> <dest.jpg> [cx cy zoom outWidth aspect maxKB]
+#   tools/web-photo.sh <source> <dest.jpg> [cx cy zoom outWidth aspect maxKB quality]
 #
 #     cx, cy    centre of the crop as a fraction of the source (0-1). Default .5 .5
 #     zoom      fraction of the source WIDTH the crop spans. 1 = whole frame,
@@ -13,6 +13,10 @@
 #               (2.1333). Default 16:9, so calls written before this argument
 #               existed reproduce their original crop unchanged.
 #     maxKB     size ceiling in KB. Default 300.
+#     quality   optional fixed JPEG quality. Encodes once at that value instead
+#               of walking the ladder, so maxKB is not enforced. Leave it off
+#               unless the quality itself is the point, e.g. a 2x tier that can
+#               sit below its 1x file (img/CROPS-portraits.md).
 #
 # Output height is derived from outWidth and aspect, so pass the ratio that
 # matches the height you want: 2560 with 2560:1200 gives exactly 2560x1200.
@@ -25,7 +29,7 @@
 # displays as 4284x5712 portrait. Measuring the original would crop the wrong axis.
 set -euo pipefail
 src="$1"; dest="$2"; cx="${3:-0.5}"; cy="${4:-0.5}"; zoom="${5:-1}"; ow="${6:-1024}"
-aspect="${7:-16:9}"; max=$(( ${8:-300} * 1024 ))
+aspect="${7:-16:9}"; max=$(( ${8:-300} * 1024 )); ladder="${9:-72 64 58 52 46 40 34 30 26}"
 tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
 
 sips -s format jpeg "$src" --out "$tmp/a.jpg" >/dev/null
@@ -70,7 +74,7 @@ print(cw,ch,left,top,round(ow*ad/an))")"
 
 sips --cropToHeightWidth "$ch" "$cw" --cropOffset "$top" "$left" "$tmp/a.jpg" >/dev/null
 sips --resampleHeightWidth "$oh" "$ow" "$tmp/a.jpg" >/dev/null
-for q in 72 64 58 52 46 40 34 30 26; do
+for q in $ladder; do
   sips -s formatOptions "$q" "$tmp/a.jpg" --out "$dest" >/dev/null
   # Drop the EXIF block: it still carries the now-baked-in orientation tag,
   # which would rotate the image a second time in the browser, and phone
