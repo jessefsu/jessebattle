@@ -365,7 +365,7 @@ The default article byline is name, role, date, and nothing else:
 ```html
 <p class="byline">
   <strong>Jesse Battle IV</strong>
-  <span class="role">REALTOR, Team Kym Coyle</span>
+  <span class="role">REALTOR, Kym Coyle Group</span>
   <time datetime="2026-08-19">August 19, 2026</time>
 </p>
 ```
@@ -919,7 +919,7 @@ entities defined once and referenced by `@id`:
 ```
 Person             #jesse             titles, DBPR credential, address,
                                       phone, email, sameAs, knowsAbout
-RealEstateAgent    #practice          Team Kym Coyle at Charles Rutenberg
+RealEstateAgent    #practice          Kym Coyle Group at Charles Rutenberg
 GeneralContractor  #pinellasbuilders  name, address, areaServed, founder
 WebSite            #website
 Blog               #blog              lists the four posts
