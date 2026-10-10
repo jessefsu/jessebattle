@@ -424,7 +424,7 @@
 <section id="contact">
   <div class="wrap">
     <div class="datum"></div>
-    <div class="datum-lab"><span>Contact</span><span>Sheet 03</span></div>
+    <div class="datum-lab"><span>Contact</span><span>Sheet 04</span></div>
 
     <h2 class="close-h">Send me an address</h2>
     <p class="close-deck">Buying, selling, or just trying to work out whether a property is worth the
@@ -438,6 +438,34 @@
         <span class="lab">Phone</span><span class="val">(727) 487-3200</span><span class="arw">&rarr;</span>
       </a>
     </div>
+
+    <!-- Ships hidden; contact.js reveals it once it can submit, so nobody
+         sees a form that cannot send. The stations above work without JS. -->
+    <form class="contact-form" action="/api/contact" method="post" hidden>
+      <h3 class="soc-h">Send a message</h3>
+      <div class="field">
+        <label for="cf-name">Name</label>
+        <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="200" required>
+      </div>
+      <div class="field">
+        <label for="cf-email">Email</label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+      </div>
+      <div class="field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" rows="6" maxlength="5000" required></textarea>
+      </div>
+      <!-- Honeypot. People never see or reach it; bots fill every field. -->
+      <div class="vh" aria-hidden="true">
+        <label for="cf-ref">Leave this empty</label>
+        <input id="cf-ref" name="ref_code" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <button class="form-send" type="submit">
+        <span class="lbl">Send</span>
+        <svg class="arw" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>
+      </button>
+      <p class="form-status" aria-live="polite"></p>
+    </form>
 
     <figure class="portrait">
       <img src="img/jesse-overhead.jpg"
@@ -487,5 +515,6 @@
   </div>
 </footer>
 
+<script src="/contact.js" defer></script>
 </body>
 </html>

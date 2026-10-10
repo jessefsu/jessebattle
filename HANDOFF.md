@@ -34,11 +34,20 @@ usually within two minutes.
 Use wrangler, not a plain static server:
 
 ```
-npx wrangler dev --assets=. --compatibility-date=2026-08-15
+npx wrangler dev --persist-to /tmp/wrangler-state-jessebattle
 ```
 
 Then open the URL it prints (usually `http://localhost:8787`). This matches
-how Cloudflare actually serves the site, including extensionless URLs.
+how Cloudflare actually serves the site, including extensionless URLs and the
+contact form's Worker. The old `--assets=. --compatibility-date` flags now
+live in `wrangler.jsonc`; passing them as well is harmless.
+
+**Keep `--persist-to` pointing outside the repo.** Since the contact form added
+a Worker (2026-10-10), `wrangler dev` writes local storage under
+`.wrangler/state/` on every request. That folder is inside the assets
+directory, the repo root, and the dev file watcher does not honour
+`.assetsignore`, so every write reloads the server: it loops, and a form POST
+fails with "Your worker restarted mid-request". State elsewhere stops it.
 
 Do not use `python3 -m http.server` for a full check. It serves files
 literally, so the blog post at `/blog/2026-kitchen-bath-trends-st-pete`
@@ -76,9 +85,14 @@ sitemap.xml                            add a <url> block per new post
 tools/headshot.py                      executable form of the headshot recipe.
                                        In the repo, never served
 llms.txt                               plain-language summary for AI agents
-share.js                               the only JavaScript on the site. Powers
-                                       copy-link and the phone share sheet on
+share.js                               copy-link and the phone share sheet on
                                        article pages; see Share row below
+contact.js                             the homepage contact form: reveals it,
+                                       posts it with fetch; see Contact form
+worker/index.js                        the Worker. Only the form's POST and
+                                       404s reach it; never served
+wrangler.jsonc                         Worker, assets and form config. Never
+                                       served
 social-home.jpg                        1200x630 preview card for the homepage
 social-writing.jpg                     1200x630 preview card for /blog/. Both
                                        are crawler-only; no page loads them
@@ -245,6 +259,10 @@ in the repo and 404s on the web. Currently excluded:
 tools/          build scripts, not site content
 *.md            HANDOFF.md, HOW-TO-POST.md
 .gitignore
+worker/         the Worker's source
+wrangler.jsonc  its config
+.dev.vars*      local secrets for wrangler dev (also git-ignored)
+.wrangler/      wrangler's local build and state
 ```
 
 **Verify it, do not trust it.** After changing `.assetsignore`, run
@@ -406,10 +424,11 @@ the full `licensed since 2003 (CGC1506583)`. Nothing is lost and the byline
 stays on one line. If the byline ever gains a fifth item, it will wrap again —
 check it at 1280px before publishing.
 
-### Share row — the only JavaScript on the site
+### Share row
 
 Every article carries a share block between the source note and the author
-box. It is the one place the site runs script, and it is deliberately small:
+box. It is one of two places the site runs script (the other is the contact
+form), and it is deliberately small:
 `share.js` is about 2KB, loads `defer` from the root on every post, and makes
 no network calls. No third-party widgets, no SDKs, no trackers — the four
 social buttons are plain `<a href>` links to each platform's own share
@@ -442,6 +461,99 @@ cascade order: the `--lit` tokens are declared *before* `.share-btn`, so a
 default `--lit` on `.share-btn` would have silently beaten every brand value
 at equal specificity. The default is written as `var(--lit,var(--pb))` at the
 point of use instead.
+
+### Contact form
+
+Added 2026-10-10. The homepage `#contact` section has a three-field form
+(Name, Email, Message) between the email/phone rows and the portrait.
+`contact.js` posts it with fetch to `/api/contact`; `worker/index.js` sends it
+to jessebattleiv@gmail.com through Resend.
+
+**Most requests never run the Worker.** Workers Assets matches files first,
+so every page, image and stylesheet is served exactly as before. Only requests
+that match no file reach the Worker: the form's POST, and 404s, which it hands
+straight back to the `ASSETS` binding so a 404 is unchanged.
+
+**What `/api/contact` does**, in order:
+
+```
+not POST                                  405
+Origin header from another host           403   a browser posting cross-site
+honeypot field ref_code not empty         400   rejected, nothing sent
+a field empty                             400
+name > 200, email > 254, message > 5000   400   same caps as the maxlength attrs
+email not shaped like a@b.c               400
+4th valid send from one client this hour  429   Retry-After, {limit, retryAfter}
+rate limiter itself errors                503   logged; fails closed, no send
+RESEND_API_KEY / CONTACT_TO / FROM unset  500   logged
+Resend refuses                            502   logged with Resend's reply
+sent                                      200   {"ok":true}
+```
+
+The email goes from `CONTACT_FROM` to `CONTACT_TO` (both in `wrangler.jsonc`)
+with `reply_to` set to the sender, so Reply in Gmail answers them directly.
+Subject is "Website message from <name>". Resend rejects any request without a
+`User-Agent` header with a 403, so the Worker sets one; keep it.
+
+**Front end.** The form ships `hidden` and `contact.js` reveals it only once
+the submit handler is attached, the same rule as the share row. Without JS
+the email and phone links above it still work. Success clears the fields and
+shows a thank-you on a plain cyan rule. Failure keeps every field exactly as
+typed and shows the `.is-error` panel: `--ink-2` ground, `--hair` border, a
+3px `--paper` left bar and a "Not sent" label in the station label style, so
+the two states differ in shape and label, not only in wording, with no new
+colour. Hitting the rate limit gets its own message with the minutes left.
+The status line is `aria-live`. Field text is `--base` (17.2px), because
+under 16px iOS Safari zooms the page on focus.
+
+**Why Resend and not MailChannels** (researched 2026-10-10). MailChannels
+ended free sending for Cloudflare Workers on 2024-08-31. Its replacement Email
+API needs an account, a Domain Lockdown TXT record (mandatory for Workers
+senders) and an SPF include. Resend needs an account, an API key and domain
+verification, which for a Cloudflare-hosted domain is one click. Both free
+tiers are 3,000 emails a month, 100 a day. Cloudflare's own Email Service can
+also send free, but only to verified addresses via Email Routing; worth a look
+if Resend ever becomes a problem.
+
+**Secrets.** `RESEND_API_KEY` is a Cloudflare secret on the `jessebattle`
+Worker (dashboard, or `npx wrangler secret put RESEND_API_KEY`). It is in
+neither the repo nor `wrangler.jsonc`. `CONTACT_FROM` must be an address on a
+domain verified in Resend, or every send fails with a 502.
+
+**Testing locally.** With no key the form answers "not configured", which is
+a fine way to see the failure state. For a real send, put
+`RESEND_API_KEY=re_...` in `.dev.vars` at the repo root (git-ignored and
+asset-ignored) and restart `wrangler dev`. That sends a real email.
+
+**Rate limit: 3 sends per client per hour**, so one visitor cannot spend
+Resend's 100-a-day free quota. It is a SQLite-backed Durable Object,
+`ContactRateLimit` in `worker/index.js`, bound as `CONTACT_LIMIT` in
+`wrangler.jsonc`. Durable Objects are on Workers Free and the migration in
+`wrangler.jsonc` creates the class on deploy, so there is no dashboard step.
+Never edit that migration once deployed; add a new tag.
+
+- The client is `CF-Connecting-IP`, which Cloudflare sets and a visitor cannot
+  forge. IPv6 is grouped by /64, the block one connection is normally given,
+  or rotating addresses inside it would dodge the limit.
+- Only valid submissions are counted, so honeypot hits and bad input cost
+  nothing. A send that then fails at Resend still used its slot.
+- One object per client holds only that client's timestamps. An alarm wipes
+  it an hour after its last send.
+- Why not the alternatives: the Workers rate-limit binding only counts over
+  10 or 60 seconds, and per data centre. KV needs a namespace created by hand
+  and is eventually consistent, so a quick burst can slip past it. An
+  in-memory counter resets whenever the isolate is recycled and is not shared
+  between data centres.
+
+**What it does not stop:** many IPs at once, such as a botnet or a pool of
+proxies. Each gets its own 3 an hour, and enough of them can still use up the
+day's 100 at Resend. If that ever happens, the next step is a global daily cap
+in the same object, keyed on a constant instead of the IP.
+
+Verified locally 2026-10-10: the 4th valid send in an hour gets the 429, junk
+does not count, separate IPs and separate /64s get their own allowance, a
+5-second test window reopened on time, and the alarm emptied the object.
+Local state lives in `--persist-to`; delete that folder to reset the limits.
 
 ### Preview cards — 1.91:1, and never reuse a page image
 
@@ -755,8 +867,15 @@ Root directory:  /
 
 The `--compatibility-date` flag is required. Without it wrangler errors with
 "A compatibility_date is required when uploading a Worker" and the build fails.
-There is no `wrangler.jsonc` in the repo; the flags carry the whole config.
-Adding a proper `wrangler.jsonc` would be cleaner if you want to tidy this up.
+
+Since 2026-10-10 the repo has a `wrangler.jsonc`, added with the contact form.
+It carries the same name, assets directory and compatibility date as the flags,
+plus the Worker script (`main`), the `ASSETS` binding and the form's two
+addresses. The deploy command above was left as it is: wrangler reads the file
+and the flags only restate it, and a `--dry-run` with exactly that command
+picked up the Worker and the binding. Plain `npx wrangler deploy` would also
+work, but it does not need changing. Secrets are not in either place; see
+Contact form.
 
 ---
 

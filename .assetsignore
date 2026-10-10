@@ -8,3 +8,14 @@ tools/
 Site photos/
 *.md
 .gitignore
+
+# The Worker's source and config, and the local secrets file wrangler dev
+# reads. Same reason as tools/: they sit inside the assets directory, so
+# without these lines they would be publicly downloadable.
+worker/
+wrangler.jsonc
+.dev.vars*
+# wrangler dev writes its build and local state here. It is inside the assets
+# directory, so without this line every write looks like a site change and
+# the dev server reloads itself in a loop.
+.wrangler/

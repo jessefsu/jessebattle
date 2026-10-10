@@ -1,0 +1,35 @@
+// Cloudflare config for jessebattle.com. Before the contact form the whole
+// config was flags on the deploy command; it lives here now so the Worker
+// script, the assets binding and the form's addresses are in one place.
+// The Cloudflare build's existing deploy command still works: wrangler reads
+// this file and its flags only restate what is here (checked with --dry-run).
+{
+  "name": "jessebattle",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-08-15",
+
+  // Workers Assets serves the repo root, as before. Files are matched first;
+  // only requests that match no file run worker/index.js. .assetsignore keeps
+  // the docs, tools, this file and the Worker source off the web.
+  "assets": { "directory": ".", "binding": "ASSETS" },
+
+  // Not secret, already public on the page. The API key is NOT here: it is a
+  // Cloudflare secret named RESEND_API_KEY (HANDOFF.md "Contact form").
+  // CONTACT_FROM must be an address on a domain verified in Resend.
+  "vars": {
+    "CONTACT_TO": "jessebattleiv@gmail.com",
+    "CONTACT_FROM": "jessebattle.com <website@jessebattle.com>"
+  },
+
+  // The contact form's per-IP rate limit (3 sends an hour; ContactRateLimit in
+  // worker/index.js). SQLite-backed, the only kind Workers Free allows. The
+  // migration creates it on the next deploy; there is no dashboard step.
+  // Never edit a migration once it has deployed; add a new tag instead.
+  "durable_objects": {
+    "bindings": [{ "name": "CONTACT_LIMIT", "class_name": "ContactRateLimit" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ContactRateLimit"] }],
+
+  // Keeps console.error from the form visible under the Worker's Logs tab.
+  "observability": { "enabled": true }
+}

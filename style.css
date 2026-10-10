@@ -402,10 +402,34 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
 .home .close-deck{margin-top:1.5rem;max-width:var(--w-measure);color:rgba(234,244,250,.84)}
 /* Second .portrait, reusing the hero's frame and widths. The hero gets its
    spacing from the header grid gap; in block flow it needs a margin, and
-   2.6rem matches the .contact-stations step above it. justify-self:start
+   2.6rem matches the .contact-stations step. justify-self:start
    overrides the hero's desktop "end", which some browsers apply outside a
    grid and some ignore; start lines it up with the column either way. */
 .home #contact .portrait{justify-self:start;margin-top:2.6rem}
+/* Contact form. Labels are the .station .lab treatment so the form reads as
+   part of the same contact block; fields sit on --ink-2 like the cards, on a
+   --hair border. Field text is --base (17.2px): under 16px, iOS Safari zooms
+   the page on focus. Fields cap at --w-measure, since a message is prose;
+   the heading does not, so its rule spans the column like "Find me elsewhere". */
+.home .contact-form .field,.home .form-status{max-width:var(--w-measure)}
+.home .contact-form .field+.field{margin-top:1.6rem}
+.home .contact-form label{display:block;margin-bottom:.5rem;font-family:'JetBrains Mono',monospace;font-size:var(--l3);letter-spacing:.2em;text-transform:uppercase;color:var(--slate)}
+.home .contact-form input,.home .contact-form textarea{display:block;width:100%;padding:.85rem 1rem;
+  font-family:inherit;font-size:var(--base);line-height:1.5;color:var(--paper);
+  background:var(--ink-2);border:1px solid var(--hair);border-radius:0;-webkit-appearance:none;appearance:none}
+.home .contact-form textarea{min-height:10rem;resize:vertical}
+.home .contact-form input:focus-visible,.home .contact-form textarea:focus-visible{outline:2px solid var(--pb);outline-offset:3px}
+/* Browser autofill paints its own light fill; keep the field on the site ink */
+.home .contact-form input:-webkit-autofill{-webkit-text-fill-color:var(--paper);box-shadow:0 0 0 100px var(--ink-2) inset;caret-color:var(--paper)}
+.home .form-status:not(:empty){margin-top:1.2rem;padding-left:.9rem;border-left:2px solid var(--pb);font-size:var(--small);color:rgba(234,244,250,.84)}
+.home .form-status a{color:var(--pb)}
+/* Failure is a raised panel in the social cards' anatomy: --ink-2 ground,
+   --hair border, a heavier left bar, plus a "Not sent" label in the station
+   label treatment. Success stays an unboxed rule. The bar steps out of cyan
+   to --paper because --pb is the site's done/active accent. Shape and label
+   carry the difference, so it reads without colour and needs no new token. */
+.home .form-status.is-error{padding:.95rem 1.15rem;background:var(--ink-2);border:1px solid var(--hair);border-left:3px solid var(--paper);color:var(--paper)}
+.home .form-status .st-lab{display:block;margin-bottom:.4rem;font-family:'JetBrains Mono',monospace;font-size:var(--l3);letter-spacing:.2em;text-transform:uppercase;color:var(--paper)}
 .home h3.big{font-family:'Archivo',sans-serif;font-weight:800;font-size:var(--d3);line-height:1.05;letter-spacing:.01em;text-transform:uppercase;max-width:18ch;margin-bottom:1.6rem}
 .home .body-col{max-width:var(--w-measure)}
 .home .story-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:4rem;align-items:start}
@@ -429,17 +453,21 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
 .home footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
 
 /* Cyan button. The Practice column had a matching one until the listings
-   section on this page replaced the reason for it; this is the only instance now. */
-.home .writing-btn{display:inline-flex;align-items:center;gap:.7rem;
+   section on this page replaced the reason for it. Two instances now: All
+   Writing, and Send on the contact form. */
+.home .writing-btn,.home .form-send{display:inline-flex;align-items:center;gap:.7rem;
   font-family:'JetBrains Mono',monospace;font-size:var(--l1);letter-spacing:.16em;text-transform:uppercase;
   color:var(--pb);text-decoration:none;border:1px solid var(--pb);padding:.85rem 1.2rem;
   background:linear-gradient(rgba(161,235,255,.07),transparent);
   transition:background .2s,color .2s,box-shadow .2s}
-.home .writing-btn:hover{background:var(--pb);color:var(--ink);box-shadow:0 0 0 3px rgba(161,235,255,.14)}
-.home .writing-btn:focus-visible{outline:2px solid var(--pb);outline-offset:3px}
-.home .writing-btn svg{width:.68rem;height:.68rem;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;
+.home .writing-btn:hover,.home .form-send:hover{background:var(--pb);color:var(--ink);box-shadow:0 0 0 3px rgba(161,235,255,.14)}
+.home .writing-btn:focus-visible,.home .form-send:focus-visible{outline:2px solid var(--pb);outline-offset:3px}
+.home .writing-btn svg,.home .form-send svg{width:.68rem;height:.68rem;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;
   stroke-linecap:round;stroke-linejoin:round}
-.home .writing-btn{margin-top:1.9rem}
+.home .writing-btn,.home .form-send{margin-top:1.9rem}
+/* <button> does not inherit type the way <a> does */
+.home .form-send{line-height:inherit;cursor:pointer}
+.home .form-send:disabled{opacity:.6;cursor:progress;pointer-events:none}
 .vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 /* =========================================================
