@@ -890,18 +890,27 @@ Save Contact, Call, Text, Email and Website buttons.
 /pb/     Pinellas Builders, navy + blue  contact file: jesse-battle-pinellas-builders.vcf
 ```
 
-Each folder holds `index.html`, `card.jpg` (the 1080x1920 card art),
-`share.jpg` (1200x630 link preview) and the `.vcf`. Keep them hidden: not in
-the nav, not in `sitemap.xml`, and each page carries `noindex`. The pages are
-self-contained (own inline CSS, Poppins from Google Fonts) and do not use
-`style.css`.
+Each folder holds `index.html`, `photo.jpg` (headshot), `share.jpg` (1200x630
+link preview) and the `.vcf`; `/card/` also has `crr-logo.png` (white on
+transparent, lifted from Kym's card), and `/pb/` uses the site's `/pb-logo.png`.
+Keep them hidden: not in the nav, not in `sitemap.xml`, and each page carries
+`noindex`. The pages are self-contained (own inline CSS, fonts from Google
+Fonts) and do not use `style.css`.
+
+The page is the card, built in HTML, and must fit one phone screen with no
+scrolling: `main` is a 100dvh flex column and the photo is the flex item that
+shrinks, so every button stays visible. Checked at 390x664 (iPhone with
+browser bars), 375x553 (SE) and 430x800. v1 used the tall card image instead
+and pushed the buttons off screen; don't go back to that. The share image
+keeps type big (name about 110px on 1200 wide) because iMessage shrinks the
+preview to roughly a quarter of its size.
 
 The `/pb/` card stays on the right side of the non-compete line below: it
 states identity and contact details only (license, entity, phone, email),
 with no services, portfolio, pricing or quote request. Keep it that way.
 
-To change a phone number or email, update all three places in that folder:
-the card art, the `.vcf`, and the links in `index.html`.
+To change a phone number or email, update both places in that folder: the
+`.vcf` and `index.html` (link and visible text).
 
 ---
 
