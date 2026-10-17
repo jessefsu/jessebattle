@@ -907,6 +907,15 @@ and pushed the buttons off screen; don't go back to that. The share image
 keeps type big (name about 110px on 1200 wide) because iMessage shrinks the
 preview to roughly a quarter of its size.
 
+Realtor card type, per Jesse and Kym (2026-10-17): name in Archivo 600 (the
+builder card keeps Archivo 800), "Kym Coyle Group" in Alex Brush, white. Florida
+Rule 61J2-10.026 says a team name may not be in larger print than the
+brokerage name, so the script must stay smaller than the Charles Rutenberg logo
+on the page and smaller than or equal to the "Charles Rutenberg Realty" line in
+`share.jpg`. Kym asked for the reverse; it was declined for that reason. Rule
+61J2-10.025 also requires the brokerage name in all advertising, which is why
+`share.jpg` carries it even though the page already shows the logo.
+
 The `/builder/` card stays on the right side of the non-compete line below: it
 states identity and contact details only (license, entity, phone, email),
 with no services, portfolio, pricing or quote request. Keep it that way.
