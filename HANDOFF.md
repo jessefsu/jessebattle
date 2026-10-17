@@ -879,22 +879,24 @@ Contact form.
 
 ---
 
-## Digital cards (/card/ and /pb/)
+## Digital cards (/realtor/ and /builder/)
 
 Two hidden pages that work as tappable digital business cards. Jesse texts
 the URL; iMessage shows `share.jpg` as a large preview, and the page gives
 Save Contact, Call, Text, Email and Website buttons.
 
 ```
-/card/   realtor card, black + gold      contact file: jesse-battle-iv.vcf
-/pb/     Pinellas Builders, navy + blue  contact file: jesse-battle-pinellas-builders.vcf
+/realtor/   realtor card, black + gold      contact file: jesse-battle-iv.vcf
+/builder/   Pinellas Builders, navy + blue  contact file: jesse-battle-pinellas-builders.vcf
 ```
 
 Each folder holds `index.html`, `photo.jpg` (headshot), `share.jpg` (1200x630
-link preview) and the `.vcf`; `/card/` also has `crr-logo.png` (white on
-transparent, lifted from Kym's card), and `/pb/` uses the site's `/pb-logo.png`.
+link preview) and the `.vcf`; `/realtor/` also has `crr-logo.png` (white on
+transparent, lifted from Kym's card), and `/builder/` uses the site's `/pb-logo.png`.
 Keep them hidden: not in the nav, not in `sitemap.xml`, and each page carries
-`noindex`. The pages are self-contained (own inline CSS, fonts from Google
+`noindex`. They were first published as `/card/` and `/pb/`; `_redirects` at
+the repo root 301s those old addresses (and their files) to the new folders, so
+links already sent keep working. Keep those rules. The pages are self-contained (own inline CSS, fonts from Google
 Fonts) and do not use `style.css`.
 
 The page is the card, built in HTML, and must fit one phone screen with no
@@ -905,7 +907,7 @@ and pushed the buttons off screen; don't go back to that. The share image
 keeps type big (name about 110px on 1200 wide) because iMessage shrinks the
 preview to roughly a quarter of its size.
 
-The `/pb/` card stays on the right side of the non-compete line below: it
+The `/builder/` card stays on the right side of the non-compete line below: it
 states identity and contact details only (license, entity, phone, email),
 with no services, portfolio, pricing or quote request. Keep it that way.
 

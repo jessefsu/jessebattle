@@ -1,0 +1,8 @@
+# Old digital card addresses, renamed 2026-10-17. Keep these so links
+# already texted out still land on the right card.
+/card          /realtor/            301
+/card/         /realtor/            301
+/card/*        /realtor/:splat      301
+/pb            /builder/            301
+/pb/           /builder/            301
+/pb/*          /builder/:splat      301
