@@ -3,82 +3,117 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Jesse Battle IV | Pinellas Builders</title>
-<!-- Hidden digital business card. Not linked from the nav, not in sitemap.xml,
-     noindex. Share by texting the URL; iMessage shows share.jpg as the preview.
-     See HANDOFF.md "Digital cards". -->
+<title>Jesse Battle IV, Pinellas Builders</title>
+<!-- Hidden digital business card. Not in the nav or sitemap.xml, noindex.
+     Built to fit one phone screen with no scrolling: the photo flexes to fill
+     whatever height is left. See HANDOFF.md "Digital cards". -->
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Certified General Contractor, FL CGC1506583. Licensed since 2003.">
 <meta name="theme-color" content="#040b13">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Jesse Battle IV | Pinellas Builders">
+<meta property="og:title" content="Jesse Battle IV, Pinellas Builders">
 <meta property="og:description" content="Certified General Contractor, FL CGC1506583. Licensed since 2003.">
 <meta property="og:url" content="https://jessebattle.com/pb/">
 <meta property="og:image" content="https://jessebattle.com/pb/share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Jesse Battle IV | Pinellas Builders">
+<meta name="twitter:title" content="Jesse Battle IV, Pinellas Builders">
 <meta name="twitter:description" content="Certified General Contractor, FL CGC1506583. Licensed since 2003.">
 <meta name="twitter:image" content="https://jessebattle.com/pb/share.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg-top: #0c2032; --bg-bot: #040b13;
   --accent: #a1ebff; --accent-2: #58b4e2; --on-accent: #04121c;
-  --fg: #ffffff; --line: #1d3a4d; --tile: rgba(161,235,255,.05);
+  --fg: #ffffff; --muted: #b9c9d4; --line: #1d3a4d; --tile: rgba(161,235,255,.06);
+  --name: Archivo, 'Arial Black', sans-serif;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
-html, body { margin: 0; }
+html, body { margin: 0; height: 100%; }
 body {
-  min-height: 100vh; min-height: 100dvh;
-  background: linear-gradient(var(--bg-top), var(--bg-bot) 55%) fixed, var(--bg-bot);
+  background: linear-gradient(var(--bg-top), var(--bg-bot) 60%) fixed, var(--bg-bot);
   color: var(--fg);
-  font: 16px/1.4 Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font: 16px/1.35 Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 main {
-  max-width: 440px; margin: 0 auto;
-  padding-top: max(16px, env(safe-area-inset-top));
-  padding-bottom: max(28px, env(safe-area-inset-bottom));
+  max-width: 460px; margin: 0 auto;
+  min-height: 100vh; min-height: 100dvh;
+  display: flex; flex-direction: column; gap: 10px;
+  padding-top: max(12px, env(safe-area-inset-top));
+  padding-bottom: max(14px, env(safe-area-inset-bottom));
   padding-left: max(16px, env(safe-area-inset-left));
   padding-right: max(16px, env(safe-area-inset-right));
-  display: flex; flex-direction: column; gap: 14px;
 }
-.card { width: 100%; height: auto; display: block; border-radius: 18px; box-shadow: 0 14px 44px rgba(0,0,0,.55); }
+.photo {
+  flex: 1 1 0; min-height: 150px; position: relative;
+  border-radius: 18px; overflow: hidden;
+}
+.photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; display: block; }
+.photo::after {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 38%;
+  background: linear-gradient(transparent, var(--bg-bot));
+}
+h1 {
+  margin: -34px 0 0; position: relative; z-index: 1; text-align: center;
+  font-family: var(--name); font-weight: 800; letter-spacing: .04em;
+  font-size: clamp(30px, 9vw, 42px); line-height: 1; text-transform: uppercase;
+}
+.rule { width: 120px; height: 2px; margin: 2px auto 0; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+.tagline {
+  margin: 0; text-align: center; text-transform: uppercase;
+  font-size: 12.5px; letter-spacing: .2em; color: var(--fg);
+}
 .save {
   display: flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 18px; border-radius: 14px;
+  min-height: 54px; border-radius: 14px; margin-top: 2px;
   background: linear-gradient(var(--accent), var(--accent-2));
-  color: var(--on-accent); font-weight: 600; font-size: 19px; text-decoration: none;
+  color: var(--on-accent); font-weight: 600; font-size: 18px; text-decoration: none;
 }
-.actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.actions a {
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-  padding: 14px 4px; border: 1px solid var(--line); border-radius: 14px;
-  background: var(--tile); color: var(--fg); text-decoration: none; font-size: 13px;
+.rows { display: flex; flex-direction: column; gap: 8px; }
+.row { display: flex; gap: 8px; }
+.row a {
+  display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 14px;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--tile);
+  color: var(--fg); text-decoration: none; font-size: 16px; min-width: 0;
 }
-svg { width: 26px; height: 26px; fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.save svg { width: 22px; height: 22px; stroke: var(--on-accent); stroke-width: 2; }
-a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.row a.wide { flex: 1; }
+.row a.wide span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row a.sq { flex: 0 0 auto; justify-content: center; padding: 0 16px; font-size: 14px; gap: 8px; }
+.row a.site span { color: var(--accent); font-weight: 500; }
+svg { width: 22px; height: 22px; flex: none; fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.save svg { stroke: var(--on-accent); stroke-width: 2; }
+footer { display: flex; align-items: center; justify-content: center; gap: 14px; padding-top: 2px; }
+.team { margin: 0; font-size: 11.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.logo { height: 40px; width: auto; }
+.logo.pb { height: 30px; }
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 a:active { transform: scale(.98); }
+@media (max-height: 640px) { .logo { height: 32px; } .logo.pb { height: 24px; } h1 { font-size: clamp(28px, 8vw, 36px); } }
 </style>
 </head>
 <body>
 <main>
-  <img class="card" src="card.jpg" width="1080" height="1920" alt="Digital business card: Jesse Battle IV, Certified General Contractor, Pinellas Builders. PinellasBuilders.com, 727.487.3200, Pinellas.Builders@gmail.com. FL CGC1506583, since 2003.">
+  <div class="photo"><img src="photo.jpg" width="900" height="1000" alt="Jesse Battle IV"></div>
+  <h1>Jesse Battle IV</h1>
+  <div class="rule" aria-hidden="true"></div>
+  <p class="tagline">Certified General Contractor</p>
   <a class="save" href="jesse-battle-pinellas-builders.vcf"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/><path d="M19 3v6M16 6h6"/></svg>Save Contact</a>
-  <nav class="actions" aria-label="Contact">
-    <a href="tel:+17274873200"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-3 2a12 12 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A18 18 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>Call</a>
-    <a href="sms:+17274873200"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Text</a>
-    <a href="mailto:pinellas.builders@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</a>
-    <a href="https://pinellasbuilders.com"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Website</a>
-  </nav>
+  <div class="rows">
+    <div class="row">
+      <a class="wide" href="tel:+17274873200"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-3 2a12 12 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A18 18 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg><span>727.487.3200</span></a>
+      <a class="sq" href="sms:+17274873200" aria-label="Text 727.487.3200"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Text</a>
+    </div>
+    <div class="row"><a class="wide" href="mailto:pinellas.builders@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Pinellas.Builders@gmail.com</span></a></div>
+    <div class="row"><a class="wide site" href="https://pinellasbuilders.com"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span>PinellasBuilders.com</span></a></div>
+  </div>
+  <footer><p class="team">FL CGC1506583 &middot; Since 2003</p><img class="logo pb" src="/pb-logo.png" width="807" height="269" alt="Pinellas Builders"></footer>
 </main>
 </body>
 </html>
