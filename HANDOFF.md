@@ -879,6 +879,32 @@ Contact form.
 
 ---
 
+## Digital cards (/card/ and /pb/)
+
+Two hidden pages that work as tappable digital business cards. Jesse texts
+the URL; iMessage shows `share.jpg` as a large preview, and the page gives
+Save Contact, Call, Text, Email and Website buttons.
+
+```
+/card/   realtor card, black + gold      contact file: jesse-battle-iv.vcf
+/pb/     Pinellas Builders, navy + blue  contact file: jesse-battle-pinellas-builders.vcf
+```
+
+Each folder holds `index.html`, `card.jpg` (the 1080x1920 card art),
+`share.jpg` (1200x630 link preview) and the `.vcf`. Keep them hidden: not in
+the nav, not in `sitemap.xml`, and each page carries `noindex`. The pages are
+self-contained (own inline CSS, Poppins from Google Fonts) and do not use
+`style.css`.
+
+The `/pb/` card stays on the right side of the non-compete line below: it
+states identity and contact details only (license, entity, phone, email),
+with no services, portfolio, pricing or quote request. Keep it that way.
+
+To change a phone number or email, update all three places in that folder:
+the card art, the `.vcf`, and the links in `index.html`.
+
+---
+
 ## Non-compete constraint (important)
 
 Jesse's franchise termination with Renovation Sells is effective January 1, 2026.
