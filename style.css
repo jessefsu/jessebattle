@@ -418,6 +418,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
   font-family:inherit;font-size:var(--base);line-height:1.5;color:var(--paper);
   background:var(--ink-2);border:1px solid var(--hair);border-radius:0;-webkit-appearance:none;appearance:none}
 .home .contact-form textarea{min-height:10rem;resize:vertical}
+/* Turnstile box. Empty-looking unless Cloudflare asks for a click, so the gap
+   sits on the widget itself and vanishes when it is hidden. */
+.home .ts-box{max-width:var(--w-measure)}
+.home .ts-box>*{margin-top:1.6rem}
 .home .contact-form input:focus-visible,.home .contact-form textarea:focus-visible{outline:2px solid var(--pb);outline-offset:3px}
 /* Browser autofill paints its own light fill; keep the field on the site ink */
 .home .contact-form input:-webkit-autofill{-webkit-text-fill-color:var(--paper);box-shadow:0 0 0 100px var(--ink-2) inset;caret-color:var(--paper)}

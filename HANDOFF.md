@@ -428,7 +428,8 @@ check it at 1280px before publishing.
 
 Every article carries a share block between the source note and the author
 box. It is one of two places the site runs script (the other is the contact
-form), and it is deliberately small:
+form, which also loads Cloudflare Turnstile as its spam check), and it is
+deliberately small:
 `share.js` is about 2KB, loads `defer` from the root on every post, and makes
 no network calls. No third-party widgets, no SDKs, no trackers — the four
 social buttons are plain `<a href>` links to each platform's own share
@@ -478,11 +479,16 @@ straight back to the `ASSETS` binding so a 404 is unchanged.
 
 ```
 not POST                                  405
-Origin header from another host           403   a browser posting cross-site
+Origin missing or from another host       403   a script or another site
 honeypot field ref_code not empty         400   rejected, nothing sent
 a field empty                             400
 name > 200, email > 254, message > 5000   400   same caps as the maxlength attrs
 email not shaped like a@b.c               400
+elapsed_ms missing or under 3000          400   sent faster than a person can
+Turnstile token missing                   400   turnstile_missing
+Turnstile says no, or wrong hostname      403   turnstile_failed, logged
+TURNSTILE_SECRET_KEY unset                500   logged; fails closed
+siteverify unreachable                    503   logged; fails closed
 4th valid send from one client this hour  429   Retry-After, {limit, retryAfter}
 rate limiter itself errors                503   logged; fails closed, no send
 RESEND_API_KEY / CONTACT_TO / FROM unset  500   logged
@@ -506,6 +512,30 @@ colour. Hitting the rate limit gets its own message with the minutes left.
 The status line is `aria-live`. Field text is `--base` (17.2px), because
 under 16px iOS Safari zooms the page on focus.
 
+**Spam check: Cloudflare Turnstile** (added 2026-10-20, after bots that run
+a real browser started getting past the honeypot). The widget is in the form
+as `.ts-box`, carrying the public site key `0x4AAAAAAFdt5HRk6ekcC-BJ`.
+`contact.js` loads Turnstile's script with explicit rendering only when the
+form comes within 800px of the screen or a field gets focus, so the rest of
+the homepage never waits on it. Settings: Managed mode in the dashboard,
+`appearance: interaction-only` (invisible unless Cloudflare wants a click),
+dark theme, flexible width. The token goes out as `cf-turnstile-response`;
+the Worker checks it with siteverify *before* the rate limit, so bots never
+use up a real visitor's slot. Tokens work once and last 300 seconds, so
+`contact.js` resets the widget after every attempt. If Send is pressed before
+the token arrives, the button reads "Checking" and the send fires the moment
+it does, or gives up after 20 seconds with the email address. If the script
+is blocked (some privacy extensions), the form says so and points to email.
+Turnstile is free with no cap on checks. `contact.js` also sends
+`elapsed_ms`, how long the page was open; under 3 seconds is rejected.
+
+Testing Turnstile locally: Cloudflare's dummy keys. Site key
+`1x00000000000000000000AA` always passes, `2x00000000000000000000AB` always
+fails; secret `1x0000000000000000000000000000000AA` always passes,
+`2x0000000000000000000000000000000AA` always fails. Put the secret in
+`.dev.vars` as `TURNSTILE_SECRET_KEY` and swap the site key in `index.html`
+for the test only. The hostname check is skipped on localhost.
+
 **Why Resend and not MailChannels** (researched 2026-10-10). MailChannels
 ended free sending for Cloudflare Workers on 2024-08-31. Its replacement Email
 API needs an account, a Domain Lockdown TXT record (mandatory for Workers
@@ -515,9 +545,9 @@ tiers are 3,000 emails a month, 100 a day. Cloudflare's own Email Service can
 also send free, but only to verified addresses via Email Routing; worth a look
 if Resend ever becomes a problem.
 
-**Secrets.** `RESEND_API_KEY` is a Cloudflare secret on the `jessebattle`
-Worker (dashboard, or `npx wrangler secret put RESEND_API_KEY`). It is in
-neither the repo nor `wrangler.jsonc`. `CONTACT_FROM` must be an address on a
+**Secrets.** `RESEND_API_KEY` and `TURNSTILE_SECRET_KEY` are Cloudflare
+secrets on the `jessebattle` Worker (dashboard, or `npx wrangler secret put`).
+They are in neither the repo nor `wrangler.jsonc`. `CONTACT_FROM` must be an address on a
 domain verified in Resend, or every send fails with a 502.
 
 **Testing locally.** With no key the form answers "not configured", which is
