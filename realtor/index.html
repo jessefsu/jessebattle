@@ -46,22 +46,38 @@ main {
   max-width: 460px; margin: 0 auto;
   min-height: 100vh; min-height: 100dvh;
   display: flex; flex-direction: column; gap: 10px;
-  padding-top: max(12px, env(safe-area-inset-top));
+  padding-top: 0;
   padding-bottom: max(14px, env(safe-area-inset-bottom));
   padding-left: max(16px, env(safe-area-inset-left));
   padding-right: max(16px, env(safe-area-inset-right));
 }
 .photo {
-  flex: 1 1 0; min-height: 150px; position: relative;
-  border-radius: 18px; overflow: hidden;
+  flex: 1 1 0; min-height: 190px; max-height: 264px; position: relative; overflow: hidden;
+  margin: 0 calc(-1 * max(16px, env(safe-area-inset-right))) 0 calc(-1 * max(16px, env(safe-area-inset-left)));
+  -webkit-mask-image: linear-gradient(#000 58%, transparent 96%);
+          mask-image: linear-gradient(#000 58%, transparent 96%);
 }
-.photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; display: block; }
-.photo::after {
-  content: ""; position: absolute; inset: auto 0 0 0; height: 38%;
-  background: linear-gradient(transparent, var(--bg-bot));
+/* Blurred copy fills the width; the sharp headshot sits centered on top so
+   the face stays small on every phone instead of zooming to fill the box.
+   It is anchored to the bottom (bottom 20% tucked under the edge) so the chin
+   always clears the name. Capped at 330px tall (264px visible, which is the
+   box max-height) so big phones never zoom the face or show the blur above it. */
+.photo .bg { position: absolute; top: -30px; left: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(22px) brightness(.55) saturate(.8); }
+.photo .fg {
+  position: absolute; bottom: 0; left: 50%; transform: translate(-50%, 20%);
+  height: min(125%, 330px); width: auto; max-width: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+}
+/* Taller phones: photo hits its max height, the stack centers, and the photo's
+   top edge fades too so it floats instead of showing a hard line. */
+@media (min-height: 640px) {
+  main { justify-content: center; padding-top: max(12px, env(safe-area-inset-top)); }
+  .photo { -webkit-mask-image: linear-gradient(transparent, #000 10%, #000 58%, transparent 96%);
+                   mask-image: linear-gradient(transparent, #000 10%, #000 58%, transparent 96%); }
 }
 h1 {
-  margin: -34px 0 0; position: relative; z-index: 1; text-align: center;
+  margin: -1.15em 0 0; text-shadow: 0 2px 14px rgba(0,0,0,.55); position: relative; z-index: 1; text-align: center;
   font-family: var(--name); font-weight: 600; letter-spacing: .06em;
   font-size: clamp(30px, 9vw, 42px); line-height: 1; text-transform: uppercase;
 }
@@ -96,11 +112,21 @@ footer { display: flex; align-items: center; justify-content: center; gap: 18px;
 a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 a:active { transform: scale(.98); }
 @media (max-height: 640px) { .team { font-size: 28px; } .logo { height: 50px; } .logo.pb { height: 24px; } h1 { font-size: clamp(28px, 8vw, 36px); } }
+/* Wider than a phone (desktop, tablet): the photo box no longer reaches the
+   screen edges, so fade its sides too instead of showing hard vertical lines. */
+@media (min-width: 500px) {
+  .photo {
+    -webkit-mask-image: linear-gradient(transparent, #000 10%, #000 58%, transparent 96%), linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+            mask-image: linear-gradient(transparent, #000 10%, #000 58%, transparent 96%), linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+    -webkit-mask-composite: source-in; mask-composite: intersect;
+  }
+}
+@media (max-height: 600px) { .row a { min-height: 44px; } .save { min-height: 50px; } main { gap: 8px; } }
 </style>
 </head>
 <body>
 <main>
-  <div class="photo"><img src="photo.jpg" width="900" height="1000" alt="Jesse Battle IV"></div>
+  <div class="photo"><img class="bg" src="photo.jpg" alt=""><img class="fg" src="photo.jpg" width="900" height="1000" alt="Jesse Battle IV"></div>
   <h1>Jesse Battle IV</h1>
   <div class="rule" aria-hidden="true"></div>
   <p class="tagline">4th Generation St. Pete Native</p>

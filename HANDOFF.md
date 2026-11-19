@@ -931,11 +931,25 @@ Fonts) and do not use `style.css`.
 
 The page is the card, built in HTML, and must fit one phone screen with no
 scrolling: `main` is a 100dvh flex column and the photo is the flex item that
-shrinks, so every button stays visible. Checked at 390x664 (iPhone with
-browser bars), 375x553 (SE) and 430x800. v1 used the tall card image instead
+shrinks, so every button stays visible. Checked at 381x536 (Brave on iPhone),
+390x664 (iPhone with browser bars), 375x553 (SE), 430x932 and 1280x800. v1 used the tall card image instead
 and pushed the buttons off screen; don't go back to that. The share image
 keeps type big (name about 110px on 1200 wide) because iMessage shrinks the
 preview to roughly a quarter of its size.
+
+Photo layout (2026-11-18, Jesse's pick): the photo runs edge to edge and fades
+into the background, and the name sits over the shirt. The old version put the
+name on the bottom edge of a rounded photo box, which looked broken on short
+screens (Brave on iPhone measured about 381x536) because it covered the chin.
+Two copies of `photo.jpg`: `.bg` is a blurred, darkened cover fill, `.fg` is the
+sharp headshot, anchored to the bottom with its lowest 20% tucked under the
+edge so the chin always clears the name, and capped at 330px tall. The box's
+max-height (264px) equals the visible part of a capped headshot, so big phones
+never zoom the face and never show the blurred copy above the head. At 640px
+tall and up the stack centers and the box's top edge fades; at 500px wide and
+up its sides fade too (desktop). Jesse wants the headshot kept small: don't
+raise the 330px cap. The builder footer stacks the license line over the logo.
+The realtor footer was deliberately left as Kym approved it (see below).
 
 Realtor card type, per Jesse and Kym (2026-10-17): name in Archivo 600 (the
 builder card keeps Archivo 800), "Kym Coyle Group" in Alex Brush, white. Florida
